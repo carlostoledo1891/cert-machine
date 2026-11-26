@@ -1,0 +1,1195 @@
+{
+ "what": "The whole process of the R(3,10) lane in order: the control room’s rounds of 22 and 23 November (C35, Case R(7), Case R(6)), then the attack on 40 (rounds 1 to 5, 23 to 25 November) and the 41 side, every gate with its pass condition as written before the run (or the ledger’s words when it was sent in a message), its outcome as the control room ruled it, its key count and what it ruled out; and the sessions running at the records’ minute, read from their own run files. A checkpoint is the session’s own words, not a ruling.",
+ "rounds": [
+  {
+   "round": "1",
+   "opened": "2026-11-23",
+   "plain": "Claude, Astra and Grok each proposed five falsifiable ideas to settle or shrink R(3,10), to be tested on the complete small catalogues.",
+   "src": "round1/BRIEF.md"
+  },
+  {
+   "round": "2",
+   "opened": "2026-11-23T21:50Z",
+   "plain": "The participants read and attacked each other's round-1 ideas; survivors were re-checked by independent code and the dead ends recorded.",
+   "src": "round1/DIGEST.md"
+  },
+  {
+   "round": "3",
+   "opened": "2026-11-24T02:59Z",
+   "plain": "The lane aimed at R(3,10) = 40: make ten frozen 40-vertex SAT jobs finish with certificates, on the Mac only, nothing rented.",
+   "src": "round3/GATE.md"
+  },
+  {
+   "round": "4",
+   "opened": "2026-11-24T10:03Z",
+   "plain": "No pods: Astra looks for workarounds to settle 40, one line closing one whole board, another finding a route that avoids 4,443 board completions.",
+   "src": "round4/GATE.md"
+  },
+  {
+   "round": "5",
+   "opened": "2026-11-24T16:35Z",
+   "plain": "Test many paths, first where the truth is known; a path is dead only with its number and survives only after a second program reproduces it.",
+   "src": "round5/PATHS.md"
+  },
+  {
+   "round": "41",
+   "opened": "2026-11-25T02:08Z",
+   "plain": "A side lane that searches for one (3,10;40)-graph, which would make R(3,10) = 41; every failed search still returns its nearest miss and certified exclusions.",
+   "src": "lane41/LANE.md"
+  }
+ ],
+ "gates": [
+  {
+   "id": "P66-stage2",
+   "round": "2",
+   "line": "the control room (Claude A's glue, two encodings)",
+   "ruled": "2026-11-24T02:53Z",
+   "outcome": "PARTIAL",
+   "condition": "After the stage-1 sweep, glue the survivors in stage 2 with a second encoding and LRAT for every UNSAT; if all close, P66 is a theorem.",
+   "condition_written_first": true,
+   "condition_src": "round1/LEDGER.md",
+   "count": "30 of 30 stage-2 survivors UNSAT, 60 LRAT proofs",
+   "ruled_out": "Stage 2 closed every (6,6) survivor; P66 still waited on a second independent stage-1 sweep before it could count.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "SCREEN-2",
+   "round": "3",
+   "line": "Astra, a fresh session with its own code (round3/astra-screen-check)",
+   "ruled": "2026-11-24T03:13Z",
+   "outcome": "CONFIRMED",
+   "condition": "Astra's single-source trace-LP screen with 345 integer Farkas certificates must be re-checked by an independent program.",
+   "condition_written_first": true,
+   "condition_src": "round1/LEDGER.md",
+   "count": "345 of 345 rejections reproduced, 0 disagreements",
+   "ruled_out": "The trace-LP screen now rests on two programs of the same model family; a Claude re-check was still owed before citing it.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G3",
+   "round": "3",
+   "line": "Astra A, the solver session (round2/astra/work/solver3)",
+   "ruled": "2026-11-24T09:26Z",
+   "outcome": "FAIL",
+   "condition": "At least 5 of the 10 frozen 40-vertex jobs end with a certified verdict within 2 CPU-hours each, with every stratum c* = 3, 4, 5 represented.",
+   "condition_written_first": true,
+   "condition_src": "round3/GATE.md",
+   "count": "0 of 10 boards certified; 15.98 core-hours spent",
+   "ruled_out": "Trace-partition cubes with lazy independent-10 cuts and Hall constraints do not close a board; nothing was rented.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "SCOUT-4",
+   "round": "4",
+   "line": "a Claude agent (round4/scout)",
+   "ruled": "2026-11-24T10:23Z",
+   "outcome": "DEAD",
+   "condition": "Read the literature: how R(3,10) <= 41 was proved, the tables of minimum edge numbers, and which unproved bound would remove the most cases.",
+   "condition_written_first": true,
+   "condition_src": "round4/GATE.md",
+   "count": "needs 100 and 97 edges; true minima 86 and 95",
+   "ruled_out": "The edge-number route to 40 is dead; flag algebras and direct SAT above 28 vertices are dead by printed numbers.",
+   "report": "round4/scout/SCOUT.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G4b",
+   "round": "4",
+   "line": "Astra B (round4/astra-workarounds)",
+   "ruled": "2026-11-24T10:52Z",
+   "outcome": "FAIL",
+   "condition": "One route that provably decides all remaining cases, with its first step run on the Mac and a projected total under 5,000 core-hours.",
+   "condition_written_first": true,
+   "condition_src": "round4/GATE.md",
+   "count": "0 routes with a finite price; 563 hosts screened",
+   "ruled_out": "Enumerating the shared part of a pair is dead for the regular case: c = 6 alone costs over 70,000 CPU-hours.",
+   "report": "round4/astra-workarounds/REPORT.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G5",
+   "round": "4",
+   "line": "Astra B (round4/astra-workarounds)",
+   "ruled": "2026-11-24T11:51Z",
+   "outcome": "FAIL",
+   "condition": "A certified lemma that excludes a whole c* stratum of the 9-regular case, or prices it under 5,000 core-hours, with a control on a real graph.",
+   "condition_written_first": true,
+   "condition_src": "round4/FOLLOWUP-B2.md",
+   "count": "c* = 3 covered by 7 configurations; 0 of 7 closed",
+   "ruled_out": "No stratum excluded, but c* = 3 reduces to seven rooted configurations by a certified cover; degree counts alone miss triangle-freeness.",
+   "report": "round4/astra-workarounds/REPORT-2.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "COVER7",
+   "round": "4",
+   "line": "a Claude agent (round4/audit-cover7)",
+   "ruled": "2026-11-24T12:08Z",
+   "outcome": "CONFIRMED",
+   "condition": "Every column the auditor regenerates with its own code must get a nonnegative coefficient under the claimant's fifteen multipliers, proving the seven-profile cover.",
+   "condition_written_first": true,
+   "condition_src": "round4/audit-cover7/predictions.txt",
+   "count": "right side -46,080; 28 of 30 alterations refused",
+   "ruled_out": "The seven-configuration cover of c* = 3 now stands on two independent checks; none of the seven profiles is closed.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G4a",
+   "round": "4",
+   "line": "Astra A, the solver session (round2/astra/work/solver4)",
+   "ruled": "2026-11-24T16:35Z",
+   "outcome": "FAIL",
+   "condition": "At least one of the ten pilot-2 boards certified excluded as a whole, every leaf's LRAT accepted by both checkers, with a checked cover proof.",
+   "condition_written_first": true,
+   "condition_src": "round4/GATE.md",
+   "count": "1 board open after 13.9 CPU-hours; 242 leaves open",
+   "ruled_out": "Completing boards by SAT is dead at this lane's scale, with or without proof reuse across relabelled siblings.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G9",
+   "round": "5",
+   "line": "Astra E (round5/astra-reach)",
+   "ruled": "2026-11-24T17:31Z",
+   "outcome": "FAIL",
+   "condition": "Some method reaches the true R(3,k) for k = 7, 8, 9 with controls intact and excludes n = 41 at k = 10 within 10 CPU-hours, certified.",
+   "condition_written_first": true,
+   "condition_src": "round5/astra-reach/TASK.md",
+   "count": "14 methods; all stop at 43 or worse at k = 10",
+   "ruled_out": "Single-root counting at any depth is dead: a phantom made of one real card fools it; agreement between two roots is the needed input.",
+   "report": "round5/astra-reach/REPORT-2.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G7",
+   "round": "4",
+   "line": "Astra C (round4/astra-c4)",
+   "ruled": "2026-11-24T17:33Z",
+   "outcome": "PASS",
+   "condition": "A checked cover of the c* = 4 stratum by rooted configurations, its price by two programs, and at least one whole configuration closed with certificates.",
+   "condition_written_first": true,
+   "condition_src": "round4/astra-c4/TASK.md",
+   "count": "9 of 69 profiles closed; 493 of 670 assignments open",
+   "ruled_out": "c* = 4 now stands as 69 six-row profiles with nine closed by readable arguments using exact small Ramsey numbers; the stratum is not excluded.",
+   "report": "round4/astra-c4/REPORT-2.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G7-audit",
+   "round": "5",
+   "line": "a Claude agent (round5/c4-claude)",
+   "ruled": "2026-11-24T17:46Z",
+   "outcome": "CONFIRMED",
+   "condition": "The auditor re-derives G7 by its own enumerators and hand checks, reading the claimant's proofs as text only, and rules G7 by the same gate.",
+   "condition_written_first": true,
+   "condition_src": "round4/astra-c4/TASK.md",
+   "count": "69 profiles, 670 words, 177 exclusions reproduced; 0 errors",
+   "ruled_out": "G7 stands on two derivations; elementary rules are exhausted at this level and per-placement SAT is not a seconds-instance.",
+   "report": "round5/c4-claude/REPORT.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "STRUCTURE",
+   "round": "5",
+   "line": "a Claude agent (round5/structure-tests)",
+   "ruled": "2026-11-24T17:48Z",
+   "outcome": "PARTIAL",
+   "condition": "In the ledger's words: the structure scout's four statements (tail law N13, pentagon integrality N15, one stratum's cores N14), tested by a second program.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "1 of 4 statements survives (the tail law)",
+   "ruled_out": "The tail law holds in every catalogue with its first rung a theorem; pentagon integrality and single-stratum core filters are dead.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G12",
+   "round": "5",
+   "line": "a Claude agent (round5/c4-claude)",
+   "ruled": "2026-11-24T17:59Z",
+   "outcome": "FAIL",
+   "condition": "In the ledger's words: exact identities tying the 60 cases over all codegree-4 pairs; PASS = infeasible, or a certified cover of at most 20 cases.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "smallest forced list 60 cases; 20 needed",
+   "ruled_out": "Case-level counting across roots at c* = 4 is dead: its points are pair-level phantoms whose pairs never agree on triples.",
+   "report": "round5/c4-claude/REPORT-2.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G13",
+   "round": "5",
+   "line": "a Claude agent (round5/c4-claude)",
+   "ruled": "2026-11-24T18:06Z",
+   "outcome": "FAIL",
+   "condition": "In the ledger's words: every ingredient must keep the real 6-regular graphs on 22 vertices feasible and make (23, 6) infeasible without the catalogue below.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "closed only (23, 6) at cap 2; caps 3, 4 survive",
+   "ruled_out": "Ramsey-at-the-root, second-level edge counts and equality cases do not separate the twins; what is missing is that pairs agree on shared vertices.",
+   "report": "round5/c4-claude/REPORT-3.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G8",
+   "round": "4",
+   "line": "Astra D (round4/astra-nonregular), ruled by a Claude audit (round5/audit-nonregular)",
+   "ruled": "2026-11-24T18:12Z",
+   "outcome": "PASS",
+   "condition": "At least 50 of the 355 degree distributions with at most two degree-6 vertices excluded, each by a certificate a second program re-checks, premises listed.",
+   "condition_written_first": true,
+   "condition_src": "round4/astra-nonregular/TASK.md",
+   "count": "108 of 355 small keys excluded (228 of 519)",
+   "ruled_out": "Degree-class statistics are exhausted at this level; Chen's floor 88 is not confirmed; 291 distributions survive.",
+   "report": "round4/astra-nonregular/REPORT-2.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "MINER",
+   "round": "5",
+   "line": "a Claude agent (round5/miner)",
+   "ruled": "2026-11-24T18:28Z",
+   "outcome": "DEAD",
+   "condition": "Mine the finished exclusions for their minimal reasons and turn them into a lemma.",
+   "condition_written_first": true,
+   "condition_src": "round5/PATHS.md",
+   "count": "0 lemmas survive; 655 of 655 explained by 5 screens",
+   "ruled_out": "Proof mining is dead: small reasons are already screens, and large refutations are diffuse across at least 8 core vertices.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G14",
+   "round": "5",
+   "line": "a Claude agent (round5/c4-claude)",
+   "ruled": "2026-11-24T18:36Z",
+   "outcome": "PASS",
+   "condition": "In the ledger's words: the agreement of two crossing roots at (18, 5) as a finite check; if two roots embed, three.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "(18, 5) excluded at 0 roots; LRAT through both checkers",
+   "ruled_out": "The regular twin (18, 5) is excluded with no independence clause and no catalogue: what counting forgot is assembling the pairs into one graph.",
+   "report": "round5/c4-claude/REPORT-4.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G8b",
+   "round": "5",
+   "line": "a Claude agent (round5/audit-nonregular)",
+   "ruled": "2026-11-24T18:42Z",
+   "outcome": "CONFIRMED",
+   "condition": "In the ledger's words: audit the claimant's low-vertex lemmas; a bounded attempt at floor 88; one worked two-root example on the nearest survivors.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "238 of 519 confirmed (108 of 355 unchanged)",
+   "ruled_out": "The low-vertex lemmas L1 to L5 stand by hand; floor 88 at degree 9 is not established and not a small job.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G8c",
+   "round": "5",
+   "line": "a Claude agent (round5/audit-nonregular)",
+   "ruled": "2026-11-24T18:44Z",
+   "outcome": "CONFIRMED",
+   "condition": "In the ledger's words: match the published House of Graphs minimum-edge lists against the lists the floors used.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "4 layers equal published lists; 26 of 355 on lists alone",
+   "ruled_out": "The degree-9 floor 87 rests wholly on a published list; no cheap exact route to the 4 missing 87-edge graphs.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G9-audit",
+   "round": "5",
+   "line": "a Claude agent (round5/reach-claude)",
+   "ruled": "2026-11-24T19:02Z",
+   "outcome": "CONFIRMED",
+   "condition": "A second ladder table built with the auditor's own programs, ruled by G9's own gate.",
+   "condition_written_first": true,
+   "condition_src": "round5/astra-reach/TASK.md",
+   "count": "G9 FAIL confirmed; one-level row corrected to 29 at k = 8",
+   "ruled_out": "Local counting collapses to mixtures of real cards; higher subgraph identities (row N12) are dead from k = 8 on.",
+   "report": "round5/reach-claude/REACH.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G10",
+   "round": "5",
+   "line": "Astra E (round5/astra-reach)",
+   "ruled": "2026-11-24T19:13Z",
+   "outcome": "PASS",
+   "condition": "A two-root system excludes the regular twins (7,23) and (6,18) with a checkable certificate and no catalogue below as input, and is evaluated at (10,40).",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-E2.md",
+   "count": "both twins excluded; feasible at (10, 40)",
+   "ruled_out": "The edge charge closes the twins by its letter, but it regenerates the census inside the verifier and is feasible at 40.",
+   "report": "round5/astra-reach/REPORT-3.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G10-audit",
+   "round": "5",
+   "line": "a Claude agent (round5/audit-g10)",
+   "ruled": "2026-11-24T19:30Z",
+   "outcome": "CONFIRMED",
+   "condition": "In the ledger's words: an audit of G10 with own proofs from SYSTEM.md as text, its own enumeration, and the claimant's verifier run in an empty directory.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "confirmed as arithmetic; charts +110, -10, -130 at 40",
+   "ruled_out": "The edge charge (row N24) is dead as a route to 40: genuine two-root charts of both signs exist there.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "ROWS",
+   "round": "5",
+   "line": "a Claude agent (round5/rows-sat)",
+   "ruled": "2026-11-24T19:45Z",
+   "outcome": "DEAD",
+   "condition": "Local inequalities proved by SAT on boards with two or three marks fixed, summed by double counting in an LP, must close the twins and then 40.",
+   "condition_written_first": true,
+   "condition_src": "round5/PATHS.md",
+   "count": "closes (6,18), (7,23); 36 rows fail at (8,28)",
+   "ruled_out": "SAT-proved rows summed by an LP are dead at 40 in this form: the rows needed are false one vertex below and cost the whole problem.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "N13-item5",
+   "round": "5",
+   "line": "a Claude agent (round5/structure-tests)",
+   "ruled": "2026-11-24T20:10Z",
+   "outcome": "UNDECIDED",
+   "condition": "KEEP if all three tail roots are UNSAT at (8,28) at half the pair board's cost or less; CLOSE if they cost as much; UNDECIDED if nothing finishes.",
+   "condition_written_first": true,
+   "condition_src": "round5/structure-tests/WORKLOG.md",
+   "count": "0 of 4 runs finished within 1,343 CPU-s each",
+   "ruled_out": "The tail law stays a fact about the catalogues; as a root for search it is not pursued, its cost grew 290 times from 18 to 23.",
+   "report": "round5/structure-tests/item5/TABLE.txt",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G17",
+   "round": "5",
+   "line": "a Claude agent (round5/reach-claude)",
+   "ruled": "2026-11-24T20:17Z",
+   "outcome": "FAIL",
+   "condition": "In the ledger's words: hunt a card at 40 on which fractional gluing is feasible (then dead) or extract a uniform inequality that holds at all three levels.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "0 feasible cards in about 2,200 evaluations",
+   "ruled_out": "No feasible card was found and no fixed inequality excludes every card; only the per-card LP itself holds everywhere.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G15",
+   "round": "5",
+   "line": "a Claude agent (round5/c4-claude)",
+   "ruled": "2026-11-24T20:40Z",
+   "outcome": "PASS",
+   "condition": "In the ledger's words: decide W(40, 9, 3) and W(40, 9, 4); a witness is the first 40-vertex control, a checked UNSAT excludes the stratum.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "2 of 2 windows non-empty (cap 4 and cap 3 witnesses)",
+   "ruled_out": "No argument made only of degrees, triangles and codegrees can close c* = 3 or c* = 4; only independent 10-sets can.",
+   "report": "round5/c4-claude/REPORT-5.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G13b",
+   "round": "5",
+   "line": "a Claude agent (round5/c4-claude)",
+   "ruled": "2026-11-24T20:40Z",
+   "outcome": "FAIL",
+   "condition": "In the ledger's words: rerun the twin table with the two maximum-independent-set rows (n1 <= d; at most three vertices with trace inside a pair).",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "0 failures on 357 analogues; (23, 6) still feasible",
+   "ruled_out": "The two maximum-independent-set rows are true but do not separate the twins; row N23 is dead as a separator.",
+   "report": "round5/c4-claude/REPORT-5.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "N26",
+   "round": "5",
+   "line": "a Claude agent (round5/c4-claude; first run in round5/rows-sat)",
+   "ruled": "2026-11-24T20:40Z",
+   "outcome": "DEAD",
+   "condition": "Restrict a counting LP at 40 to what occurs on the 39-vertex graphs; if it stays feasible, the LP is dead before any SAT is spent.",
+   "condition_written_first": true,
+   "condition_src": "round5/PATHS.md",
+   "count": "feasible on 243 graphs with 39 vertices",
+   "ruled_out": "Both counting systems tried, the simple pair LP and the c* = 4 pair system, are dead before any SAT is spent on them.",
+   "report": "round5/c4-claude/REPORT-5.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G6",
+   "round": "4",
+   "line": "Astra B (round4/astra-workarounds)",
+   "ruled": "2026-11-24T20:57Z",
+   "outcome": "FAIL",
+   "condition": "PASS(1) when one whole profile of the seven c* = 3 configurations is excluded with certified refutations and a twice-generated enumeration; PASS(7) when all are.",
+   "condition_written_first": true,
+   "condition_src": "round4/FOLLOWUP-B3.md",
+   "count": "0 of 7 profiles; 655 of 3,631 assignments refuted",
+   "ruled_out": "Closing the seven c* = 3 profiles by local structure is not pursued: four occur in a real 40-vertex graph with the same local structure.",
+   "report": "round4/astra-workarounds/REPORT-4.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G18",
+   "round": "5",
+   "line": "Astra E (round5/astra-reach)",
+   "ruled": "2026-11-24T21:09Z",
+   "outcome": "PARTIAL",
+   "condition": "PASS DEAD if a residual at 40 is exactly feasible; PASS UNIFORM if every sampled residual is exactly infeasible and one inequality excludes them all.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-E3.md",
+   "count": "0 of 9,182 hosts feasible; no single inequality",
+   "ruled_out": "Part 1 holds in exact arithmetic on 9,182 hosts; the claimed uniform inequality is the LP's dual, not one fixed inequality.",
+   "report": "round5/astra-reach/REPORT-4.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G19",
+   "round": "5",
+   "line": "a Claude agent (round5/c4-claude)",
+   "ruled": "2026-11-24T21:35Z",
+   "outcome": "FAIL",
+   "condition": "In the ledger's words: a local search inside the cap-3 window minimising the number of independent 10-sets (a window graph with none is a (3,10;40)-graph).",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "cap 3: 757 graphs, all with 281 ten-sets",
+   "ruled_out": "The cap-3 window looks rigid (one graph seen); local search inside it cannot move, which led to classifying W(40,9,3).",
+   "report": "round5/c4-claude/REPORT-6.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "GOOD",
+   "round": "5",
+   "line": "a Claude agent (round5/good-vertices)",
+   "ruled": "2026-11-24T21:37Z",
+   "outcome": "DEAD",
+   "condition": "Measure how many good vertices (in no independent 10-set) a 9-regular triangle-free 40-vertex graph can have, and look for an upper bound below 40.",
+   "condition_written_first": true,
+   "condition_src": "round5/PATHS.md",
+   "count": "maxima 2 of 18, 5 of 23; g >= 21 at 40",
+   "ruled_out": "No argument caps the number of good vertices; the cliff seen at the twins is not general (11 of 28 exist).",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "P66-sweep",
+   "round": "3",
+   "line": "the control room (a Claude agent drove the pod)",
+   "ruled": "2026-11-24T21:54Z",
+   "outcome": "CONFIRMED",
+   "condition": "A second, independent stage-1 sweep of all 477,142 (3,8;27)-graphs must agree with the first on every line.",
+   "condition_written_first": true,
+   "condition_src": "round1/LEDGER.md",
+   "count": "477,142 lines, 0 disagreements",
+   "ruled_out": "P66 is now computed twice at every stage (its reduction still prose); with it 273 of 519 non-regular distributions are excluded.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G17b",
+   "round": "5",
+   "line": "a Claude agent (round5/reach-claude)",
+   "ruled": "2026-11-24T21:59Z",
+   "outcome": "FAIL",
+   "condition": "In the ledger's words: the adversary ported to C, at least 10^5 distinct cards; PASS DEAD needs an exactly feasible card, PASS FLOOR the floor's histogram.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "6,194 of 100,000 cards; none feasible",
+   "ruled_out": "A larger sample near known graphs is not continued; the question that decides the lead is the transfer rate (G20).",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G16",
+   "round": "5",
+   "line": "Astra D (round4/astra-nonregular)",
+   "ruled": "2026-11-24T23:12Z",
+   "outcome": "PASS",
+   "condition": "At least 7 more of the 281 surviving degree profiles excluded, each by a certificate a second, differently written program re-checks, premises listed, controls intact.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-D2.md",
+   "count": "35 more keys; 273 of 519 excluded",
+   "ruled_out": "Three degree-6 vertices are impossible (n6 <= 2) without P66; 246 distributions survive.",
+   "report": "round4/astra-nonregular/REPORT-3.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G11",
+   "round": "5",
+   "line": "Astra C (round4/astra-c4)",
+   "ruled": "2026-11-24T23:12Z",
+   "outcome": "FAIL",
+   "condition": "At least 30 of the 60 open c* = 4 profiles closed entirely by Ramsey pressure with equality cases, each with a replayable certificate, controls intact.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-C2.md",
+   "count": "0 of 60 profiles closed; 188 deeper placements",
+   "ruled_out": "Ramsey pressure with catalogue equality cases closes no whole c* = 4 profile, and its closure fraction falls at c* = 5 and 6.",
+   "report": "round4/astra-c4/REPORT-3.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G21",
+   "round": "5",
+   "line": "a Claude agent (round5/c4-claude)",
+   "ruled": "2026-11-24T23:12Z",
+   "outcome": "FAIL",
+   "condition": "In the ledger's words: classify W(40,9,3), with the tightness calibration, the algebra (an eigenvalue bound for every member) and the enumeration.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "1 graph in every probe; not classified",
+   "ruled_out": "No eigenvalue argument forces an independent 10-set; the window's count collapses as tightness rises.",
+   "report": "round5/c4-claude/REPORT-7.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "W1",
+   "round": "5",
+   "line": "a Claude agent (round5/window3)",
+   "ruled": "2026-11-25T01:01Z",
+   "outcome": "PASS",
+   "condition": "At least one more symmetry class of W(40,9,3) decided completely with proofs through both checkers, a checked completeness argument and calibration intact.",
+   "condition_written_first": true,
+   "condition_src": "round5/window3/WORKLOG.md",
+   "count": "4 of 4 cycle types decided",
+   "ruled_out": "No 9-regular (3,10;40)-graph with largest codegree 3 has an automorphism of cycle type 10^4, 5^8, 8^5 or 4^10.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G20",
+   "round": "5",
+   "line": "Astra E (round5/astra-reach)",
+   "ruled": "2026-11-25T01:09Z",
+   "outcome": "FAIL",
+   "condition": "A dictionary of at most 200 fixed obstructions, none in a control, excludes at least 90% of at least 2,000 fresh held-out hosts.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-E4.md",
+   "count": "200 entries cover 44.7% of 4,160 fresh hosts",
+   "ruled_out": "The per-card gluing test has no small finite cause: the typical obstruction covers one host, so as a route it is the census again.",
+   "report": "round5/astra-reach/REPORT-5.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G16-audit",
+   "round": "5",
+   "line": "a Claude agent (round5/audit-g16)",
+   "ruled": "2026-11-25T01:50Z",
+   "outcome": "CONFIRMED",
+   "condition": "Re-derive G16's claims, frozen from the report's text before any claimant program was opened, by the auditor's own routes.",
+   "condition_written_first": true,
+   "condition_src": "round5/audit-g16/CLAIMS.md",
+   "count": "35 of 35 confirmed; 273 of 519",
+   "ruled_out": "At most two degree-6 vertices is now a theorem on two programs; n6 <= 2 has two distinct routes (P66 and the three-lows theorem).",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "W1b",
+   "round": "5",
+   "line": "Astra E (round5/astra-reach)",
+   "ruled": "2026-11-25T01:50Z",
+   "outcome": "CONFIRMED",
+   "condition": "All four symmetry classes of W1 come out the same with the second program's own proofs and completeness checks, and the calibration holds.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-E5.md",
+   "count": "4 of 4 classes; 115 LRAT proofs verified",
+   "ruled_out": "W1 is on two programs and cited: types 10^4, 5^8, 8^5, 4^10 are excluded for a codegree-3 9-regular (3,10;40)-graph.",
+   "report": "round5/astra-reach/REPORT-6.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "S1",
+   "round": "5",
+   "line": "a Claude agent (round5/sos-finite)",
+   "ruled": "2026-11-25T01:56Z",
+   "outcome": "FAIL",
+   "condition": "The finite-n sum-of-squares hierarchy closes the twin (7,23), or anything harder, with a checkable certificate and the controls intact.",
+   "condition_written_first": true,
+   "condition_src": "round5/sos-finite/WORKLOG.md",
+   "count": "(7,23) open at levels 7, 8, 9",
+   "ruled_out": "The finite-n sum-of-squares ladder (row N11) is dead for 40: it fails the twin (7,23), and level 10 is beyond the Mac.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "N29",
+   "round": "5",
+   "line": "the control room",
+   "ruled": "2026-11-25T02:21Z",
+   "outcome": "DEAD",
+   "condition": "In the ledger's words: lower bounds on the independence number of triangle-free graphs (Shearer) at 40 vertices, degree 9; the proof needs alpha >= 10.",
+   "condition_written_first": false,
+   "condition_src": null,
+   "count": "Shearer gives alpha >= 8; 10 needed",
+   "ruled_out": "The probabilistic method cannot reach 40: Shearer-type bounds give 7.85 at degree 9, more than 2 short.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "W2",
+   "round": "5",
+   "line": "a Claude agent (round5/window3)",
+   "ruled": "2026-11-25T02:28Z",
+   "outcome": "FAIL",
+   "condition": "W(40,9,3) = {G} by the asymmetric split with proofs and completeness checks, calibration intact; PARTIAL if 2^20 and prime types close and the split is counted.",
+   "condition_written_first": true,
+   "condition_src": "round5/window3/WORKLOG.md",
+   "count": "2^20 down to 1 sub-part; asymmetric split uncounted",
+   "ruled_out": "Any member of W(40,9,3) other than G has |Aut| = 2^i 3^j: no automorphism of prime order 7 or at least 11, and order 5 forces G.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "A1",
+   "round": "41",
+   "line": "a Claude agent with web access (lane41 scout)",
+   "ruled": "2026-11-25T02:28Z",
+   "outcome": "PASS",
+   "condition": "Scout who searched for a (3,10;40)-graph and how, which near misses are published, and which classes are already excluded.",
+   "condition_written_first": true,
+   "condition_src": "lane41/LANE.md",
+   "count": "done in 15 searches; 2 classes open in print",
+   "ruled_out": "Extending known 39-vertex graphs and circulants are already published and negative; A2 was redirected to the open classes 2^20 and 5^8.",
+   "report": "lane41/SCOUT.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "P4",
+   "round": "5",
+   "line": "a Claude agent (round5/c4-2k2)",
+   "ruled": "2026-11-25T02:28Z",
+   "outcome": "PARTIAL",
+   "condition": "PASS if the 2K_2 theorem is confirmed and every placement refuted (c* = 4 excluded); PARTIAL if confirmed and some placements refuted.",
+   "condition_written_first": true,
+   "condition_src": "round5/c4-2k2/GATE-P4.md",
+   "count": "10 of 120 decks refuted; theorem confirmed",
+   "ruled_out": "The 2K_2 theorem stands on two derivations; placement with one- and two-point cards is dead as stated, a real 40-vertex graph satisfies them.",
+   "report": "round5/c4-2k2/AUDIT.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "M1",
+   "round": "5",
+   "line": "a Claude agent (round5/monovariant)",
+   "ruled": "2026-11-25T02:50Z",
+   "outcome": "FAIL",
+   "condition": "Some potential and move family of bounded size has zero local maxima on every complete catalogue tested, with the controls intact.",
+   "condition_written_first": true,
+   "condition_src": "round5/M1-BRIEF.md",
+   "count": "6 closed (3,7;22)-graphs; fewest maxima 4",
+   "ruled_out": "Row N16 as a bounded-move switching monovariant is dead: six (3,7;22)-graphs cannot reach a maximum-edge member.",
+   "report": "round5/monovariant/FROZEN-M1-2026-11-25.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G22",
+   "round": "5",
+   "line": "Astra D (round4/astra-nonregular)",
+   "ruled": "2026-11-25T05:27Z",
+   "outcome": "FAIL",
+   "condition": "At least 10 more of the 246 surviving keys excluded, each by a certificate a differently written second program re-checks, premises listed, controls intact.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-D3.md",
+   "count": "1 of 10 keys; 274 of 519",
+   "ruled_out": "One key, (0,16,0,24), falls by agreement between views (single-source then); removing the single-root floors gives zero new keys.",
+   "report": "round4/astra-nonregular/REPORT-5.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "M1-r4",
+   "round": "5",
+   "line": "a Claude agent (round5/monovariant)",
+   "ruled": "2026-11-25T06:07Z",
+   "outcome": "FAIL",
+   "condition": "Run every edge move up to r = 4 on the six closed (3,7;22)-graphs to find the smallest move size that frees them.",
+   "condition_written_first": true,
+   "condition_src": "round5/monovariant/FROZEN-M1-2026-11-25.md",
+   "count": "212 valid moves; 0 of 6 freed",
+   "ruled_out": "The bounded-move monovariant stays dead through r = 4 on (3,7;22).",
+   "report": "round5/monovariant/R4-RESULT-2026-11-25.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G23",
+   "round": "5",
+   "line": "a Claude agent (round5/audit-g16)",
+   "ruled": "2026-11-25T07:27Z",
+   "outcome": "FAIL",
+   "condition": "At least 5 more of the 35 keys with two degree-6 vertices excluded, each search cross-checked against brute force, premises listed, controls intact.",
+   "condition_written_first": true,
+   "condition_src": "round5/G23-BRIEF.md",
+   "count": "0 of 5 keys; 15,000 of 66,188 cards searched",
+   "ruled_out": "The tight adjacent case has no 27-vertex frame, so the shore search cannot close it as built.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G25",
+   "round": "5",
+   "line": "a Claude agent (round5/audit-g16)",
+   "ruled": "2026-11-25T07:33Z",
+   "outcome": "FAIL",
+   "condition": "At least one of the seven tight keys excluded in full, both the adjacent and the non-adjacent case, with the same checks.",
+   "condition_written_first": true,
+   "condition_src": "round5/G25-BRIEF.md",
+   "count": "0 of 7 keys; no frame forced",
+   "ruled_out": "A frame from a degree-7 double is never forced; closing it would need a new lemma or unpublished (3,8;25)/(3,8;26) lists.",
+   "report": "round5/audit-g16/G25-CONDITIONS.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G26",
+   "round": "5",
+   "line": "a Claude agent (round5/audit-g16)",
+   "ruled": "2026-11-25T07:36Z",
+   "outcome": "FAIL",
+   "condition": "The key (2,6,2,30) excluded in full, after proving its adjacent tight case forces a degree-7 double.",
+   "condition_written_first": true,
+   "condition_src": "round5/G26-BRIEF.md",
+   "count": "0 of 1 key; forcing neither proved nor refuted",
+   "ruled_out": "Three gates in a row ended with 'not forced'; the line on keys with two degree-6 vertices is parked.",
+   "report": "round5/audit-g16/G26-CONDITIONS.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G24",
+   "round": "5",
+   "line": "Astra D (round4/astra-nonregular)",
+   "ruled": "2026-11-25T07:41Z",
+   "outcome": "PASS",
+   "condition": "The key (0,4,28,8) excluded with a certificate a second program written differently re-checks, premises listed, controls intact.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-D4.md",
+   "count": "1 more key; 275 of 519",
+   "ruled_out": "(0,4,28,8) is impossible: no exterior in the complete 32/108 layer passes the dominating-set test (single-source until AUD-2).",
+   "report": "round4/astra-nonregular/REPORT-6.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "A2",
+   "round": "41",
+   "line": "a Claude agent (lane41/a2)",
+   "ruled": "2026-11-25T08:25Z",
+   "outcome": "FAIL",
+   "condition": "A (3,10;40)-graph is found and verified by two independent alpha programs and a triangle check.",
+   "condition_written_first": true,
+   "condition_src": "lane41/A2-BRIEF.md",
+   "count": "0 witnesses; 258 graphs and 14 groups excluded",
+   "ruled_out": "No 39-vertex graph on disk extends by one vertex, and no Cayley graph of order 40 is a (3,10;40)-graph, both with LRAT.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "W1c",
+   "round": "5",
+   "line": "Astra E (round5/astra-reach)",
+   "ruled": "2026-11-25T09:04Z",
+   "outcome": "FAIL",
+   "condition": "The involution type 2^20 and every admissible prime-order type with at most 10 fixed points decided, each as {G} or empty, with certificates.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-E6.md",
+   "count": "8 of 12 types decided",
+   "ruled_out": "Apart from G, every member of W(40,9,3) has only primes 2 and possibly 3 in its automorphism group; involutions are the remaining core.",
+   "report": "round5/astra-reach/REPORT-8.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "A2b",
+   "round": "41",
+   "line": "a Claude agent (lane41/a2)",
+   "ruled": "2026-11-25T09:14Z",
+   "outcome": "FAIL",
+   "condition": "At least one of the 9-regular classes 5^8 or 2^20 decided at 40, by certified UNSAT or a verified witness, with calibrations K1 to K3 passing.",
+   "condition_written_first": true,
+   "condition_src": "lane41/A2b-BRIEF.md",
+   "count": "K1 not found in 2 runs of 600 s",
+   "ruled_out": "The symmetric-SAT line at 40 is parked: the engine cannot find the known 35-vertex graph, so the 40-vertex classes were not run.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G27",
+   "round": "5",
+   "line": "Astra D (round4/astra-nonregular)",
+   "ruled": "2026-11-25T09:16Z",
+   "outcome": "PASS",
+   "condition": "The degree-7 floor f7 >= 109 proved by a certificate a second, differently written program re-checks, with a planted positive control.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-D5.md",
+   "count": "8 more keys; 283 of 519",
+   "ruled_out": "A degree-7 vertex's exterior has at least 109 edges; the relaxed cover fails on all 2,104,151 cards of the 32/108 layer.",
+   "report": "round4/astra-nonregular/REPORT-7.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "W2b",
+   "round": "5",
+   "line": "a Claude agent (round5/window3)",
+   "ruled": "2026-11-25T09:37Z",
+   "outcome": "FAIL",
+   "condition": "Decide (22,6,3) and (23,6,3) in full and count the asymmetric split at (40,9,3) with two programs.",
+   "condition_written_first": true,
+   "condition_src": "round5/W2b-BRIEF.md",
+   "count": "at least 119,753 configurations; at least 298 core-hours",
+   "ruled_out": "Classifying the asymmetric case of W(40,9,3) by these splits is a census and is parked; W(23,6,3) has 91 classes, 28 new.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "AUD-2",
+   "round": "5",
+   "line": "a Claude agent (round5/audit-aud2)",
+   "ruled": "2026-11-25T11:26Z",
+   "outcome": "CONFIRMED",
+   "condition": "Re-derive Astra D's single-source exclusions (G22, G24, then G27's floor) with the auditor's own code, claims frozen from the text before any claimant program.",
+   "condition_written_first": true,
+   "condition_src": "round5/audit-aud2/CLAIMS-AUD2.md",
+   "count": "2 of 3 claims confirmed; G22 still single-source",
+   "ruled_out": "G24 and G27 (9 keys) now rest on two programs; G22's (0,16,0,24) had 362 templates undecided.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G28",
+   "round": "5",
+   "line": "Astra D (round4/astra-nonregular)",
+   "ruled": "2026-11-25T13:18Z",
+   "outcome": "FAIL",
+   "condition": "The degree-7 floor f7 >= 110 proved by a certificate a second, differently written program re-checks, controls intact.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-D6.md",
+   "count": "0 keys; 59 root types open",
+   "ruled_out": "The degree-four branch of the 32/109 layer is closed; edge-critical cards of minimum degree 5 or 6 stay open.",
+   "report": "round4/astra-nonregular/REPORT-8.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "W1d",
+   "round": "5",
+   "line": "Astra E (round5/astra-reach)",
+   "ruled": "2026-11-25T13:21Z",
+   "outcome": "FAIL",
+   "condition": "Decide 2^20 in full: every member of W(40,9,3) invariant under a fixed-point-free involution is G, with certificates.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-E7.md",
+   "count": "6 of 11 branches decided",
+   "ruled_out": "The branches with 0, 12, 14, 16, 18 and 20 internal fibres are empty; branches 2 to 10 stay open.",
+   "report": "round5/astra-reach/REPORT-9.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "AUD-2b",
+   "round": "5",
+   "line": "a Claude agent (round5/audit-aud2)",
+   "ruled": "2026-11-25T16:48Z",
+   "outcome": "OPEN",
+   "condition": "Finish claim A, the key (0,16,0,24), on its 362 undecided templates with the per-high row bound added as clauses, controls first.",
+   "condition_written_first": true,
+   "condition_src": "round5/audit-aud2/AUD2b-WORKLOG.md",
+   "count": "361 of 362 templates UNSAT; 1 open",
+   "ruled_out": "All but one template of (0,16,0,24) are excluded by a second program; template 9518 remains.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G29",
+   "round": "5",
+   "line": "Astra D (round4/astra-nonregular)",
+   "ruled": "2026-11-25T17:17Z",
+   "outcome": "FAIL",
+   "condition": "f7 >= 110 proved: every critical card of minimum degree 5 or 6 excluded and the deletable-edge half re-checked to its end, by a second program.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-D7.md",
+   "count": "5 of 59 root types; 54 open",
+   "ruled_out": "The deletable-edge branch of 32/109 is closed by two programs; the requested matching test does not separate the root types.",
+   "report": "round4/astra-nonregular/REPORT-9.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "AUD-2c",
+   "round": "5",
+   "line": "a Claude agent (round5/audit-aud2)",
+   "ruled": "2026-11-25T17:20Z",
+   "outcome": "CONFIRMED",
+   "condition": "Decide the last template 9518 with the AUD-2b configuration in one run, capped at 2 core-hours, cubing it if unfinished.",
+   "condition_written_first": true,
+   "condition_src": "round5/audit-aud2/AUD2c-WORKLOG.md",
+   "count": "16,829 of 16,829 low graphs excluded",
+   "ruled_out": "G22's (0,16,0,24) rests on two programs; all ten keys beyond G16's 273 are now re-derived by a second program.",
+   "report": null,
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "W1e",
+   "round": "5",
+   "line": "Astra E (round5/astra-reach)",
+   "ruled": "2026-11-25T17:21Z",
+   "outcome": "FAIL",
+   "condition": "Decide 2^20 in full: every member of W(40,9,3) invariant under a fixed-point-free involution is G, with certificates.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-E8.md",
+   "count": "8 of 11 branches decided",
+   "ruled_out": "The 2- and 4-internal-fibre branches are empty and skeleton 8 is closed; three branches stay open.",
+   "report": "round5/astra-reach/REPORT-10.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "W1f",
+   "round": "5",
+   "line": "Astra E (round5/astra-reach)",
+   "ruled": "2026-11-25T20:52Z",
+   "outcome": "PASS",
+   "condition": "Decide 2^20 in full: every member of W(40,9,3) invariant under a fixed-point-free involution is G, with certificates.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-E9.md",
+   "count": "11 of 11 branches; 2^20 = {G}",
+   "ruled_out": "No 9-regular (3,10;40)-graph with largest codegree 3 has a fixed-point-free involution; types 2^19 1^2 to 2^17 1^6 stay open.",
+   "report": "round5/astra-reach/REPORT-12.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "G30",
+   "round": "5",
+   "line": "Astra D (round4/astra-nonregular)",
+   "ruled": "2026-11-25T21:19Z",
+   "outcome": "FAIL",
+   "condition": "f7 >= 110 proved, every open root type excluded, with certificates a differently written second program re-checks, controls intact.",
+   "condition_written_first": true,
+   "condition_src": "round5/RESUME-D8.md",
+   "count": "15 of 59 root types closed; 44 open",
+   "ruled_out": "The exact trace test by König closes ten more root types but no key; 283 of 519 stand.",
+   "report": "round4/astra-nonregular/REPORT-10.md",
+   "src": "round1/LEDGER.md"
+  },
+  {
+   "id": "W1g",
+   "round": "5",
+   "line": "Astra E (round5/astra-reach)",
+   "ruled": "2026-11-26T00:21Z",
+   "outcome": "PASS",
+   "condition": "Decide the involution type 2^19 1^2 of the cap-3 window in full: every member with such an automorphism identified, or none exists, with LRAT through both checkers.",
+   "condition_written_first": true,
+   "condition_src": "round5/astra-reach/FOLLOWUP-13.md",
+   "count": "32 of 32 branches; 2^19 1^2 is empty",
+   "ruled_out": "No member of the cap-3 window has an involution fixing exactly two vertices; open involution types: 2^18 1^4 and 2^17 1^6.",
+   "report": "round5/astra-reach/REPORT-13.md",
+   "src": "round1/LEDGER.md"
+  }
+ ],
+ "tally": {
+  "PARTIAL": 4,
+  "CONFIRMED": 12,
+  "FAIL": 32,
+  "DEAD": 6,
+  "PASS": 12,
+  "UNDECIDED": 1,
+  "OPEN": 1
+ },
+ "running": [
+  {
+   "line": "Astra D",
+   "folder": "round4/astra-nonregular",
+   "running": true,
+   "gate": "G31",
+   "task": 11,
+   "resumed": "2026-11-25T21:19:54Z",
+   "brief": "round4/astra-nonregular/FOLLOWUP-11.md",
+   "condition": "PASS when f7 >= 110 is proved (every open root type excluded) with certificates a second program written differently re-checks, premises listed, controls intact",
+   "budget": "3 core-hours, 4 hours of wall time",
+   "checkpoint": {
+    "file": "round4/astra-nonregular/work/g31/CHECKPOINT-2320.md",
+    "hhmm_utc": "23:20",
+    "line": "G31: FAIL 25 of 59 types closed"
+   }
+  },
+  {
+   "line": "Astra E",
+   "folder": "round5/astra-reach",
+   "running": true,
+   "gate": "W1h",
+   "task": 14,
+   "resumed": "2026-11-26T00:21:40Z",
+   "brief": "round5/astra-reach/FOLLOWUP-14.md",
+   "condition": "PASS when 2^18 1^4 is decided in full, both cases (every member with such an automorphism identified, or none exists) with the certification above",
+   "budget": "3 core-hours, 4 hours of wall time",
+   "checkpoint": {
+    "file": "round5/astra-reach/work/w1h/CHECKPOINT-0041.md",
+    "hhmm_utc": "00:41",
+    "line": "W1h: FAIL 1 of 6 branches decided"
+   }
+  }
+ ],
+ "early": {
+  "src": "control-room-2026-11-22.md",
+  "rounds": [
+   {
+    "n": 1,
+    "heading": "~00:40 UTC: the log opens; checks by cert-machine with its own code; messages for the two model tracks"
+   },
+   {
+    "n": 2,
+    "heading": "~01:40 UTC (first written as 02:15 by mistake): both tracks' reports checked"
+   },
+   {
+    "n": 3,
+    "heading": "02:05–02:25 UTC: Astra's third report checked; the R(7) production run started"
+   },
+   {
+    "n": 4,
+    "heading": "03:35–03:55 UTC: Claude's R(6) probe read; R(7) cross-check finished"
+   },
+   {
+    "n": 5,
+    "heading": "08:32–08:37 UTC: the R(7) production run ended; result pulled, checked and sealed"
+   },
+   {
+    "n": 6,
+    "heading": "09:00–09:41 UTC: the operator's answers; audit part 2 registered; the reveal draft"
+   },
+   {
+    "n": 7,
+    "heading": "09:50–10:09 UTC: Astra's P5 in Lean read; Claude's P3 cover registered and running on a pod"
+   },
+   {
+    "n": 8,
+    "heading": "10:07–10:49 UTC: P3 is a checked statement on all four cores"
+   },
+   {
+    "n": 9,
+    "heading": "10:45–11:14 UTC: both chats' second reports; audit part 2; the P4 page"
+   },
+   {
+    "n": 10,
+    "heading": "11:41 UTC: Astra's seven Lean modules read"
+   },
+   {
+    "n": 11,
+    "heading": "13:36 UTC: Astra's bridge read; the all-rows run under way"
+   },
+   {
+    "n": 12,
+    "heading": "14:23 UTC: Astra's R(6) row-capacity certificate on core 2 audited"
+   },
+   {
+    "n": 13,
+    "heading": "15:08 UTC: Astra's closing theorem read"
+   },
+   {
+    "n": 14,
+    "heading": "15:25 UTC: the tightened R(6) pruning rule audited"
+   },
+   {
+    "n": 15,
+    "heading": "16:06 UTC: Astra's blind pilot on 16 catalogue cores audited; a second pilot found on disk"
+   },
+   {
+    "n": 16,
+    "heading": "16:43 UTC: Astra's second pilot (four fresh cores through survivor decision) audited"
+   },
+   {
+    "n": 17,
+    "heading": "17:51 UTC: T2 (all rows) computed, all equal; its pod deleted; two Codex reports received"
+   },
+   {
+    "n": 18,
+    "heading": "18:07 UTC: the full three-cross-edge run registered; pod created"
+   },
+   {
+    "n": 19,
+    "heading": "18:21 UTC: the full R(6) run passed its gate and is slower than estimated"
+   },
+   {
+    "n": 20,
+    "heading": "18:49 UTC: two reports received (about 18:22 UTC); the three-edge proof page read"
+   },
+   {
+    "n": 21,
+    "heading": "18:50 UTC: Astra's four-edge derivation, the fourteen points and the corrected records audited"
+   },
+   {
+    "n": 22,
+    "heading": "18:54 UTC: Claude's second-kernel note on P4 checked"
+   },
+   {
+    "n": 23,
+    "heading": "18:59 UTC: Claude's reply to rounds 17 and 20 received; an error of mine corrected"
+   },
+   {
+    "n": 24,
+    "heading": "19:12 UTC: Claude's reply to round 22; a ruling on who writes where"
+   },
+   {
+    "n": 25,
+    "heading": "19:20 UTC: Claude's four-edge work and five analogue graphs audited"
+   },
+   {
+    "n": 26,
+    "heading": "19:29 UTC: Astra's answer to round 21 received (about 19:22 UTC); records and the receipt gate re-read"
+   },
+   {
+    "n": 27,
+    "heading": "19:29 UTC: the revised three-edge page re-read"
+   },
+   {
+    "n": 28,
+    "heading": "19:46 UTC: two more reports received (about 19:40 UTC); checked by hash, the Lean builds queued"
+   },
+   {
+    "n": 29,
+    "heading": "19:57 UTC: Astra's three R(6) theorems in Lean built and read"
+   },
+   {
+    "n": 30,
+    "heading": "20:22 UTC: both new R(7) Lean files checked; readings of the pods"
+   },
+   {
+    "n": 31,
+    "heading": "20:33 UTC: Astra's 20:25 report received; the page's third version read"
+   },
+   {
+    "n": 32,
+    "heading": "20:39 UTC: Astra's new draw gate, errata and four-edge note read (third pass)"
+   },
+   {
+    "n": 33,
+    "heading": "21:45 UTC: two toy draw registrations logged before their beacons; three reports received; five checks started"
+   },
+   {
+    "n": 34,
+    "heading": "21:57 UTC: an interruption; the five checks restarted"
+   },
+   {
+    "n": 35,
+    "heading": "22:01 UTC: the page's version 4 read"
+   },
+   {
+    "n": 36,
+    "heading": "22:06:32 UTC: gate v4, the archive and our register read (fourth pass)"
+   },
+   {
+    "n": 37,
+    "heading": "22:15 UTC: check-in; the page updated; the operator asked for a full account"
+   },
+   {
+    "n": 38,
+    "heading": "22:50 UTC: the operator's four decisions; three checks back; RH amendment A21 published"
+   }
+  ]
+ }
+}

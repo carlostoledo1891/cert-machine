@@ -1,5 +1,5 @@
 {
- "what": "The three boxes of /r310/: two opened (Theorem C35; the second computation of Case R(7)), one sealed (Case R(6): codegree six). A sealed box shows its name, its Bitcoin anchors and its progress, rounded down to a whole percent, and nothing else; it opens only after audit, on Carlos Toledo’s word.",
+ "what": "The three boxes of /r310/, all opened: Theorem C35; the second computation of Case R(7); Case R(6), the three-edge branch (sealed until 25 November 2026, opened on Carlos Toledo’s word that night, with the rest of the case).",
  "credits": [
   {
    "who": "The Claude track (Claude Code)",
@@ -173,33 +173,227 @@
   {
    "n": 3,
    "id": "c6",
-   "state": "sealed",
-   "label": "Case R(6): codegree six",
+   "state": "opened",
+   "label": "Case R(6), the three-edge branch",
+   "map_label": "Case R(6): codegree six",
+   "opened": {
+    "on": "2026-11-25",
+    "words": "Everything, seal opened",
+    "what": "The box was sealed from 22 to 25 November 2026: only its name, its Bitcoin anchors and its progress were shown. On the operator’s word on 25 November 2026 (a dialog answer, the options spelled out) the seal was opened: everything of the case is shown, with the anchors shown while it was sealed."
+   },
+   "tally": {
+    "cores": 23409,
+    "excluded": 23409,
+    "open": 0,
+    "witness": 0,
+    "baseline": 101564232221,
+    "screened": 92080292598,
+    "open_by_tests": 28340,
+    "open_cores": 4192,
+    "infeasible_by_search": 28340,
+    "at_node_limit": 0,
+    "completions": 0,
+    "sampled": 5992486,
+    "sample_infeasible": 5992486,
+    "sample_undecided": 0,
+    "contradictions": 0,
+    "reasons": {
+     "no_row": 41559075592,
+     "uncovered": 50521188666,
+     "degree": 0,
+     "pigeon": 0,
+     "saturated": 0
+    },
+    "refuted_by_tests": 92080264258,
+    "sample_share_percent": "0.0065"
+   },
+   "ledger": {
+    "file": "control-room-checks/r6-full/pod-final-resumed/out/cores.jsonl",
+    "sha256": "34a673241985acea10af966013674de834ff89295303621f2d0ac43f8b6a5d7b",
+    "final_sha256": "e77693016f554bfdd407b6a0d2b3803cdd1e0beb9cd3fd5dc93b52630e45fb0a",
+    "bytes": 36581874
+   },
+   "run": {
+    "machines": 2,
+    "vcpu": 32,
+    "cpu_s": 3460429,
+    "cpu_hours": 961,
+    "started": "2026-11-22T18:10:23Z",
+    "ended": "2026-11-24T00:45:09Z",
+    "first": {
+     "cores": 16927,
+     "start": "2026-11-22T18:10:23Z",
+     "stop": "2026-11-23T16:25:21Z",
+     "cpu": "AMD EPYC 7713"
+    },
+    "second": {
+     "cores": 6482,
+     "start": "2026-11-23T16:35:29Z",
+     "end": "2026-11-24T00:45:09Z",
+     "cpu": "AMD EPYC 7713P"
+    },
+    "per_hour": {
+     "from": "2026-11-22T18:00:00Z",
+     "counts": [
+      823,
+      981,
+      577,
+      694,
+      807,
+      817,
+      498,
+      698,
+      930,
+      817,
+      698,
+      602,
+      959,
+      872,
+      784,
+      668,
+      641,
+      603,
+      591,
+      667,
+      825,
+      913,
+      799,
+      680,
+      753,
+      820,
+      785,
+      800,
+      834,
+      848,
+      625
+     ]
+    }
+   },
    "stamps": [
     {
      "block": 977085,
      "at": "2026-11-22T18:17:27Z",
-     "what": "the registration of the running computation"
+     "what": "the rules of the three-edge run (stamped 18:07 UTC by our clock; the run began 18:10:23 UTC)",
+     "file_sha256": "b23f918c…767f"
     },
     {
      "block": 977089,
      "at": "2026-11-22T19:03:33Z",
-     "what": "further derivations"
+     "what": "the Claude track’s four-edge derivations (and a second attestation of the rules)",
+     "file_sha256": null
     },
     {
      "block": 977108,
      "at": "2026-11-22T22:02:41Z",
-     "what": "a draw registration"
+     "what": "a toy draw registration of the Astra track’s draw gate (round 32)",
+     "file_sha256": null
+    },
+    {
+     "block": 977197,
+     "at": null,
+     "by": "2026-11-23T12:38Z",
+     "what": "the registration of the four-edge cost pilot r6-e4-cost-01, confirmed by 12:38 UTC on 23 November, before its beacon block 977229 (the block’s own time is not in the log)",
+     "file_sha256": "ca25ea59…d621d"
     },
     {
      "block": 977301,
      "at": "2026-11-24T01:10:46Z",
-     "what": "the final record, after it finished"
+     "what": "the final record of the three-edge run (FINAL.sha256)",
+     "file_sha256": "e7769301…fb0a"
     }
    ],
-   "progress_percent": 100,
-   "as_of": "2026-11-24T00:45:09Z",
-   "open_discrepancies": 0
+   "statement": "If premises P1–P6 hold: no 9-regular triangle-free graph on 40 vertices with no independent set of size 10 has two non-adjacent vertices with exactly six common neighbours and exactly three edges between their other neighbours (the three other neighbours of the one, and the three of the other).",
+   "premises": [
+    {
+     "id": "P1",
+     "text": "there are exactly 23,409 triangle-free graphs on 26 vertices with 75 edges and no independent 8-set (Goedgebeur–Radziszowski 2013, Table 13)",
+     "checked": "from the literature; not checked here"
+    },
+    {
+     "id": "P2",
+     "text": "our catalogue file holds 23,409 such graphs, no two isomorphic",
+     "checked": "computed twice: our own code without nauty, and nauty three ways"
+    },
+    {
+     "id": "P3",
+     "text": "the reduction: in a graph of the branch, the 26 vertices adjacent to neither marked vertex form such a graph, and the conditions the tests use hold",
+     "checked": "proved in Lean 4.35.0 with Mathlib, the three standard axioms only; built and read by the control room; it rests on Zhiyang Chen’s Lean library as compiled; leanchecker --fresh not run; no graph of the branch is exhibited"
+    },
+    {
+     "id": "P4",
+     "text": "the programs test exactly those conditions and drop no completion",
+     "checked": "prose, in 25 conditions, each read against the code by our agents; a second implementation agrees on 477 + 30 records; no Lean about the C"
+    },
+    {
+     "id": "P5",
+     "text": "the two machines ran the pinned programs, and the ledger says what they computed",
+     "checked": "the run itself: pins checked and the gate passed on each machine; a second program gives the same enumeration, within the limits below"
+    },
+    {
+     "id": "P6",
+     "text": "the tools: gcc 13.3.0, Python 3.12.3, Lean’s kernel and Mathlib, nauty",
+     "checked": "trusted as tools"
+    }
+   ],
+   "limits": [
+    {
+     "b": "One branch of the case, not the case.",
+     "text": "Chen splits Case R(6) by the number of cross-edges of a marked pair, three to nine. This box is the branch with exactly three. Of the four-edge branch only a 20-core cost pilot ran; five to nine were not run. Case R(6) is not closed, and nothing here decides R(3,10)."
+    },
+    {
+     "b": "A second program checked the counting, not the verdicts.",
+     "text": "It counts the same records as ours and has no verdict. Every “excluded” rests on our own tests; no second program touched them."
+    },
+    {
+     "b": "No single version of that program was run on every core in agreement with ours.",
+     "text": "Version 1 ran on all 23,409 cores and differs from ours on 32. A corrected version 2 agrees with ours on 129 cores on a laptop and on 6,512 cores on a rented machine, where its run was stopped on cost; it was never run on all 23,409."
+    },
+    {
+     "b": "It was not written blind.",
+     "text": "Its track had read and patched our counting program before writing its own. The correction that makes version 2 is ours. An omission shared by both programs would not show."
+    },
+    {
+     "b": "The chain from a graph to a verdict is partly prose.",
+     "text": "The conditions the tests rest on are proved in Lean. That the C programs test exactly those conditions is prose, read by our own agents and tried on samples. There is no proof file per record."
+    },
+    {
+     "b": "The list of cores is complete only if a published count is right:",
+     "text": "23,409, from Goedgebeur and Radziszowski’s Table 13. Our file has 23,409 valid graphs, no two isomorphic. Nobody here re-derived the count."
+    },
+    {
+     "b": "The run did not follow its registration in every step.",
+     "text": "It was stopped at 16,927 cores and finished on a second machine. Its time estimate was wrong. The registered recheck of 12 cores on a second kind of machine was made late, after the result was known (12 of 12 equal). The machine’s own hash list was not kept. Our separate tally kept no program."
+    },
+    {
+     "b": "The rules are in Bitcoin from seven minutes after the run began,",
+     "text": "not from before it (the anchors, below)."
+    },
+    {
+     "b": "Nobody outside has read it.",
+     "text": "One person, models of two families, our own audits."
+    }
+   ],
+   "second_program": "A counter written by the other model family lists the same records. Version 1 ran on all 23,409 cores: on 23,377 it wrote the same screened records as ours, byte for byte by hash. On 32 it wrote more, 14,895 records in all: it applied one of the screen’s three side conditions. Ours applies all three, and our tests refute every one of the 14,895 anyway, so no verdict depends on which program is right. With our correction (version 2) it agrees with ours on those 32 and on 97 other cores tried on a laptop, and on 6,512 of 6,512 cores of a rented run that was stopped on cost after 29 minutes. It was not run on the rest.",
+   "chen": "The branch is Zhiyang Chen’s. His notes define it and parked it in October. As we last read his repository (23 November, commit 055ae277), his AI run r310_ralph has a scout note on the same branch, with the same two tests in other words: no assignment survived on 16 pilot inputs, no production run, and an inventory of 23,037 of the 23,409 cores, 372 missing. It says of itself that it changes the status of no case. Ours is a run over all 23,409, with tests that do not assume Case R(7). We have not run his scout.",
+   "corrections_beside": "A derivation note in the record says “R(7), not yet closed”: Chen’s run had closed R(7) the day before it was written. The rules say “Timestamped before the pod exists”: the chain shows them only from seven minutes after the run began. Stamped and pinned files cannot change, so both are corrected here.",
+   "rest": {
+    "four_edge": "The four-edge branch: its reduction was derived by both model tracks and certified by our reading (the only possible shape is a perfect matching plus one edge; the core then has 76 edges, 216,151 graphs by Table 13). A blind cost pilot was registered and anchored before its beacon, drew 20 of the 216,151 cores, and excluded 20 of 20 (no open, no witness). Its cost, extrapolated to all cores: about US$2,530 as registered, about US$3,111 weighted by the catalogue, about US$510 with four measured optimizations. It was not run: the operator stopped spending on pods that would not close the problem.",
+    "five_to_nine": "Five to nine cross-edges: nothing run here.",
+    "pilot": {
+     "cores": 20,
+     "excluded": 20,
+     "catalogue": 216151,
+     "registered_usd": "2,530",
+     "weighted_usd": "3,111",
+     "optimized_usd": "510"
+    }
+   },
+   "catalogue": {
+    "cores": 23409,
+    "sha256": "0d3d2caf830c9d5af9ad64ce6da120c83cd12600bc0acf70ae90f747dfab208d"
+   },
+   "bundle_sha256": "3c3e0b08b1a2c6b411dd43aa86a65de02adf8e56b64320fd82b2061016c26dd2",
+   "results_before_first_block": 87
   }
  ]
 }

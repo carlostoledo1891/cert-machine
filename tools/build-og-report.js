@@ -374,18 +374,19 @@ const CARDS = {
       return o.join('');
     } },
   /* an ART card for /r310/ (2026-11-23, the live R(3,10) page): its case map without its words. A tree of twelve boxes
-     from one root, left to right: the decided cases filled in ink, the open ones hollow, and one box drawn double and
-     locked, the sealed case, with a short bar inside it; a second, lighter group below the cover for the other routes.
+     from one root, left to right: the decided cases filled in ink, the open ones hollow; a second, lighter group below
+     the cover for the other routes. (Until 2026-11-25 one box was drawn double and locked, the sealed case; the seal was
+     opened on the operator's word that night and the case, still open, is drawn hollow like the others.)
      LIGHT theme, no number, no label. */
   r310: { art: true, theme: 'light', eyebrow: 'Carlos Toledo · R(3,10), in the open', path: '/r310/',
     title: 'R(3,10), in the open',
-    alt: 'A tree of twelve boxes growing from one root to the right: some filled in ink, some hollow, and one drawn double with a padlock and a short bar inside it.',
+    alt: 'A tree of twelve boxes growing from one root to the right: some filled in ink, some hollow.',
     get svgRaw() {
-      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A tree of boxes, some filled, some hollow, one double and locked" style="position:absolute;left:0;top:0">'];
+      const o = ['<svg viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A tree of boxes, some filled, some hollow" style="position:absolute;left:0;top:0">'];
       const X = [140, 380, 640, 900], BW = [180, 200, 200, 180], BH = 40;
       /* rows of the leaves: deg4, c35, s8, near, the three codegree cases, then the other routes */
       const node = { root: [0, 3.6], deg4: [1, 0], c35: [1, 1], mtf: [1, 3.5], s8: [2, 2], near: [2, 3], caseR: [2, 5], r7: [3, 4], c6: [3, 5], r35: [3, 6], sym: [1, 7.5], build: [1, 8.5] };
-      const kind = { root: 'open', deg4: 'decided', c35: 'decided', mtf: 'decided', s8: 'decided', near: 'open', caseR: 'open', r7: 'decided', c6: 'sealed', r35: 'open', sym: 'open', build: 'open' };
+      const kind = { root: 'open', deg4: 'decided', c35: 'decided', mtf: 'decided', s8: 'decided', near: 'open', caseR: 'open', r7: 'decided', c6: 'open', r35: 'open', sym: 'open', build: 'open' };
       const par = { deg4: 'root', c35: 'root', mtf: 'root', s8: 'mtf', near: 'mtf', caseR: 'mtf', r7: 'caseR', c6: 'caseR', r35: 'caseR', sym: 'root', build: 'root' };
       const Y = (r) => 150 + r * 44, P = (id) => ({ x: X[node[id][0]], y: Y(node[id][1]), w: BW[node[id][0]] });
       for (const [c, p] of Object.entries(par)) { const a = P(p), b = P(c), xm = a.x + a.w + 22; o.push('<path d="M' + (a.x + a.w) + ' ' + (a.y + BH / 2) + ' H' + xm + ' V' + (b.y + BH / 2) + ' H' + b.x + '" fill="none" stroke="var(--ink-4)" stroke-width="1.6"/>'); }

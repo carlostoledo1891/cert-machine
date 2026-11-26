@@ -1,0 +1,549 @@
+<title>R(3,10) Field Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an instrument panel for one question. A header that states the question, then panels on a
+   12-column grid: the object you can touch, the nested structure, why 40 is different, what methods
+   cannot see, the map of cases, the process, the paths, today's gates, where an idea could enter. */
+:root{
+  --bg:#f5f5f8; --panel:#ffffff; --sunk:#ececf2; --ink:#0d0d12; --ink2:#3a3a47; --ink3:#6b6b78; --ink4:#9a9aa6;
+  --rule:#dbdbe4; --rule2:#c4c4d0; --accent:#2a78d6; --accent-soft:#e3eefb;
+  --good:#0ca30c; --good-ink:#0a6b0a; --bad:#d03b3b; --bad-ink:#b02a2a; --warn:#fab219; --warn-ink:#8a5d00;
+  --display:"Bricolage Grotesque","Inter",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0a0a0c; --panel:#141419; --sunk:#101014; --ink:#f6f6f8; --ink2:#c9c9d2; --ink3:#9a9aa6; --ink4:#6e6e7a;
+  --rule:#26262e; --rule2:#34343f; --accent:#4a93ec; --accent-soft:#14253d;
+  --good:#0ca30c; --good-ink:#4fd04f; --bad:#e0574e; --bad-ink:#f08078; --warn:#fab219; --warn-ink:#fab219; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0a0a0c; --panel:#141419; --sunk:#101014; --ink:#f6f6f8; --ink2:#c9c9d2; --ink3:#9a9aa6; --ink4:#6e6e7a;
+  --rule:#26262e; --rule2:#34343f; --accent:#4a93ec; --accent-soft:#14253d;
+  --good:#0ca30c; --good-ink:#4fd04f; --bad:#e0574e; --bad-ink:#f08078; --warn:#fab219; --warn-ink:#fab219; color-scheme:dark }
+
+body{background:var(--bg);color:var(--ink2);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);color:var(--ink);margin:0;text-wrap:balance;letter-spacing:-0.01em}
+h1{font-size:clamp(34px,6vw,60px);line-height:1.02;font-weight:700}
+h2{font-size:clamp(21px,2.6vw,27px);line-height:1.15;font-weight:700}
+h3{font-size:16px;font-weight:500;font-family:var(--body);color:var(--ink)}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--ink3)}
+strong{color:var(--ink);font-weight:600}
+
+/* header */
+.head{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;align-items:end}
+.head .q{display:flex;flex-direction:column;gap:14px}
+.head .q p{font-size:17px;color:var(--ink2)}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.fact{background:var(--panel);padding:14px 14px 12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.fact b{font-family:var(--display);font-size:26px;line-height:1.05;color:var(--ink);font-weight:700}
+.fact span{font-size:12.5px;color:var(--ink3);line-height:1.35}
+
+/* panels */
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px}
+.panel{background:var(--panel);border:1px solid var(--rule);padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.c12{grid-column:span 12}.c7{grid-column:span 7}.c5{grid-column:span 5}.c6{grid-column:span 6}.c8{grid-column:span 8}.c4{grid-column:span 4}
+.panel>header{display:flex;flex-direction:column;gap:6px}
+.lede{font-size:15.5px}
+.note{font-size:13px;color:var(--ink3);max-width:78ch}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+figure{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+figcaption{font-size:12.5px;color:var(--ink3);max-width:80ch}
+.scroll{overflow-x:auto}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:var(--mono);font-size:11.5px;fill:var(--ink3)}
+svg .t-ink{fill:var(--ink)} svg .t-strong{fill:var(--ink);font-weight:500}
+svg .axis{stroke:var(--rule2);stroke-width:1;fill:none} svg .gridl{stroke:var(--rule);stroke-width:1;fill:none}
+svg .bar{fill:var(--accent)} svg .bar-mute{fill:var(--ink4)} svg .bar-neg{fill:var(--ink4)}
+svg .open{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5;stroke-dasharray:4 3}
+svg .hit{fill:transparent;cursor:default}
+svg .dot{fill:var(--accent);stroke:var(--panel);stroke-width:2}
+svg .dia{fill:var(--ink);stroke:var(--panel);stroke-width:2}
+svg .zone{fill:var(--accent-soft)}
+svg .box{fill:var(--sunk);stroke:var(--rule2);stroke-width:1} svg .box-key{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5}
+svg .flow{stroke:var(--ink3);stroke-width:1.5;fill:none} svg .flow-dead{stroke:var(--bad);stroke-width:1.5;fill:none;stroke-dasharray:4 3}
+svg .arrowhead{fill:var(--ink3)} svg .arrowhead-dead{fill:var(--bad)}
+svg .t-bad{fill:var(--bad-ink)} svg .t-acc{fill:var(--accent)}
+
+/* status chips: glyph + word, never colour alone */
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;padding:2px 8px 2px 6px;border:1px solid var(--rule2);border-radius:999px;color:var(--ink2);white-space:nowrap;background:var(--panel)}
+.chip i{font-style:normal;font-weight:700}
+.chip.dead{border-color:var(--bad);color:var(--bad-ink)} .chip.pass{border-color:var(--good);color:var(--good-ink)}
+.chip.run{border-color:var(--accent);color:var(--accent)} .chip.part{border-color:var(--warn);color:var(--warn-ink)}
+.src{font-family:var(--mono);font-size:10.5px;color:var(--ink3);border:1px dashed var(--rule2);padding:0 5px;border-radius:3px;white-space:nowrap}
+
+/* playground */
+.play{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:24px;align-items:start}
+.play svg{width:100%;background:var(--sunk);border:1px solid var(--rule);touch-action:manipulation}
+.pg-edge{stroke:var(--ink3);stroke-width:1.6} .pg-edge.tri{stroke:var(--bad);stroke-width:3.2}
+.pg-edge.sel{stroke:var(--accent);stroke-width:2.6} .pg-edge.out{stroke:var(--ink);stroke-width:2}
+.pg-edge.dim{stroke:var(--rule2);stroke-width:1.2}
+.pg-v{fill:var(--panel);stroke:var(--ink2);stroke-width:1.8;cursor:pointer}
+.pg-v.me{fill:var(--accent);stroke:var(--accent)} .pg-v.nb{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2.4}
+.pg-v.outv{fill:var(--panel);stroke:var(--ink);stroke-width:2.6}
+.pg-v.ind{fill:var(--warn);stroke:var(--ink)}
+.pg-v:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.pg-l{pointer-events:none;font-size:11px;fill:var(--ink3)}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+button{font:500 13px var(--body);color:var(--ink);background:var(--panel);border:1px solid var(--rule2);padding:7px 11px;border-radius:6px;cursor:pointer}
+button:hover{border-color:var(--ink3)} button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.read{display:flex;flex-direction:column;gap:10px}
+.rule-row{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;align-items:start;padding:10px 12px;border:1px solid var(--rule);background:var(--sunk)}
+.rule-row .g{font-family:var(--mono);font-weight:700;font-size:15px;line-height:1.4}
+.rule-row.ok .g{color:var(--good-ink)} .rule-row.no .g{color:var(--bad-ink)}
+.rule-row b{color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--ink3)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink2);background:var(--panel);display:inline-block}
+.sw.nb{background:var(--accent-soft);border-color:var(--accent)} .sw.outv{border-color:var(--ink);border-width:3px} .sw.ind{background:var(--warn);border-color:var(--ink)} .sw.tri{border-radius:0;height:0;border-width:2px 0 0 0;border-color:var(--bad);width:18px;background:none}
+
+/* case map */
+.strata{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.st{background:var(--panel);padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.st.wide{grid-column:span 6;flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:6px 16px;background:var(--sunk)}
+.st .k{font-family:var(--display);font-size:21px;color:var(--ink);font-weight:700;line-height:1.1}
+.st .d{font-size:12.5px;color:var(--ink2);line-height:1.4}
+.st .d b{font-family:var(--mono);font-weight:500;color:var(--ink)}
+.meter{height:6px;background:var(--sunk);border:1px solid var(--rule);position:relative}
+.meter>i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
+
+/* phantoms */
+.ph{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.ph>div{background:var(--panel);padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.ph h3{font-family:var(--display);font-size:17px;font-weight:700}
+.ph .d{font-size:13.5px}
+.sees{border-left:3px solid var(--good);padding:10px 14px;background:var(--sunk);font-size:14px}
+
+/* tools */
+.tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 22px}
+.tool{display:flex;flex-direction:column;gap:3px;min-width:0;border-top:2px solid var(--ink);padding-top:8px}
+.tool b{color:var(--ink);font-size:14px} .tool span{font-size:12.5px;color:var(--ink3);line-height:1.4}
+
+/* table */
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:720px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);text-align:left;font-weight:500;padding:8px 10px;border-bottom:1px solid var(--rule2)}
+td{padding:10px;border-bottom:1px solid var(--rule);vertical-align:top}
+td:first-child{font-family:var(--mono);color:var(--ink3);white-space:nowrap}
+td .w{color:var(--ink);font-weight:500}
+td.why{color:var(--ink2);font-size:13px}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px}
+.ev{display:grid;grid-template-columns:48px minmax(0,1fr);gap:10px;padding:9px 0;border-bottom:1px solid var(--rule);align-items:start}
+.ev time{font-family:var(--mono);font-size:12px;color:var(--ink3);padding-top:2px}
+.ev div{display:flex;flex-direction:column;gap:4px;font-size:13.5px}
+.runlist{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ideas */
+.ideas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.idea{background:var(--panel);padding:16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.idea h3{font-family:var(--display);font-size:17px;font-weight:700}
+.idea p{font-size:13.5px}
+.bets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+dl{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:8px 18px;margin:0;font-size:13.5px}
+dt{font-family:var(--mono);font-size:12.5px;color:var(--ink)} dd{margin:0}
+
+#tip{position:fixed;z-index:20;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;line-height:1.4;padding:7px 10px;border-radius:5px;max-width:280px}
+footer{font-size:12.5px;color:var(--ink3);border-top:1px solid var(--rule);padding-top:14px}
+
+@media (max-width:900px){
+  .head,.split,.play{grid-template-columns:minmax(0,1fr)}
+  .c7,.c5,.c6,.c8,.c4{grid-column:span 12}
+  .strata{grid-template-columns:repeat(2,minmax(0,1fr))} .st.wide{grid-column:span 2}
+  .ph,.ideas,.tl{grid-template-columns:minmax(0,1fr)}
+  .tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:520px){ .facts,.bets{grid-template-columns:minmax(0,1fr)} .panel{padding:16px} dl{grid-template-columns:minmax(0,1fr)} dt{margin-top:6px} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+</style>
+
+<div class="wrap">
+
+<section class="head">
+  <div class="q">
+    <span class="eyebrow">R(3,10) · private field map · state at 01:56 UTC, 25 Nov 2026</span>
+    <h1>Is it 40 or 41?</h1>
+    <p>Take 40 points. Join some pairs with a line. Two rules: <strong>no three points all joined to each other</strong>, and <strong>no ten points with no line among them</strong>. If no drawing can obey both, the Ramsey number R(3,10) is 40. If one can, it is 41. Nobody knows.</p>
+  </div>
+  <div class="facts" aria-label="Where things stand">
+    <div class="fact"><b class="num">40 or 41</b><span>All that is known. 39 points can be done (1989). 41 cannot (2025).</span></div>
+    <div class="fact"><b class="num">7 · 15 · 5</b><span>Gates today: passed and confirmed · failed with a number · still running.</span></div>
+    <div class="fact"><b class="num">≈ 7%</b><span>My bet that this lane alone settles it within a year. 80% that the answer is 40.</span></div>
+  </div>
+</section>
+
+<div class="grid">
+
+<!-- THE OBJECT -->
+<section class="panel c12" aria-labelledby="h-obj">
+  <header><span class="eyebrow">The object</span><h2 id="h-obj">Two rules that pull against each other</h2>
+  <p class="lede">Lines kill unconnected sets. But add too many lines and three of them close a triangle. The smaller cases below are real: 5, 8 and 13 points can be done, and one more point cannot. Click a point to stand on it; click a second point to add or remove the line between them.</p></header>
+  <div class="play">
+    <div>
+      <svg id="pg" viewBox="0 0 380 380" role="group" aria-label="Editable graph"></svg>
+      <div class="legend" style="margin-top:8px">
+        <span><i class="sw nb"></i>its neighbours</span><span><i class="sw outv"></i>the outside</span><span><i class="sw ind"></i>a largest unconnected set</span><span><i class="sw tri"></i>a triangle</span>
+      </div>
+    </div>
+    <div class="read">
+      <div class="btns" id="presets" role="group" aria-label="Starting graphs"></div>
+      <div id="readout" aria-live="polite" class="read"></div>
+      <p class="note">What to notice. Stand on any point of the 13-point graph: its 4 neighbours have no lines among them (they could not, or a triangle would close). The 8 points it does not touch form, by themselves, a correct solution of the 8-point problem. That is the whole structure of the problem: <strong>every point sees a smaller copy of the same question</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE DOLL -->
+<section class="panel c7" aria-labelledby="h-doll">
+  <header><span class="eyebrow">The nested structure</span><h2 id="h-doll">Inside the 40-point question sits every smaller one</h2>
+  <p class="lede">Pick <span class="num">j</span> points with no lines among them. The points none of them touches must obey the same two rules with <span class="num">10 − j</span> in place of 10. So their number is capped by a smaller Ramsey number, and those are all known exactly.</p></header>
+  <figure><div class="scroll"><svg id="doll" viewBox="0 0 680 330" role="img" aria-label="Cap on the number of untouched points after choosing j unconnected points: 35, 27, 22, 17, 13, 8, 5, 2, 0"></svg></div>
+  <figcaption>Bar = the most points that can stay untouched. Right column = how many different graphs exist exactly at that cap; every one of them is on disk. Only the top level, 40 itself, is unknown. In the hard case each point has 9 neighbours, so it leaves 30 untouched, well under the cap of 35.</figcaption></figure>
+</section>
+
+<section class="panel c5" aria-labelledby="h-lad">
+  <header><span class="eyebrow">The ladder</span><h2 id="h-lad">Seven rungs are solid</h2></header>
+  <figure><svg id="ladder" viewBox="0 0 420 300" role="img" aria-label="Known values of R(3,k): 6, 9, 14, 18, 23, 28, 36, and 40 or 41 for k = 10"></svg>
+  <figcaption>R(3,k): the first number of points at which the two rules (no triangle, no k unconnected points) cannot both hold. Up to 23 there is a proof a person can read. 28 and 36 needed a computer. Hover a bar.</figcaption></figure>
+</section>
+
+<!-- WHY 40 IS DIFFERENT -->
+<section class="panel c6" aria-labelledby="h-gap">
+  <header><span class="eyebrow">Why 40 is different</span><h2 id="h-gap">The slack is 13. No closed case had more than 5.</h2>
+  <p class="lede">In the hard case every point has the same number of neighbours, so the untouched part has a fixed number of lines. Counting works when that number falls below the fewest lines such a graph can have. The chart shows how far above the minimum it lands.</p></header>
+  <figure><svg id="gap" viewBox="0 0 520 290" role="img" aria-label="Slack left by counting in the regular case: 0 at 18 points, 1 at 23, 5 at 28, minus 5 at 36, 4 at 42, 13 at 40"></svg>
+  <figcaption>Below zero, counting alone ends the case (36). At 0, 1 and 5 the cases were closed by listing every candidate for the untouched part. At 13 that list is out of reach. Derived from published tables by two programs. <span class="src">2 sources</span></figcaption></figure>
+</section>
+
+<section class="panel c6" aria-labelledby="h-reach">
+  <header><span class="eyebrow">The ladder of methods</span><h2 id="h-reach">Fourteen methods measured. None gets under 43.</h2>
+  <p class="lede">Each method was run on the solved rungs first, then at our level. Its reach is the smallest number of points it can prove impossible. The answer needs 40.</p></header>
+  <figure><svg id="reach" viewBox="0 0 520 250" role="img" aria-label="Reach of fourteen methods at k = 10: ten stop at 43, two at 45, one at 46, one at 82; the literature reached 42 and 41 with a census of the level below"></svg>
+  <figcaption>Dots = our measured methods (hover for names). Diamonds = published proofs, which needed years of computing and a full list of part of the level below. One more method, colouring, reaches only 82 and is off the scale. <span class="src">2 sources</span> for the classical row and the conclusion; the other rows were each measured once.</figcaption></figure>
+</section>
+
+<!-- PHANTOMS -->
+<section class="panel c12" aria-labelledby="h-ph">
+  <header><span class="eyebrow">What a method cannot see</span><h2 id="h-ph">Three phantoms explain almost every failure</h2>
+  <p class="lede">A phantom is something that passes all of a method's checks without being a graph on 40 points. If a method accepts a phantom, it can never prove that 40 is impossible. Today produced three, each for a different blindness.</p></header>
+  <div class="ph">
+    <div><span class="chip dead"><i>✕</i>blind to agreement</span><h3>The one-view phantom</h3>
+      <p class="d">Take one real graph on 30 points and pretend it is what <em>every</em> one of the 40 points sees outside its neighbours. Every count made from a single point is then consistent, at any depth.</p>
+      <p class="d muted">It forgets that the views of two points overlap and must agree where they do. This is why ten methods stop at 43. Sharper methods are fooled the same way by a blend of about seven real graphs. <span class="src">2 sources</span></p></div>
+    <div><span class="chip dead"><i>✕</i>blind to triples</span><h3>The pair phantom</h3>
+      <p class="d">A table of how many pairs of each kind exist, with every pair consistent in itself. It satisfies 35 exact equations in whole numbers.</p>
+      <p class="d muted">Pairs are never asked to agree on a third point. The same phantom, one level up. Found at the stratum with largest codegree 4. <span class="src">1 source</span></p></div>
+    <div><span class="chip dead"><i>✕</i>blind to size</span><h3>The scale phantom</h3>
+      <p class="d">A real graph with the same proportions as ours, 320 points with 72 neighbours each, where every neighbourhood is a largest unconnected set. Built from a 2010 paper's recipe.</p>
+      <p class="d muted">Any argument that only uses ratios would exclude it too, and it exists. So ratios alone can never work. <span class="src">2 sources</span></p></div>
+  </div>
+  <div class="sees"><strong>A fourth fact, not a phantom.</strong> Real graphs on 40 points obey every local rule (9 neighbours each, no triangle, 1 to 3 shared neighbours) and still contain ten unconnected points. So nothing built from local rules alone can finish the proof. <strong>What is not fooled.</strong> Three kinds of input survive all three phantoms: an exact small Ramsey number applied to a region of the graph (18 points untouched by 4 chosen ones must contain 6 unconnected, since R(3,6) = 18); whole-number constraints; and statements that force two or more points' views to agree. Two of the three gates that passed today used the first kind; the third showed that at 18 points the pieces simply do not fit together.</div>
+</section>
+
+<!-- THE MAP -->
+<section class="panel c12" aria-labelledby="h-map">
+  <header><span class="eyebrow">The map of cases</span><h2 id="h-map">Where a counterexample could still hide</h2>
+  <p class="lede">Any graph on 40 points obeying both rules falls in exactly one box. A proof of 40 has to empty all of them. The hard half is the regular one, split by its <strong>largest codegree</strong>: the most neighbours two unjoined points have in common.</p></header>
+  <div class="strata" id="strata"></div>
+  <p class="note">"2 sources" means two programs written independently reached the same result. "1 source" means reported once and not yet re-derived; nothing with that tag is treated as established.</p>
+</section>
+
+<!-- PROCESS -->
+<section class="panel c12" aria-labelledby="h-proc">
+  <header><span class="eyebrow">The process</span><h2 id="h-proc">A funnel that keeps only what survives</h2>
+  <p class="lede">Brute force is ruled out, so ideas are cheap and tests must be cheaper. Every idea is tried first where the answer is already known, and it must get both sides right.</p></header>
+  <figure><div class="scroll"><svg id="proc" viewBox="0 0 1200 250" style="min-width:900px" role="img" aria-label="Funnel: an idea gets a row in the ledger, is tested on the solved 22 and 23 point cases, re-derived by a second program, ruled against a gate written in advance, and only then run at 40. Failures leave with the number that killed them."></svg></div>
+  <figcaption>The test bench is the pair 22 and 23. At 22 points ten graphs of the regular kind exist; at 23 none does; and counting leaves slack there, as it does at 40. A method must say "possible" at 22 and "impossible" at 23 without being handed the list of smaller graphs.</figcaption></figure>
+  <div class="tools">
+    <div class="tool"><b>Astra, four at once</b><span>GPT sessions started from this Mac. Each gets one bounded task and a gate. They read everything, write only in their own folder.</span></div>
+    <div class="tool"><b>Claude agents</b><span>The second programs: re-derive a result from the written mathematics before opening the first program's output. Also the paper scouts.</span></div>
+    <div class="tool"><b>Complete catalogues</b><span>Every graph at the solved rungs, on disk (477,142 at one of them). A method that "excludes" a graph that exists is wrong.</span></div>
+    <div class="tool"><b>Two proof checkers</b><span>Every machine refutation is replayed by two independent checkers before it counts.</span></div>
+    <div class="tool"><b>Gates written first</b><span>What counts as pass or fail is written and timestamped before the run, then ruled by its own words.</span></div>
+    <div class="tool"><b>The path ledger</b><span>A row before any work. Dead only with the number that killed it. Alive only after a second program.</span></div>
+    <div class="tool"><b>Claimbox</b><span>End of the funnel: a surviving lemma becomes a decidable object over a pinned catalogue.</span></div>
+    <div class="tool"><b>One Mac</b><span>8 cores, no rented machines. Any route ending in thousands of CPU-hours is out by rule.</span></div>
+  </div>
+</section>
+
+<!-- PATHS -->
+<section class="panel c12" aria-labelledby="h-paths">
+  <header><span class="eyebrow">The paths</span><h2 id="h-paths">Every route tried or queued, and what happened to it</h2></header>
+  <div class="filters" id="filters" role="group" aria-label="Filter paths by status"></div>
+  <div class="scroll"><table id="paths"><thead><tr><th>Id</th><th>The idea</th><th>Status</th><th>The number behind it</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<!-- GATES -->
+<section class="panel c7" aria-labelledby="h-tl">
+  <header><span class="eyebrow">Today, in UTC</span><h2 id="h-tl">Gates ruled on 24 and 25 November</h2></header>
+  <div class="tl" id="tl"></div>
+</section>
+<section class="panel c5" aria-labelledby="h-run">
+  <header><span class="eyebrow">In flight</span><h2 id="h-run">Five things running</h2>
+  <p class="lede">Two pairs work the same question separately, so each result arrives with its second program: <strong>the 246 patterns left</strong> and <strong>the rest of the codegree-3 window</strong>.</p></header>
+  <div id="run" class="read"></div>
+</section>
+
+<!-- IDEAS -->
+<section class="panel c12" aria-labelledby="h-ideas">
+  <header><span class="eyebrow">Where an idea could enter</span><h2 id="h-ideas">Six questions that are open in the plain sense</h2>
+  <p class="lede">None of these needs the machinery. Each is a place where a new way of looking would change what gets tried next.</p></header>
+  <div class="ideas">
+    <div class="idea"><h3>What flips between 22 and 23?</h3><p>Ten regular graphs exist on 22 points; none on 23. Every count we can write is satisfied on both sides. Something that is not a count separates them. At 18 points the answer is now known: the counts are forced to a single table, every local piece is a real graph, and still the pieces cannot be assembled into one graph, even ignoring the ten-set rule. At 23 they can be assembled, so something more breaks there. Name it, and it is the thing to carry up to 40.</p></div>
+    <div class="idea"><h3>What is the smallest statement about two views agreeing?</h3><p>Each point sees 30 others outside its neighbours. Two joined points share 22 of those. A proof must use that overlap. Listing all overlaps is the brute force we ruled out; a single inequality about them is what is missing.</p></div>
+    <div class="idea"><h3>Why do extreme graphs end 8, 5, 2, 0?</h3><p>In every solved case, a graph at the limit contains unconnected sets whose untouched parts are a fixed 8-point graph, then a 5-cycle, then a single line. All 477,142 graphs one rung down do. At 40 only the last step is proved. Counting cannot prove the next; it would need 45 points.</p></div>
+    <div class="idea"><h3>Is the regular case the whole problem?</h3><p>In every catalogue, whenever a graph exists, one with the maximum possible number of lines exists too. If that held at 40, a counterexample would exist only if a 9-regular one did, and half the map would vanish. No proof is known at any size.</p></div>
+    <div class="idea"><h3>Can rigid spots be forced, then chained?</h3><p>When a region is exactly as large as a Ramsey number allows, its shape is one of a handful. One such spot (three points fully joined to four) fixes seven whole neighbourhoods. The open question is whether such spots must exist, and whether two of them can coexist.</p></div>
+    <div class="idea"><h3>Where do the 13 extra lines go?</h3><p>Each untouched part has 13 more lines than the leanest possible graph of its size. The leanest graphs are understood, built from a few patterns. Nothing is known 13 lines above them. A description of what the surplus must look like would be new mathematics.</p></div>
+  </div>
+</section>
+
+<section class="panel c7" aria-labelledby="h-bet">
+  <header><span class="eyebrow">Bets</span><h2 id="h-bet">Three numbers, and what would move them</h2></header>
+  <div class="bets">
+    <div class="fact"><b class="num">≈ 80%</b><span>The answer is 40. Unmoved by today.</span></div>
+    <div class="fact"><b class="num">20–25%</b><span>Anyone gives a complete, checked answer within a year.</span></div>
+    <div class="fact"><b class="num">≈ 7%</b><span>This lane alone does. Up from 5% on two confirmed gates.</span></div>
+  </div>
+  <p class="note">Two gates passed and were confirmed today, and each hit a wall right after: the short arguments and the degree counts are used up. The lane's number moves up if something closes the 23-point regular case without the list below it, and again if the same thing bites at 40. It moves down if all three attempts on that case fail the same way.</p>
+</section>
+
+<section class="panel c5" aria-labelledby="h-gl">
+  <header><span class="eyebrow">Words</span><h2 id="h-gl">Glossary</h2></header>
+  <dl>
+    <dt>unconnected set</dt><dd>Points with no line between any two of them. Mathematicians say "independent set".</dd>
+    <dt>regular</dt><dd>Every point has the same number of neighbours. Here 9, giving 180 lines.</dd>
+    <dt>codegree</dt><dd>How many neighbours two unjoined points share.</dd>
+    <dt>outside graph</dt><dd>What is left after removing a point and all its neighbours.</dd>
+    <dt>gate</dt><dd>A pass/fail rule written before a run.</dd>
+    <dt>phantom</dt><dd>Something that passes a method's checks without being a real graph.</dd>
+  </dl>
+</section>
+
+</div>
+
+<footer>Private working view. Figures are the lane's records as of 01:56 UTC on 25 November 2026; items tagged "1 source" are reported once and not yet independently re-derived. Smaller values R(3,3) to R(3,9) are published results.</footer>
+</div>
+<div id="tip" hidden></div>
+
+<script>
+/*CORE*/
+function circulant(n,gens){const a=new Array(n).fill(0);for(let v=0;v<n;v++)for(const g of gens){const u=(v+g)%n,w=(v-g+n)%n;if(u!==v){a[v]|=1<<u;a[u]|=1<<v}if(w!==v){a[v]|=1<<w;a[w]|=1<<v}}return a}
+function triangles(a){const n=a.length,t=[];for(let i=0;i<n;i++)for(let j=i+1;j<n;j++)if(a[i]>>j&1){let c=a[i]&a[j];for(let k=j+1;k<n;k++)if(c>>k&1)t.push([i,j,k])}return t}
+function popcount(x){let c=0;while(x){x&=x-1;c++}return c}
+/* largest set with no line inside, restricted to the vertices in mask */
+function maxIndep(a,mask){let best=0,bestSet=0;const vs=[];for(let i=0;i<a.length;i++)if(mask>>i&1)vs.push(i);
+  (function rec(idx,cur,size,allowed){ if(size+popcount(allowed)<=best)return; if(!allowed){ if(size>best){best=size;bestSet=cur} return }
+    const v=31-Math.clz32(allowed&-allowed); rec(idx,cur|(1<<v),size+1,allowed&~(1<<v)&~a[v]); rec(idx,cur,size,allowed&~(1<<v)); })(0,0,0,mask);
+  return {size:best,set:bestSet}}
+/*END CORE*/
+
+const $=s=>document.querySelector(s), NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;return e}
+const tip=$('#tip');
+function bindTip(node,html){node.addEventListener('pointerenter',()=>{tip.innerHTML=html;tip.hidden=false});
+  node.addEventListener('pointermove',e=>{const w=tip.offsetWidth,h=tip.offsetHeight;let x=e.clientX+14,y=e.clientY+14;if(x+w>innerWidth-8)x=e.clientX-w-12;if(y+h>innerHeight-8)y=e.clientY-h-12;tip.style.left=Math.max(8,x)+'px';tip.style.top=Math.max(8,y)+'px'});
+  node.addEventListener('pointerleave',()=>{tip.hidden=true})}
+
+/* ---------- playground ---------- */
+const PRESETS=[
+ {label:'5 points, k = 3',n:5,k:3,gens:[1]},
+ {label:'6 points, k = 3',n:6,k:3,gens:[1],base:5},
+ {label:'8 points, k = 4',n:8,k:4,gens:[1,4]},
+ {label:'9 points, k = 4',n:9,k:4,gens:[1,4],base:8},
+ {label:'13 points, k = 5',n:13,k:5,gens:[1,5]},
+ {label:'14 points, k = 5',n:14,k:5,gens:[1,5],base:13}];
+let G={n:0,k:0,a:[],sel:-1,pi:4};
+function load(i){const p=PRESETS[i];let a;if(p.base){a=circulant(p.base,p.gens);a.push(0)}else a=circulant(p.n,p.gens);G={n:p.n,k:p.k,a,sel:-1,pi:i};draw()}
+function pos(i,n){const t=-Math.PI/2+2*Math.PI*i/n,R=150;return [190+R*Math.cos(t),190+R*Math.sin(t)]}
+function draw(){const svg=$('#pg');svg.replaceChildren();const {n,a,k,sel}=G;const all=(1<<n)-1;
+  const tris=triangles(a);const triEdge=new Set();tris.forEach(([i,j,l])=>{triEdge.add(i+'-'+j);triEdge.add(i+'-'+l);triEdge.add(j+'-'+l)});
+  const mi=maxIndep(a,all);
+  const nb=sel>=0?a[sel]:0, out=sel>=0?all&~a[sel]&~(1<<sel):0;
+  const mo=sel>=0?maxIndep(a,out):null;
+  for(let i=0;i<n;i++)for(let j=i+1;j<n;j++)if(a[i]>>j&1){const [x1,y1]=pos(i,n),[x2,y2]=pos(j,n);let c='pg-edge';
+    if(triEdge.has(i+'-'+j))c+=' tri';else if(sel>=0){if(i===sel||j===sel)c+=' sel';else if((out>>i&1)&&(out>>j&1))c+=' out';else c+=' dim'}
+    svg.appendChild(el('line',{x1,y1,x2,y2,class:c}))}
+  for(let i=0;i<n;i++){const [x,y]=pos(i,n);let c='pg-v';
+    if(sel>=0){if(i===sel)c+=' me';else if(nb>>i&1)c+=' nb';else c+=' outv'}else if(mi.set>>i&1)c+=' ind';
+    const v=el('circle',{cx:x,cy:y,r:i===sel?13:11,class:c,tabindex:0,role:'button','aria-label':'point '+(i+1)+(i===sel?', selected':'')});
+    const act=()=>{if(G.sel<0)G.sel=i;else if(G.sel===i)G.sel=-1;else{const s=G.sel;G.a[s]^=1<<i;G.a[i]^=1<<s}draw();const f=$('#pg').querySelectorAll('circle')[i];if(f&&document.activeElement!==f&&window.__kbd)f.focus()};
+    v.addEventListener('click',act);v.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();window.__kbd=true;act()}});
+    svg.appendChild(v);const [lx,ly]=[190+(x-190)*1.16,190+(y-190)*1.16];svg.appendChild(el('text',{x:lx,y:ly+4,'text-anchor':'middle',class:'pg-l'},String(i+1)))}
+  /* readout */
+  const okT=tris.length===0, okI=mi.size<k, r=$('#readout');
+  let h=`<div class="rule-row ${okT?'ok':'no'}"><span class="g">${okT?'✓':'✕'}</span><span><b>No triangle.</b> ${okT?'None in this drawing.':tris.length+' triangle'+(tris.length>1?'s':'')+' (thick lines). Remove a line.'}</span></div>
+  <div class="rule-row ${okI?'ok':'no'}"><span class="g">${okI?'✓':'✕'}</span><span><b>No ${k} unconnected points.</b> The largest unconnected set here has <b class="num">${mi.size}</b>${okI?'.':' (marked). Add a line inside it.'}</span></div>
+  <div class="rule-row ${okT&&okI?'ok':'no'}"><span class="g">${okT&&okI?'✓':'…'}</span><span>${okT&&okI?`<b>Both rules hold on ${n} points.</b> So the Ramsey number for k = ${k} is larger than ${n}.`:`<b>Not a solution yet.</b> ${PRESETS[G.pi].base?`You will not find one: ${n} is the Ramsey number for k = ${k}. Try, to feel why.`:''}`}</span></div>`;
+  if(sel>=0){const d=popcount(nb),o=popcount(out);
+    h+=`<div class="rule-row ok"><span class="g">◉</span><span><b>Standing on point ${sel+1}.</b> It has <b class="num">${d}</b> neighbour${d===1?'':'s'}, never joined to each other. It leaves <b class="num">${o}</b> point${o===1?'':'s'} untouched. Among those the largest unconnected set has <b class="num">${mo.size}</b>, and it must stay below <b class="num">${k-1}</b>, because point ${sel+1} could join it. Click another point to toggle a line, or this one again to step off.</span></div>`}
+  r.innerHTML=h;
+  document.querySelectorAll('#presets button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===G.pi)))}
+PRESETS.forEach((p,i)=>{const b=document.createElement('button');b.type='button';b.textContent=p.label;b.id='preset-'+i;b.addEventListener('click',()=>load(i));$('#presets').appendChild(b)});
+{const b=document.createElement('button');b.type='button';b.textContent='Remove all lines';b.id='preset-clear';b.addEventListener('click',()=>{G.a=G.a.map(()=>0);G.sel=-1;draw()});$('#presets').appendChild(b)}
+load(4);
+
+/* ---------- ladder ---------- */
+(function(){const svg=$('#ladder'),D=[[3,6,'Folklore; a short pencil argument.'],[4,9,'Proved by hand (1955).'],[5,14,'Proved by hand (1955).'],[6,18,'Proved by hand; a four-page proof exists.'],[7,23,'Proved by hand in 1968. The last rung with a proof a person can read.'],[8,28,'Computer, 1992: every candidate for the untouched part was listed.'],[9,36,'1982. Counting alone closes the hard case here.'],[10,40,'Open: 40 or 41. Lower bound 1989, upper bound 41 in 2025 after about three CPU-years.']];
+  const x0=44,x1=408,y0=258,top=24,max=44,bw=30,step=(x1-x0)/D.length;const y=v=>y0-(v/max)*(y0-top);
+  [0,10,20,30,40].forEach(v=>{svg.appendChild(el('line',{x1:x0,x2:x1,y1:y(v),y2:y(v),class:v?'gridl':'axis'}));svg.appendChild(el('text',{x:x0-8,y:y(v)+4,'text-anchor':'end'},String(v)))});
+  D.forEach(([k,v,why],i)=>{const cx=x0+step*i+step/2;
+    svg.appendChild(el('rect',{x:cx-bw/2,y:y(v),width:bw,height:y0-y(v),rx:3,class:'bar'}));
+    if(k===10)svg.appendChild(el('rect',{x:cx-bw/2,y:y(41),width:bw,height:y(40)-y(41)-2,class:'open'}));
+    svg.appendChild(el('text',{x:cx,y:y(k===10?41:v)-7,'text-anchor':'middle',class:'t-strong'},k===10?'40–41':String(v)));
+    svg.appendChild(el('text',{x:cx,y:y0+16,'text-anchor':'middle'},String(k)));
+    const hit=el('rect',{x:cx-step/2,y:top,width:step,height:y0-top,class:'hit'});bindTip(hit,`<b>R(3,${k}) = ${k===10?'40 or 41':v}</b><br>${why}`);svg.appendChild(hit)});
+  svg.appendChild(el('text',{x:(x0+x1)/2,y:y0+34,'text-anchor':'middle'},'k = size of the forbidden unconnected set'))})();
+
+/* ---------- doll ---------- */
+(function(){const svg=$('#doll'),D=[[0,40,'the whole graph','unknown: the question',true],[1,35,'R(3,9) = 36','1 graph'],[2,27,'R(3,8) = 28','477,142 graphs'],[3,22,'R(3,7) = 23','191 graphs'],[4,17,'R(3,6) = 18','7 graphs'],[5,13,'R(3,5) = 14','1 graph'],[6,8,'R(3,4) = 9','3 graphs'],[7,5,'R(3,3) = 6','1 graph: the 5-cycle'],[8,2,'two points','1 graph: a single line'],[9,0,'nothing left','every point is touched']];
+  const x0=96,xm=400,rowH=30,top=26;const w=v=>(v/40)*(xm-x0);
+  svg.appendChild(el('text',{x:x0-10,y:14,'text-anchor':'end'},'j chosen'));svg.appendChild(el('text',{x:x0,y:14},'most points left untouched'));svg.appendChild(el('text',{x:xm+78,y:14},'graphs at the cap'));
+  D.forEach(([j,v,by,cnt,open],i)=>{const yy=top+i*rowH;
+    svg.appendChild(el('text',{x:x0-10,y:yy+15,'text-anchor':'end',class:'t-ink'},String(j)));
+    if(v>0)svg.appendChild(el('rect',{x:x0,y:yy+3,width:w(v),height:18,rx:3,class:open?'open':'bar'}));
+    svg.appendChild(el('text',{x:x0+w(v)+8,y:yy+16,class:'t-strong'},String(v)));
+    svg.appendChild(el('text',{x:xm+78,y:yy+16,class:open?'t-acc':''},cnt));
+    const hit=el('rect',{x:0,y:yy,width:680,height:rowH,class:'hit'});bindTip(hit,j===0?'<b>All 40 points.</b> Whether any graph obeys both rules here is the open question.':`<b>${j} unconnected point${j>1?'s':''} chosen.</b><br>What they leave untouched must have no triangle and no ${10-j} unconnected points, so at most ${v} point${v===1?'':'s'}: one fewer than ${by}.<br>At exactly ${v}: ${cnt}.`);svg.appendChild(hit)});
+  svg.appendChild(el('line',{x1:x0,x2:x0,y1:top,y2:top+D.length*rowH,class:'axis'}))})();
+
+/* ---------- gap ---------- */
+(function(){const svg=$('#gap'),D=[['18','k = 6',0,'Closed by hand.'],['23','k = 7',1,'Closed by hand in 1968.'],['28','k = 8',5,'Closed in 1992 by listing every candidate untouched part.'],['36','k = 9',-5,'Counting alone: the untouched part would need 85 lines and gets 80.'],['42','k = 10',4,'Closed in 2013: 2,104,151 candidates glued, about 50 CPU-years.'],['40','k = 10',13,'Open. The untouched part has 99 lines; the minimum is 86.']];
+  const x0=46,x1=508,top=22,bot=232,min=-6,max=14,bw=40,step=(x1-x0)/D.length;const y=v=>bot-((v-min)/(max-min))*(bot-top);
+  [-5,0,5,10].forEach(v=>{svg.appendChild(el('line',{x1:x0,x2:x1,y1:y(v),y2:y(v),class:v===0?'axis':'gridl'}));svg.appendChild(el('text',{x:x0-8,y:y(v)+4,'text-anchor':'end'},(v>0?'+':'')+v))});
+  D.forEach(([n,k,v,why],i)=>{const cx=x0+step*i+step/2,open=n==='40';
+    const yy=Math.min(y(v),y(0)),hh=Math.max(2,Math.abs(y(v)-y(0)));
+    svg.appendChild(el('rect',{x:cx-bw/2,y:yy,width:bw,height:hh,rx:3,class:open?'bar':(v<0?'bar-neg':'bar-mute')}));
+    svg.appendChild(el('text',{x:cx,y:v<0?y(v)+15:y(v)-7,'text-anchor':'middle',class:'t-strong'},(v>0?'+':'')+v));
+    svg.appendChild(el('text',{x:cx,y:bot+18,'text-anchor':'middle',class:'t-ink'},n+' points'));
+    svg.appendChild(el('text',{x:cx,y:bot+34,'text-anchor':'middle'},open?'open':(v<0?'by counting':'closed')));
+    const hit=el('rect',{x:cx-step/2,y:top,width:step,height:bot-top,class:'hit'});bindTip(hit,`<b>${n} points, ${k}</b><br>Slack ${(v>0?'+':'')+v}. ${why}`);svg.appendChild(hit)})})();
+
+/* ---------- reach ---------- */
+(function(){const svg=$('#reach'),x0=30,x1=500,ay=150,lo=38,hi=47;const x=v=>x0+((v-lo)/(hi-lo))*(x1-x0);
+  svg.appendChild(el('rect',{x:x(39.5),y:28,width:x(41.5)-x(39.5),height:ay-28,class:'zone'}));
+  svg.appendChild(el('text',{x:x(40.5),y:22,'text-anchor':'middle',class:'t-acc'},'the answer: 40 or 41'));
+  svg.appendChild(el('line',{x1:x0,x2:x1,y1:ay,y2:ay,class:'axis'}));
+  for(let v=lo;v<=hi;v++){svg.appendChild(el('line',{x1:x(v),x2:x(v),y1:ay,y2:ay+5,class:'axis'}));svg.appendChild(el('text',{x:x(v),y:ay+19,'text-anchor':'middle'},String(v)))}
+  const M=[[43,'One-level line counting (the classical method)'],[43,'Line counts at every nested level'],[43,'Counts of unconnected sets inside the untouched part'],[43,'The same with shared whole-number profiles'],[43,'Spectral moments plus line counting'],[43,'Split by whether a rigid 8-point core exists'],[43,'Subsets of one largest unconnected set'],[43,'Unions of neighbourhood traces'],[43,'Subsets of one neighbourhood'],[43,'Deletion test without the full list one point below'],[45,'Counts of unconnected sets with domination'],[45,'Spectral moments alone'],[46,'A degree-based weight function fitted to the small cases']];
+  const stack={};M.forEach(([v,name])=>{const i=stack[v]=(stack[v]||0)+1;const c=el('circle',{cx:x(v),cy:ay-14-(i-1)*11.5,r:5,class:'dot'});bindTip(c,`<b>Reach ${v}</b><br>${name}`);svg.appendChild(c)});
+  svg.appendChild(el('text',{x:x(43)+12,y:ay-66,class:'t-strong'},'10 methods'));svg.appendChild(el('text',{x:x(45)+10,y:ay-22},'2'));svg.appendChild(el('text',{x:x(46)+10,y:ay-11},'1'));
+  [[42,'2013','Published bound 42 (2013): about 50 CPU-years and a list of part of the level below.'],[41,'2025','Published bound 41 (2025): about 3 CPU-years and a larger such list.']].forEach(([v,yr,why])=>{const s=7,cx=x(v),cy=ay+44;const d=el('polygon',{points:`${cx},${cy-s} ${cx+s},${cy} ${cx},${cy+s} ${cx-s},${cy}`,class:'dia'});bindTip(d,why);svg.appendChild(d);svg.appendChild(el('text',{x:cx,y:cy+24,'text-anchor':'middle',class:'t-ink'},yr))});
+  svg.appendChild(el('text',{x:x(43)+4,y:ay+48},'published, with a census'));
+  svg.appendChild(el('text',{x:x0,y:ay+92},'smallest number of points the method proves impossible →'))})();
+
+/* ---------- process ---------- */
+(function(){const svg=$('#proc');const defs=el('defs',{});const mk=(id,c)=>{const m=el('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'});m.appendChild(el('path',{d:'M0,0 L10,5 L0,10 z',class:c}));defs.appendChild(m)};mk('ah','arrowhead');mk('ahd','arrowhead-dead');svg.appendChild(defs);
+  const B=[['An idea','from a paper, an agent,','or from you'],['A row in the ledger','written before','any work starts'],['The test bench','22 points: possible','23 points: impossible'],['A second program','written separately,','same answer'],['The gate','ruled by the words','written before the run'],['Run at 40','only what passed','everything above']];
+  const w=172,h=78,gap=28,y=38;B.forEach((b,i)=>{const x=10+i*(w+gap);svg.appendChild(el('rect',{x,y,width:w,height:h,rx:5,class:i===2||i===5?'box-key':'box'}));
+    svg.appendChild(el('text',{x:x+w/2,y:y+26,'text-anchor':'middle',class:'t-strong','font-size':13},b[0]));svg.appendChild(el('text',{x:x+w/2,y:y+46,'text-anchor':'middle'},b[1]));svg.appendChild(el('text',{x:x+w/2,y:y+62,'text-anchor':'middle'},b[2]));
+    if(i<B.length-1)svg.appendChild(el('line',{x1:x+w+3,x2:x+w+gap-4,y1:y+h/2,y2:y+h/2,class:'flow','marker-end':'url(#ah)'}));
+    if(i>=2&&i<=4){svg.appendChild(el('line',{x1:x+w/2,x2:x+w/2,y1:y+h+3,y2:y+h+52,class:'flow-dead','marker-end':'url(#ahd)'}))}});
+  const dx=10+2*(w+gap),dw=3*w+2*gap;svg.appendChild(el('rect',{x:dx,y:y+h+58,width:dw,height:44,rx:5,class:'box'}));
+  svg.appendChild(el('text',{x:dx+dw/2,y:y+h+78,'text-anchor':'middle',class:'t-bad','font-size':13},'Dead, with the number that killed it'));
+  svg.appendChild(el('text',{x:dx+dw/2,y:y+h+94,'text-anchor':'middle'},'kept in the ledger so nobody pays for it twice'))})();
+
+/* ---------- case map ---------- */
+const CH={dead:['dead','✕','dead'],pass:['pass','✓','closed'],run:['run','◐','running'],part:['part','◑','reduced, open'],open:['','○','open'],todo:['','○','not started']};
+function chip(k,label){const c=CH[k];return `<span class="chip ${c[0]}"><i>${c[1]}</i>${label||c[2]}</span>`}
+$('#strata').innerHTML=[
+ ['Not regular','Some point has 6, 7 or 8 neighbours.','<b>273</b> of 519 degree patterns excluded. New tonight: at most two points can have 6 neighbours, proved with no published floor and checked by a second program. <b>246</b> left.',273/519,'part',null,'2 sources'],
+ ['Codegree 3','Regular; no two unjoined points share more than 3.','Covered by <b>7</b> configurations; <b>655</b> of 3,631 cases refuted. New: every graph here with a symmetry of four kinds is one rigid graph, and it has ten unconnected points (two programs). The other symmetries and the graphs with none are running.',655/3631,'part',null,'cover: 2 sources'],
+ ['Codegree 4','Regular; largest shared neighbourhood is 4.','<b>69</b> configurations, <b>9</b> closed by short arguments. 60 open. Rigid regions close 188 deeper cases but no whole configuration.',9/69,'part',null,'2 sources'],
+ ['Codegree 5','Regular; largest is 5.','<b>1,957</b> configurations before any exclusion. In scope of a running task.',0,'open','open','1 source'],
+ ['Codegree 6','Regular; largest is 6.','One branch excluded by computation (<b>23,409</b> cores). Six more branches open.',1/7,'part','1 of 7 branches','ours'],
+ ['Codegree 7','Regular; largest is 7.','Excluded: <b>977,008</b> cases, every one refuted. Computed twice, first by another group.',1,'pass','excluded','2 sources']
+].map(([k,what,d,frac,st,lab,src])=>`<div class="st"><span class="k">${k}</span><span class="d muted">${what}</span><span class="d">${d}</span><div class="meter" role="img" aria-label="${Math.round(frac*100)} percent closed"><i style="width:${Math.round(frac*100)}%"></i></div><span>${chip(st,lab)} <span class="src">${src}</span></span></div>`).join('')+
+ `<div class="st wide"><span class="d"><b>Also settled:</b> a point with 4 or 5 neighbours is impossible; codegree above 7 is impossible; codegree 1 and 2 are excluded (the second conditionally).</span><span class="d"><b>Dead as a way to empty the boxes:</b> finishing about 4,400 sub-cases one by one. One of them was not closed after 13.9 CPU-hours.</span></div>`;
+
+/* ---------- paths ---------- */
+const P=[
+['F1','Split into about 4,400 cases and finish each by search','dead','0 of 10 closed in 2 CPU-hours each; one case still open after 13.9 CPU-hours. More than 60,000 CPU-hours in all.'],
+['F2','Count lines in the untouched part (the classical route)','dead','Needs minimums of 100 and 97. The true minimums are 86 and 95.'],
+['F3','List every candidate for the shared part of two points, then glue','dead','More than 70,000 CPU-hours for the next two layers; no finite price beyond.'],
+['F4','Density methods (flag algebras)','dead','Their published bound for this number is 54.'],
+['N2','Count at every nested level, not just the first','dead','Reach 43. A solution even survives at 42, which is known impossible.'],
+['N3','A weight on each point fitted to the solved cases','dead','Reach 46.'],
+['N4','Count unconnected sets of every size','dead','Reach 45.'],
+['N5','Spectral bounds at fixed size','dead','Reach 45; 43 with line counting added.'],
+['N14','Filter one stratum’s candidates with all conditions at once','dead','The filters keep 82% one rung down; about 10^14 candidates would pass at 40.'],
+['N15','5-cycle counts must be even and divisible by 5','dead','The surviving counting solution passes all three checks.'],
+['N20','Equations tying the 60 open configurations together','dead','Solvable in whole numbers; any one configuration can be the only one present.'],
+['F5','Codegree 3: reduce to seven configurations, then close them','part','Cover confirmed twice. 655 of 3,631 cases refuted, 0 of 7 closed after five CPU-hours. Four of the seven occur in a real 40-point graph, so local rules cannot close them. Not pursued in this form.'],
+['F6','Codegree 4: reduce to configurations, close by short arguments','pass','Gate passed and confirmed: 69 configurations, 9 closed. Short arguments now used up; 60 open.'],
+['N13','The rigid ending 8, 5, 2, 0 as a starting point','part','True in every catalogue; first step proved at 40; next step not provable by counting. As a root for search: nothing closes at 28 points, so not pursued.'],
+['N6','Force a rigid 8-point core to exist','part','Forced at 17 and 22 points from the lists below; at 40 both outcomes survive.'],
+['F7','Not regular: exclude degree patterns by joint counting','pass','Two gates passed, each re-derived by a second program: 273 of 519 patterns excluded. The new step: three points with 6 neighbours cannot coexist, using only R(3,7), R(3,8) and the published list of 477,142 graphs. 246 left; two attacks on them running.'],
+['F8','A lemma on two low-degree points (P66)','pass','Computed twice at every stage: the second sweep finished all 477,142 cases with no disagreement. Its conclusion now also follows by a separate route (F7).'],
+['N7','Proof mining: why do the finished exclusions work?','dead','No lemma. Small reasons were already known screens; each large refutation rests on about 170 unconnected sets spread over the whole core, never on a small part.'],
+['N22','Can the local rules alone be satisfied on 40 points?','pass','Yes, for both strata. Real 40-point graphs exist with 9 neighbours each, no triangle and shared neighbours between 1 and 3 (or 4). They still contain ten unconnected points. So only the ten-set rule can close those strata.'],
+['N27','Classify the graphs that obey the local rules with at most 3 shared neighbours','run','Proved by two programs with checked refutations: every such graph with a symmetry of cycle type 10^4, 5^8, 8^5 or 4^10 is one graph, which has ten unconnected points. Running: every other symmetry (two separate programs), then the graphs with no symmetry. If the answer is that one graph, codegree 3 is excluded.'],
+['N10','Let search prove small inequalities, let counting add them up','dead','Closes 18 and 23 points, but no faster than plain search (11 against 9 CPU-seconds). At 28 neither closes. The inequalities counting needs are the ones that are false one point below, and proving those costs the whole problem.'],
+['N26','The one-below filter','dead','Run on both pair-counting systems: fed only what occurs in real 39-point graphs, each still has a solution. So both are dead as proofs.'],
+['N12','Higher counting identities in an exact program','dead','With the full list below they close 18 and 23 points. At 28 and 40 a blend of seven real graphs satisfies them all.'],
+['N18','The cover test on one untouched part','part','Found twice independently. The nine neighbours must cover the untouched part in an exact weighted pattern. Two programs agree: no candidate tried at 40 passes it, 9,182 of them in exact arithmetic. The closest misses by about 1/25. No single formula explains the failures, but one fixed pattern already rules out 134 candidates at once. Tested: a list of 9,084 patterns covers only 47% of 4,160 fresh candidates, all of which still fail. Strong evidence, not a proof route in this form.'],
+['N23','At most 9 partners sharing exactly one neighbour','dead','True, and it broke the old solutions at 23 points, but new ones took their place. It does not separate 22 from 23.'],
+['N21','The test bench: keep 22 possible, make 23 impossible','part','At 18 points solved: the local rules alone cannot be satisfied. At 23 they can, so more is needed there. 1 source.'],
+['G11','Use the exact shape of regions that are as large as allowed','part','Codegree 4: 188 more deeper cases closed, no whole configuration (0 of 60). It gave the next rung of the rigid ending at this stratum (N28). Fewer close higher up.'],
+['N28','Codegree 4: start from the forced rigid region','run','Every point of a most-shared pair sits in 7 unconnected points whose outside is two separate lines. Being audited; then the other 15 points are placed. 1 source.'],
+['N19','No candidate folds onto a smaller triangle-free graph','pass','Proved in five lines and confirmed by a second program: a graph that folds has at most 38 points. So a 40-point candidate cannot be a blown-up copy of anything smaller.'],
+['N24','A charge on each line that must average zero','dead','Audited. It rules out 18 and 23 points only by listing the level below. At 40, real pairs of views with charges +110, −10 and −130 exist, so no sign argument can work.'],
+['N25','Good points: how many can a 40-point graph have?','part','Measured, not a route. The ceiling is exactly 2 of 18 and 5 of 23 (two programs), but 11 of 28 exist, so the collapse is not a law. At 40 the search reached 9 good points in a regular graph and 21 without regularity. No argument caps the number.'],
+['N11','Sum-of-squares bound at fixed size','dead','Closes 18 points (level 7, an exact certificate checked twice) but not 23 at levels 7, 8 or 9 with every extra constraint. The level that can even state the 40-point problem is beyond this Mac. What fools it: a blend whose average degree no real graph can have.'],
+['N16','Show the regular case is the whole problem','todo','Holds in every catalogue. No proof at any size.'],
+['N17','Small real graphs with our proportions','pass','Found: 80 points with 18 neighbours each, and 120 with 27, on every commutative group of those sizes. Controls for any lemma that scales. The 80-point one is confirmed.']];
+const FL=[['all','All'],['run','Running'],['pass','Passed'],['part','Reduced, open'],['dead','Dead'],['todo','Not started']];let cur='all';
+function renderPaths(){const tb=$('#paths tbody');tb.innerHTML=P.filter(r=>cur==='all'||r[2]===cur||(cur==='todo'&&r[2]==='open')).map(r=>`<tr><td>${r[0]}</td><td><span class="w">${r[1]}</span></td><td>${chip(r[2],r[2]==='pass'?'gate passed':null)}</td><td class="why">${r[3]}</td></tr>`).join('');
+  document.querySelectorAll('#filters button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.f===cur)))}
+FL.forEach(([f,l])=>{const n=f==='all'?P.length:P.filter(r=>r[2]===f||(f==='todo'&&r[2]==='open')).length;const b=document.createElement('button');b.type='button';b.id='filter-'+f;b.dataset.f=f;b.textContent=`${l} · ${n}`;b.addEventListener('click',()=>{cur=f;renderPaths()});$('#filters').appendChild(b)});renderPaths();
+
+/* ---------- timeline + running ---------- */
+$('#tl').innerHTML=[
+['09:16','dead','gate failed','Ten sub-cases given to search, 2 CPU-hours each. None closed.'],
+['10:23','dead','route dead','Line counting cannot reach 40: needs 100, the minimum is 86.'],
+['10:52','dead','gate failed','No route with a finite price. Listing-and-gluing priced out.'],
+['11:51','part','failed, with a reduction','Codegree 3 reduced to seven configurations.'],
+['12:08','pass','confirmed','A second program re-derives the seven.'],
+['16:32','dead','gate failed','One sub-case still open after 13.9 CPU-hours. Stopped.'],
+['16:52','part','interrupted','Seven configurations: 655 of 3,631, none closed. Resumed 16:59.'],
+['17:30','dead','gate failed','The ladder: fourteen methods, none under 43. First phantom.'],
+['17:32','pass','gate passed','Codegree 4: 69 configurations, 9 closed by short arguments.'],
+['17:46','pass','confirmed','A second derivation gets the same 69 and the same 9.'],
+['17:48','dead','two paths dead','5-cycle parity and one-stratum filtering, each with its number.'],
+['17:59','dead','gate failed','Equations across the 60 open configurations force nothing. Second phantom.'],
+['18:10','pass','gate passed, audited','Not regular: 228 of 519 degree patterns excluded; 291 left.'],
+['18:26','dead','path dead','Proof mining: no lemma. Where a reason is small it is already known; where the cost is, the reason is not small.'],
+['18:36','pass','gate passed','The 18-point case dies without the ten-set rule: its pieces cannot be assembled into one graph.'],
+['19:00','pass','confirmed','A second ladder table agrees: counting from single views stops at 43. One lead survives it.'],
+['19:11','pass','gate passed','A two-view test rules out 18 and 23 points, but only by listing the level below. At 40 it finds a blend.'],
+['19:29','dead','audited: dead for 40','The two-view charge checks out as arithmetic and cannot reach 40. The folding lemma and the 80-point control are confirmed.'],
+['19:40','dead','path dead','Search-proved inequalities plus counting: no gain over plain search at 23 points, stuck at 28 and at 40.'],
+['20:09','part','undecided','Rigid ending as a search root: nothing finishes at 28 points. Not pursued.'],
+['20:15','part','gate failed','The cover test is neither dead nor uniform: 2,200 candidates at 40, none passes, margin thin.'],
+['20:38','pass','gate passed','First real 40-point controls: the local rules alone can be met. Only the ten-set rule can close those strata.'],
+['20:56','dead','gate failed','Codegree 3: none of the seven configurations closed. Not pursued in this form.'],
+['21:08','pass','second program agrees','The cover test: 9,182 candidates at 40, none passes, in exact arithmetic. Still no single formula.'],
+['21:30','part','gate failed, with a lead','Inside the local rules with at most 3 shared neighbours, the graphs found are all one rigid graph.'],
+['18:06','dead','gate failed','Test bench: three ingredients added, 23 points still looks possible. Only a parity check separates.'],
+['21:54','pass','computed twice','The P66 sweep: all 477,142 cases, second time, no disagreement.'],
+['21:59','dead','gate failed','A faster hunt for a candidate passing the cover test: none found.'],
+['23:12','pass','gate passed','Not regular: three points with 6 neighbours are impossible. 273 of 519 patterns excluded.'],
+['23:12','dead','gate failed','Rigid regions at codegree 4: deeper cases close, whole configurations do not.'],
+['23:12','dead','gate failed','A direct classification of the codegree-3 window: one graph keeps coming back, the search does not finish.'],
+['01:01','pass','gate passed','The window, by symmetry: four kinds of symmetry give the one rigid graph or nothing.'],
+['01:09','dead','gate failed','The cover test does not reduce to a short list of causes.'],
+['01:50','pass','two confirmed','Second programs agree on both of tonight\'s passes: 35 of 35 patterns, 4 of 4 symmetries.'],
+['01:56','dead','gate failed','Sum of squares at fixed size: 18 points close, 23 do not, even three levels up.']
+].map(([t,k,l,d])=>`<div class="ev"><time>${t}</time><div>${chip(k,l)}<span>${d}</span></div></div>`).join('');
+$('#run').innerHTML=[
+['Astra','Not regular: the 246 patterns left, by making views agree'],['Claude','The 35 patterns with two 6-neighbour points, separately from Astra'],
+['Astra','The window: every remaining kind of symmetry'],['Claude','The window: the same, separately, then the graphs with no symmetry'],
+['Claude','Codegree 4: audit the forced rigid region, then place the other 15 points']
+].map(([w,d])=>`<div class="rule-row"><span class="g" style="color:var(--accent)">◐</span><span><b>${w}.</b> ${d}</span></div>`).join('');
+</script>

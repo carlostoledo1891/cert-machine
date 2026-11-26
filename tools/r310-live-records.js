@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* r310-live-records.js — the records of /r310/ (corpus/r310-live/), each written from the lane's own files.
 
-   The page /r310/ is the live page of the R(3,10) lane: the case map, the boxes (two opened, one sealed), the
+   The page /r310/ is the live page of the R(3,10) lane: the case map, the boxes (three, all opened), the
    corrections ledger, the machine at work and the replay of one recorded run. Its builder (tools/build-r310-live.js)
    reads only corpus/r310-live/. This file writes those records from the sources and refuses when a source no longer
    says what a record states: every curated sentence carries a needle that must occur in its source (whitespace,
@@ -11,12 +11,22 @@
    records can be regenerated only where that folder is; a reader of the public repository has the records, the
    builder and this file.
 
-   THE SEALED BOX. One case is worked on under seal. Its record holds its name, its Bitcoin anchors and a progress
-   percentage, rounded down, and nothing else; its corrections are one line each with a date and no detail. This
-   file never names that work's files: it finds the running ledger and its registration by their place in the
-   folder, and the sealed corrections by a needle searched over the control room's notes.
+   THE SEAL, OPENED (2026-11-25). Until the night of 25 November 2026 one case (Case R(6)) was worked on under seal:
+   its record held its name, its Bitcoin anchors and a progress percentage, and its corrections were one line each,
+   cited by the hash of a line of the control room's notes. On the operator's word that night ("Everything, seal
+   opened", a dialog answer with the options spelled out) the lane's privacy ended: box 3 is written here in full from
+   its files, its corrections carry their sources and their words, and its anchors are kept as they were shown.
 
-   usage: node tools/r310-live-records.js            write cases, boxes, corrections, machine, replay
+   THE WHOLE PROCESS (also from 2026-11-25): process.json holds every round, line and gate of the attack on 40 (the
+   gate rows themselves live in tools/r310-live-gates.js, each with its needles), the running sessions read from their
+   own run files, and the earlier rounds of the control room's log; paths.json is the path ledger (round5/PATHS.md)
+   parsed row by row; fieldmap.json is the explanatory content of the lane's private field map, rebuilt from its
+   source with a needle per sentence and number. The cited files are copied into corpus/r310-live/sources/ after a
+   redaction pass (sources/MANIFEST.json says what was withheld and why; third-party texts and big data are named
+   with their sha256 instead).
+
+   usage: node tools/r310-live-records.js            write cases, boxes, corrections, machine, replay, process,
+                                                      paths, fieldmap, and the sources folder
           node tools/r310-live-records.js --check    recompute them and refuse on any difference with corpus/r310-live/
           node tools/r310-live-records.js --log "what changed"   append a dated entry to page-log.json with the state
                                                                                                                   MIT */
@@ -44,28 +54,6 @@ function cite(rel, needle) {
   if (!SRC.has(rel)) SRC.set(rel, sha(fs.readFileSync(path.join(LANE, rel))).slice(0, 12));
   return rel;
 }
-/* the control room's notes and its log, searched as one text (the sealed corrections cite by needle only) */
-function noteFiles() {
-  const out = [];
-  (function walk(d) {
-    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
-      const p = path.join(d, e.name);
-      if (e.isDirectory()) walk(p); else if (e.name.endsWith('.md')) out.push(p);
-    }
-  })(path.join(LANE, 'control-room-checks'));
-  return out.concat([path.join(LANE, 'control-room-2026-11-22.md')]);
-}
-/* a sealed correction cites its source line by the first 16 hex digits of the sha256 of that line (whitespace, bold
-   and code marks normalised), so this public file quotes nothing of the sealed work and still refuses when the line
-   is gone */
-let LINES = null;
-function inNotes(lineHash) {
-  if (!LINES) {
-    LINES = new Set();
-    for (const p of noteFiles()) for (const l of fs.readFileSync(p, 'utf8').split('\n')) LINES.add(sha(norm(l).trim()).slice(0, 16));
-  }
-  need(/^[0-9a-f]{16}$/.test(lineHash) && LINES.has(lineHash), 'no line of the control room’s notes has the hash ' + lineHash);
-}
 const LOG = 'control-room-2026-11-22.md';
 const PRIOR = 'prior-art-2026-11-21.md';
 const CHEN2 = 'audit/chen-23678020/chen-v2.txt';
@@ -87,12 +75,25 @@ function citeRepo(rel, needle) {
 const REVEAL2 = 'reveal-draft/REVEAL-v2-2026-11-23.md';   /* the reveal's source of truth (written 04:25–05:15 UTC 23 Nov) */
 const RECHECK = 'reveal-draft/PRIOR-ART-RECHECK-2026-11-23.md';
 const GR13 = 'audit/gr2013/gr2013.txt';   /* Goedgebeur–Radziszowski 2013, as read (arXiv 1210.5826) */
+/* box 3, opened 2026-11-25: the reveal package of 24 Nov (its source of truth) and the run's own files */
+const R6 = 'reveal-draft/r6-2026-11-24/REVEAL-R6.md';
+const R6SPEC = 'reveal-draft/r6-2026-11-24/PAGE-SPEC-R6.md';
+const R6FIN = 'control-room-checks/r6-full/pod-final-resumed/';
+const R6PRE = 'control-room-checks/r6-full/R6-FULL-PREREG.md';
+const JOINW = 'control-room-checks/emit-join-final/WORKLOG.md';
+const HALLD = 'control-room-checks/HALL-DISAGREEMENT-2026-11-23.md';
+/* the attack on 40 (rounds 1–5, 23–25 Nov) and the field map */
+const LEDG = 'round1/LEDGER.md';
+const PATHSF = 'round5/PATHS.md';
+const FMAP = 'round5/dashboard/r310-field-map.html';
+const GATES = require(path.join(__dirname, 'r310-live-gates.js'));
 
 /* ------------------------------------------------------------------ the case map */
 function cases() {
   const lit = (who, what, where, when, refereed, rel, needle) => ({ who, what, where, when, refereed, kind: 'literature', src: cite(rel, needle) });
   const chenReport = (what, needle) => ({ who: 'Zhiyang Chen', what, where: 'progress report, version 2 (Zenodo 10.5281/zenodo.23678020)', when: '2026-10-26', refereed: false, kind: 'chen-report', src: cite(CHEN2, needle) });
   const chenRun = (what, rel, needle) => ({ who: 'Zhiyang Chen’s AI run r310_ralph', what, where: 'github.com/jeffchen006/Ramsey-R3-10', when: '2026-11-21 to 2026-11-22', refereed: false, kind: 'chen-run', src: cite(rel, needle) });
+  const late = (c) => Object.assign(c, { when: '2026-11-24 to 2026-11-25', where: 'the process below' });
   const ours = (what, rel, needle, box) => ({ who: 'this lane', what, where: box ? 'box ' + box + ' below' : 'this page', when: '2026-11-21 to 2026-11-23', refereed: false, kind: 'ours', box: box || null, src: cite(rel, needle) });
   cite(CHEN2, 'Version 2, 26 October 2026');
   const N = [
@@ -136,7 +137,8 @@ function cases() {
       credits: [
         chenReport('524 distributions open', '524 with 162 ≤ e ≤ 179'),
         chenRun('238 still open at the end of the run (from 524)', RALPH, '| Near-regular MTF degree distributions N(e), 162 <= e <= 179 | 524 open | 238 open |'),
-        lit('Robert McCrea', 'one slice closed: no degree-7 vertex with e(G − N[v]) = 104', 'Zenodo 10.5281/zenodo.23928054', '2026-11-03', false, PRIOR, 'McCrea, Zenodo 10.5281/zenodo.23928054 (3 Nov 2026): no degree-7 vertex with e(G−N[v]) = 104')] },
+        lit('Robert McCrea', 'one slice closed: no degree-7 vertex with e(G − N[v]) = 104', 'Zenodo 10.5281/zenodo.23928054', '2026-11-03', false, PRIOR, 'McCrea, Zenodo 10.5281/zenodo.23928054 (3 Nov 2026): no degree-7 vertex with e(G−N[v]) = 104'),
+        late(ours('283 of the 519 distributions left after five integer rays are excluded at published edge floors, every one by two programs; 236 survive', LEDG, '283 of 519 excluded, every one of the ten beyond G16\'s 273 now re-derived by a second program'))] },
     { id: 'caseR', parent: 'mtf', label: 'Case R: 9-regular', sub: 'split by the largest codegree', state: 'open',
       note: 'Every vertex has degree 9. Chen splits it by c*, the largest number of common neighbours of two non-adjacent vertices, 3 ≤ c* ≤ 7.',
       credits: [chenReport('the split by c* = 3, …, 7 (Lemma Mc)', '3 ≤ c∗ ≤ 7')] },
@@ -146,34 +148,38 @@ function cases() {
         chenReport('open: 365 of 464 cubes certified, 99 open', 'R(7) is not closed.'),
         chenRun('excluded first: claim C-004 over all 977,008 admissible package pairs, added in round 1 (21 Nov, 16:50:52 UTC) and confirmed in round 2 (17:49:01 UTC) as a certificate with a custom trace; a hand reduction, not Lean', CLAIMS, '| C-004 | C | No R(7) extension for any of the four 27/85 seeds over all 977,008 admissible package pairs, no cutoffs.'),
         ours('a second computation, with our own reduction and code (it uses Chen’s Lemma R7): LRAT proofs for all 977,008 configurations, two checkers, the encoding’s soundness in Lean, under six premises (box 2)', PROD, 'All 977,008 configurations ended CERTIFIED-UNSAT.', 2)] },
-    { id: 'c6', parent: 'caseR', label: 'Case R(6): codegree six', sub: 'running, sealed', state: 'sealed', box: 3,
-      note: 'Worked on now, under seal: only its name, its Bitcoin anchors and its progress are shown (box 3).',
+    { id: 'c6', parent: 'caseR', label: 'Case R(6): codegree six', sub: 'one branch computed; open', state: 'open', box: 3,
+      note: 'Split by the number of cross-edges of a marked pair, three to nine (Chen’s Lemma F). The three-edge branch is computed here under six premises (box 3). Of the four-edge branch only a 20-core cost pilot ran; five to nine cross-edges were not run. The case is not closed.',
       credits: [
         chenReport('open', 'Sub-cases R(c∗ ), c∗ = 3..7'),
-        chenRun('partial results; not closed', RALPH, 'many split cases closed'),
-        ours('a sealed box, running (box 3)', LOG, 'his decisions (dialog) on a live R(3,10) page: sealed-live', 3)] },
+        chenRun('partial results; not closed; in its final commit, an idea-scout note on the three-edge branch with 16 pilot inputs and “no production certificate”', R6, 'There is no production certificate'),
+        ours('the three-edge branch: all 23,409 cores excluded under six premises, with a second program for the counting only (box 3); the case is not closed', R6, 'It does not decide R(3,10), and it does not close Case R(6).', 3)] },
     { id: 'r35', parent: 'caseR', label: 'Cases R(3), R(4), R(5)', sub: 'open', state: 'open',
       note: 'Codegree at most five.',
       credits: [
         chenReport('open', 'Sub-cases R(c∗ ), c∗ = 3..7'),
-        chenRun('many marked sub-cases excluded; not closed', RALPH, '| Case R, R(3)..R(5) | open | many marked sub-cases excluded; not closed |')] },
+        chenRun('many marked sub-cases excluded; not closed', RALPH, '| Case R, R(3)..R(5) | open | many marked sub-cases excluded; not closed |'),
+        late(ours('codegree 3: covered by seven rooted configurations (two programs), none closed; every graph of its local window found with a symmetry of order 5 or a fixed-point-free involution is one graph, which has an independent 10-set', LEDG, 'Two checks now stand behind the cover (Astra; a Claude agent). All seven profiles are open.')),
+        late(ours('codegree 4: 69 six-row profiles, 9 closed by short arguments (two derivations), 60 open', LEDG, 'contains one of 60 six-row cases with one of 493 words'))] },
     { id: 'sym', parent: 'root', label: 'Graphs with a symmetry', sub: 'partly closed', state: 'open', route: true,
       note: 'Another route, beside the cover: graphs with a given automorphism.',
       credits: [
         chenReport('not a Cayley graph (all 14 groups of order 40, certified); several prime-order automorphism cases closed, others open', 'G is not a Cayley graph (all 14 groups of order 40, certified)'),
-        chenRun('more order-2 cases and mixed cores closed; a few cores open', RALPH, '(5,5) cert; many order-2 cases and mixed cores closed; a few cores open')] },
+        chenRun('more order-2 cases and mixed cores closed; a few cores open', RALPH, '(5,5) cert; many order-2 cases and mixed cores closed; a few cores open'),
+        late(ours('lane 41: no Cayley graph on any of the 14 groups of order 40 is a (3,10;40)-graph (LRAT, two checkers; Chen’s repository had it first, unrefereed)', LEDG, 'no Cayley graph on any of the 14 groups of order 40 (C40, i.e. circulants, included), any degree, is a'))] },
     { id: 'build', parent: 'root', label: 'Building one', sub: 'none found', state: 'open', route: true,
       note: 'The other side of the question: a 40-vertex graph found would make R(3,10) = 41.',
       credits: [
         chenRun('none found; the best 40-vertex graph with valid degrees has 44 independent 10-sets', RALPH, 'none; best degree-valid 40-graph has 44 independent 10-sets'),
-        lit('Google DeepMind (AlphaEvolve)', 'matched 39 vertices, no more', 'arXiv 2603.09172', '2026', false, PRIOR, 'AlphaEvolve (Google DeepMind), arXiv 2603.09172: for R(3,10) it only matched 39 vertices')] }
+        lit('Google DeepMind (AlphaEvolve)', 'matched 39 vertices, no more', 'arXiv 2603.09172', '2026', false, PRIOR, 'AlphaEvolve (Google DeepMind), arXiv 2603.09172: for R(3,10) it only matched 39 vertices'),
+        late(ours('lane 41: none found; none of the 258 distinct 39-vertex graphs on disk extends by one vertex (LRAT, two checkers)', LEDG, 'none of the 258 distinct 39-vertex Ramsey graphs on disk (165–172 edges) extends by one vertex'))] }
   ];
   /* the map's own two lines per case: a short name and its state in words, short enough for a box of the map */
   const MAP = { root: ['A (3,10;40)-graph', 'triangle-free, α ≤ 9'], deg4: ['Degree 4 or less', 'impossible'],
     c35: ['Contains an induced C35', 'impossible: Theorem C35'], mtf: ['Maximal triangle-free', 'then degrees 6 to 9'],
     s8: ['S8: a degree-8 vertex', 'closed by enumeration'], near: ['Near-regular N(e)', '238 distributions open'],
     caseR: ['Case R: 9-regular', 'split by codegree c*'], r7: ['Case R(7): codegree seven', 'closed first by Chen’s run'],
-    c6: ['Case R(6): codegree six', 'running, sealed'], r35: ['Cases R(3) to R(5)', 'open'],
+    c6: ['Case R(6): codegree six', 'one branch computed; open'], r35: ['Cases R(3) to R(5)', 'open'],
     sym: ['Graphs with a symmetry', 'partly closed'], build: ['Building one', 'none found'] };
   need(has(read(RALPH), '| 524 open | **238 open** |'), 'the map says 238 distributions open; Chen’s final report does not');
   for (const n of N) { need(MAP[n.id], 'case ' + n.id + ' has no map label'); n.map = MAP[n.id]; }
@@ -192,8 +198,8 @@ function cases() {
   const confAt = new Date(conf[1]).toISOString().replace('.000', '');
   need(confAt === '2026-11-21T17:49:01Z', 'C-004’s confirmation time is ' + confAt);
   return {
-    what: 'The (3,10;40) question as a tree of cases, as read from the sources between 2026-11-21 and 2026-11-23: each case with its state and who decided it. A map of the known reduction, not a proof that the cases are exhaustive. States: decided, sealed (running under seal), open, refused.',
-    read: '2026-11-23',
+    what: 'The (3,10;40) question as a tree of cases, as read from the sources between 2026-11-21 and 2026-11-25: each case with its state and who decided it. A map of the known reduction, not a proof that the cases are exhaustive. States: decided, open, refused (sealed is no longer used: the seal was opened on 25 Nov 2026).',
+    read: '2026-11-25',
     states: STATES,
     chen_c004: { claim: 'C-004', round: 1, commit: c004[0], at, confirmed: { round: 2, commit: conf[0], at: confAt }, pairs: 977008, method: 'custom trace; hand reduction, not Lean' },
     nodes: N
@@ -201,31 +207,123 @@ function cases() {
 }
 
 /* ------------------------------------------------------------------ the boxes */
-function sealedLedger() {
-  /* the running computation's ledger copy and its registration, found by their place in the control room's folder */
-  const base = path.join(LANE, 'control-room-checks');
-  const hits = [];
-  for (const d of fs.readdirSync(base, { withFileTypes: true })) {
-    if (!d.isDirectory()) continue;
-    const f = path.join(base, d.name, 'pod-partial', 'out', 'cores.jsonl');
-    if (fs.existsSync(f)) hits.push(path.join(base, d.name));
-  }
-  need(hits.length === 1, 'expected one running ledger copy, found ' + hits.length);
-  const dir = hits[0];
-  const reg = fs.readdirSync(dir).filter((f) => /-FULL-PREREG\.md$/.test(f));
-  need(reg.length === 1, 'expected one registration beside the ledger');
-  const m = /all ([\d,]+) lines present once/.exec(fs.readFileSync(path.join(dir, reg[0]), 'utf8'));
-  need(m, 'the registration no longer states its total');
-  const total = Number(m[1].replace(/,/g, ''));
-  const rows = fs.readFileSync(path.join(dir, 'pod-partial', 'out', 'cores.jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l));
-  const seen = new Set(rows.map((r) => r.line));
-  need(seen.size === rows.length, 'the ledger copy repeats a row');
-  need(rows.every((r) => typeof r.ended_utc === 'string'), 'a ledger row has no end time');
-  const last = rows.map((r) => r.ended_utc).sort().pop();
-  return { percent: Math.floor(100 * rows.length / total), as_of: last };
+/* box 3, opened 2026-11-25: Case R(6), the three-edge branch, recounted from its final ledger; the rest of the case
+   (the four-edge branch's cost pilot, the draws, the derivations) from the control room's log */
+function r6box() {
+  const tallyRel = R6FIN + 'out/TALLY.txt', ledgerRel = R6FIN + 'out/cores.jsonl', finalRel = R6FIN + 'FINAL.sha256';
+  const tally = read(tallyRel);
+  need(tally.includes('EXCLUDED 23409, OPEN 0, WITNESS 0') && /\nALL-EXCLUDED\s*$/.test(tally), 'the R(6) tally does not read EXCLUDED 23409, OPEN 0, WITNESS 0');
+  const ledgerBytes = fs.readFileSync(path.join(LANE, ledgerRel));
+  const ledgerSha = sha(ledgerBytes);
+  need(read(finalRel).includes(ledgerSha + '  out/cores.jsonl'), 'the R(6) ledger is not the one FINAL.sha256 lists');
+  const finalSha = sha(fs.readFileSync(path.join(LANE, finalRel)));
+  need(finalSha === 'e77693016f554bfdd407b6a0d2b3803cdd1e0beb9cd3fd5dc93b52630e45fb0a', 'FINAL.sha256 is not the file the receipt of block 977301 commits to');
+  cite(JOINW, 'JOIN: 23377 equal, 32 predicted differences, 0 unexpected, v2 agrees on 32 of 32');
+  /* our own recount of the ledger, row by row */
+  const rows = ledgerBytes.toString('utf8').trim().split('\n').map((l) => JSON.parse(l));
+  const lines = new Set(rows.map((r) => r.line));
+  need(rows.length === 23409 && lines.size === 23409 && Math.min(...lines) === 0 && Math.max(...lines) === 23408, 'the R(6) ledger does not hold lines 0..23408 once each');
+  need(rows.every((r) => r.verdict === 'EXCLUDED'), 'an R(6) ledger row is not EXCLUDED');
+  const sum = (f) => rows.reduce((t, r) => t + f(r), 0);
+  const T = { cores: rows.length, excluded: rows.length, open: 0, witness: 0, baseline: sum((r) => r.baseline), screened: sum((r) => r.hall),
+    open_by_tests: sum((r) => r.open_by_tests), open_cores: rows.filter((r) => r.open_by_tests > 0).length,
+    infeasible_by_search: sum((r) => (r.direct || {}).infeasible || 0), at_node_limit: sum((r) => (r.direct || {}).node_limit || 0), completions: sum((r) => ((r.direct || {}).completion || 0) + r.xcheck_completion),
+    sampled: sum((r) => r.xcheck_sampled), sample_infeasible: sum((r) => r.xcheck_infeasible), sample_undecided: sum((r) => r.xcheck_undecided),
+    contradictions: rows.filter((r) => r.contradiction).length,
+    reasons: ['no_row', 'uncovered', 'degree', 'pigeon', 'saturated'].reduce((o, k) => (o[k] = sum((r) => (r.reasons || {})[k] || 0), o), {}) };
+  T.refuted_by_tests = T.screened - T.open_by_tests;
+  need(T.baseline === 101564232221 && T.screened === 92080292598 && T.refuted_by_tests === 92080264258 && T.open_by_tests === 28340 && T.infeasible_by_search === 28340, 'the R(6) recount does not give the tally’s sums');
+  need(T.sampled === 5992486 && T.sample_infeasible === 5992486 && T.sample_undecided === 0 && T.completions === 0 && T.contradictions === 0 && T.at_node_limit === 0, 'the R(6) cross-check sample does not recount');
+  need(T.reasons.no_row + T.reasons.uncovered + T.reasons.degree + T.reasons.pigeon + T.reasons.saturated === T.refuted_by_tests, 'the refutation reasons do not sum to the refuted records');
+  cite(tallyRel, 'baseline configurations, sum: 101564232221');
+  T.sample_share_percent = (100 * T.sampled / T.screened).toFixed(4);
+  /* the two machines, by the machines' own clock: the first stopped at 16:25 UTC on 23 Nov, the second started 16:35 */
+  const STOP = '2026-11-23T16:30:00Z';
+  const first = rows.filter((r) => r.ended_utc < STOP), second = rows.filter((r) => r.ended_utc >= STOP);
+  need(first.length === 16927 && second.length === 6482, 'the two machines’ rows are not 16,927 and 6,482');
+  const minS = (a) => a.map((r) => r.started_utc).sort()[0], maxE = (a) => a.map((r) => r.ended_utc).sort().pop();
+  const cm = /CPU seconds, sum: enum (\d+), tests (\d+), direct (\d+), cross-check ([\d.]+)/.exec(tally);
+  need(cm, 'the tally states no CPU sums');
+  const cpu = Math.round(Number(cm[1]) + Number(cm[2]) + Number(cm[3]) + Number(cm[4]));
+  need(Math.abs(cpu - sum((r) => r.enum.cpu + ((r.tight || {}).cpu || 0) + ((r.direct || {}).cpu || 0) + (r.xcheck_cpu || 0))) < 5, 'the ledger’s CPU seconds do not sum to the tally’s');
+  cite(tallyRel, 'CPU seconds, sum: enum 1669011, tests 1764836, direct 403, cross-check 26179.0');
+  cite(R6, 'The first (AMD EPYC 7713) wrote 16,927 rows, 22 November 18:10:23 UTC to 23 November 16:25 UTC');
+  /* the run, hour by hour: cores finished, for the page's figure (the machine's clock) */
+  const t0 = Date.parse('2026-11-22T18:00:00Z');
+  const hours = [];
+  for (const r of rows) { const h = Math.floor((Date.parse(r.ended_utc) - t0) / 3600000); hours[h] = (hours[h] || 0) + 1; }
+  const perHour = Array.from({ length: hours.length }, (_, i) => hours[i] || 0);
+  need(perHour.reduce((a, b) => a + b, 0) === 23409, 'the hourly counts do not sum to the cores');
+  /* the anchors (heights and times as the control room read them at two explorers) */
+  cite(LOG, '977085 (2026-11-22 18:17:27 UTC; merkle root aec92a7c…ff68 = blockstream’s header)');
+  cite(LOG, 'block 977301 (2026-11-24 01:10:46 UTC; merkle root 57e5fcee…14d3 = blockstream’s header');
+  cite(LOG, 'Claude track\'s four-edge derivations R6E4-INDEPENDENCE.sha256 → block 977089');
+  cite(LOG, 'the round-32 R(6) toy registration FROZEN.sha256 → 977108 (22:02:41 UTC)');
+  cite(LOG, 'FROZEN.sha256.ots → f091e4a9…4da6, anchor 977197');
+  const before = rows.filter((r) => r.ended_utc <= '2026-11-22T18:17:27Z').length;
+  need(before === 87, 'cores with a result by block 977085: ' + before);
+  cite(R6, 'By then 87 cores had ended and 119 had');
+  const stamps = [
+    { block: 977085, at: '2026-11-22T18:17:27Z', what: 'the rules of the three-edge run (stamped 18:07 UTC by our clock; the run began 18:10:23 UTC)', file_sha256: 'b23f918c…767f' },
+    { block: 977089, at: '2026-11-22T19:03:33Z', what: 'the Claude track’s four-edge derivations (and a second attestation of the rules)', file_sha256: null },
+    { block: 977108, at: '2026-11-22T22:02:41Z', what: 'a toy draw registration of the Astra track’s draw gate (round 32)', file_sha256: null },
+    { block: 977197, at: null, by: '2026-11-23T12:38Z', what: 'the registration of the four-edge cost pilot r6-e4-cost-01, confirmed by 12:38 UTC on 23 November, before its beacon block 977229 (the block’s own time is not in the log)', file_sha256: 'ca25ea59…d621d' },
+    { block: 977301, at: '2026-11-24T01:10:46Z', what: 'the final record of the three-edge run (FINAL.sha256)', file_sha256: 'e7769301…fb0a' }];
+  cite(LOG, 'beacon H = 977229');
+  cite(LOG, '12:36–12:38 UTC — r6-e4-cost-01: both anchors confirmed and recorded before H');
+  /* what the reveal package fixed as the statement, the premises and the limits */
+  const STATEMENT = 'If premises P1–P6 hold: no 9-regular triangle-free graph on 40 vertices with no independent set of size 10 has two non-adjacent vertices with exactly six common neighbours and exactly three edges between their other neighbours (the three other neighbours of the one, and the three of the other).';
+  cite(R6, 'has two non-adjacent vertices with exactly six common neighbours and exactly three edges between their other neighbours (the three other neighbours of the one, and the three of the other).');
+  const premises = [
+    { id: 'P1', text: 'there are exactly 23,409 triangle-free graphs on 26 vertices with 75 edges and no independent 8-set (Goedgebeur–Radziszowski 2013, Table 13)', checked: 'from the literature; not checked here', needle: 'There are exactly 23,409 triangle-free graphs on 26 vertices with 75 edges and no independent 8-set' },
+    { id: 'P2', text: 'our catalogue file holds 23,409 such graphs, no two isomorphic', checked: 'computed twice: our own code without nauty, and nauty three ways', needle: 'The catalogue file holds 23,409 such graphs, no two isomorphic.' },
+    { id: 'P3', text: 'the reduction: in a graph of the branch, the 26 vertices adjacent to neither marked vertex form such a graph, and the conditions the tests use hold', checked: 'proved in Lean 4.35.0 with Mathlib, the three standard axioms only; built and read by the control room; it rests on Zhiyang Chen’s Lean library as compiled; leanchecker --fresh not run; no graph of the branch is exhibited', needle: 'Rests on Chen\'s Lean library as compiled. --fresh not run.' },
+    { id: 'P4', text: 'the programs test exactly those conditions and drop no completion', checked: 'prose, in 25 conditions, each read against the code by our agents; a second implementation agrees on 477 + 30 records; no Lean about the C', needle: 'a second implementation agrees on 477 + 30 records' },
+    { id: 'P5', text: 'the two machines ran the pinned programs, and the ledger says what they computed', checked: 'the run itself: pins checked and the gate passed on each machine; a second program gives the same enumeration, within the limits below', needle: 'The two machines ran the pinned programs and the ledger says what they computed.' },
+    { id: 'P6', text: 'the tools: gcc 13.3.0, Python 3.12.3, Lean’s kernel and Mathlib, nauty', checked: 'trusted as tools', needle: 'The tools: gcc 13.3.0, Python 3.12.3, Lean\'s kernel and Mathlib, nauty.' }];
+  for (const p of premises) { cite(R6, p.needle); delete p.needle; }
+  const LIMITS = [
+    ['One branch of the case, not the case.', 'Chen splits Case R(6) by the number of cross-edges of a marked pair, three to nine. This box is the branch with exactly three. Of the four-edge branch only a 20-core cost pilot ran; five to nine were not run. Case R(6) is not closed, and nothing here decides R(3,10).', R6, 'One branch of the case, not the case.'],
+    ['A second program checked the counting, not the verdicts.', 'It counts the same records as ours and has no verdict. Every “excluded” rests on our own tests; no second program touched them.', R6SPEC, 'A second program checked the counting, not the verdicts.'],
+    ['No single version of that program was run on every core in agreement with ours.', 'Version 1 ran on all 23,409 cores and differs from ours on 32. A corrected version 2 agrees with ours on 129 cores on a laptop and on 6,512 cores on a rented machine, where its run was stopped on cost; it was never run on all 23,409.', LOG, '6,512 of 6,512 equal, exit 0 on every row'],
+    ['It was not written blind.', 'Its track had read and patched our counting program before writing its own. The correction that makes version 2 is ours. An omission shared by both programs would not show.', R6SPEC, 'It was not written blind.'],
+    ['The chain from a graph to a verdict is partly prose.', 'The conditions the tests rest on are proved in Lean. That the C programs test exactly those conditions is prose, read by our own agents and tried on samples. There is no proof file per record.', R6SPEC, 'The chain from a graph to a verdict is partly prose.'],
+    ['The list of cores is complete only if a published count is right:', '23,409, from Goedgebeur and Radziszowski’s Table 13. Our file has 23,409 valid graphs, no two isomorphic. Nobody here re-derived the count.', R6SPEC, 'The list of cores is complete only if a published count is right:'],
+    ['The run did not follow its registration in every step.', 'It was stopped at 16,927 cores and finished on a second machine. Its time estimate was wrong. The registered recheck of 12 cores on a second kind of machine was made late, after the result was known (12 of 12 equal). The machine’s own hash list was not kept. Our separate tally kept no program.', LOG, '12 of 12 equal, made late'],
+    ['The rules are in Bitcoin from seven minutes after the run began,', 'not from before it (the anchors, below).', R6SPEC, 'The rules are in Bitcoin from seven minutes after the run began,'],
+    ['Nobody outside has read it.', 'One person, models of two families, our own audits.', R6SPEC, 'Nobody outside has read it.']];
+  for (const l of LIMITS) cite(l[2], l[3]);
+  cite(R6SPEC, 'It was stopped at 16,927 cores and finished on a');
+  cite(R6SPEC, 'Version 1 ran on all 23,409 cores and differs from ours on 32.');
+  cite(LOG, 'the run 09:32:42–10:01:57 UTC, stopped cleanly by the control room');
+  const SECOND = 'A counter written by the other model family lists the same records. Version 1 ran on all 23,409 cores: on 23,377 it wrote the same screened records as ours, byte for byte by hash. On 32 it wrote more, 14,895 records in all: it applied one of the screen’s three side conditions. Ours applies all three, and our tests refute every one of the 14,895 anyway, so no verdict depends on which program is right. With our correction (version 2) it agrees with ours on those 32 and on 97 other cores tried on a laptop, and on 6,512 of 6,512 cores of a rented run that was stopped on cost after 29 minutes. It was not run on the rest.';
+  cite(R6SPEC, 'On 32 it wrote more, 14,895 records in all: it applied one of the screen\'s three side conditions.');
+  cite(R6SPEC, 'With our correction it agrees with ours on those 32 and on 97 other cores tried.');
+  const CHEN = 'The branch is Zhiyang Chen’s. His notes define it and parked it in October. As we last read his repository (23 November, commit 055ae277), his AI run r310_ralph has a scout note on the same branch, with the same two tests in other words: no assignment survived on 16 pilot inputs, no production run, and an inventory of 23,037 of the 23,409 cores, 372 missing. It says of itself that it changes the status of no case. Ours is a run over all 23,409, with tests that do not assume Case R(7). We have not run his scout.';
+  cite(R6SPEC, 'no assignment survived on 16 pilot inputs, no production run, and an inventory of 23,037 of');
+  const FIXES = 'A derivation note in the record says “R(7), not yet closed”: Chen’s run had closed R(7) the day before it was written. The rules say “Timestamped before the pod exists”: the chain shows them only from seven minutes after the run began. Stamped and pinned files cannot change, so both are corrected here.';
+  cite(R6SPEC, 'A derivation note in it says "R(7), not yet closed"');
+  /* the rest of the case: the four-edge branch, as far as it went */
+  const REST = {
+    four_edge: 'The four-edge branch: its reduction was derived by both model tracks and certified by our reading (the only possible shape is a perfect matching plus one edge; the core then has 76 edges, 216,151 graphs by Table 13). A blind cost pilot was registered and anchored before its beacon, drew 20 of the 216,151 cores, and excluded 20 of 20 (no open, no witness). Its cost, extrapolated to all cores: about US$2,530 as registered, about US$3,111 weighted by the catalogue, about US$510 with four measured optimizations. It was not run: the operator stopped spending on pods that would not close the problem.',
+    five_to_nine: 'Five to nine cross-edges: nothing run here.',
+    pilot: { cores: 20, excluded: 20, catalogue: 216151, registered_usd: '2,530', weighted_usd: '3,111', optimized_usd: '510' } };
+  cite(LOG, 'Four cross-edges: CERTIFIED');
+  cite(LOG, 'the only possible one is a perfect matching plus one edge (36 labelled copies)');
+  cite(LOG, 'r6-e4-cost-01 PILOT COMPLETE: 20 of 20 cores EXCLUDED');
+  cite(LOG, 'Catalogue-weighted, today\'s programs: 863.5 s/core ≈ US$3,111.');
+  cite(LOG, '+O3 ≈ US$510 (462–626)');
+  cite(LOG, 'I want to stop spending on pods that will not close the problem');
+  return { tally: T, ledger: { file: ledgerRel, sha256: ledgerSha, final_sha256: finalSha, bytes: ledgerBytes.length },
+    run: { machines: 2, vcpu: 32, cpu_s: cpu, cpu_hours: Math.round(cpu / 3600), started: minS(rows), ended: maxE(rows),
+      first: { cores: first.length, start: minS(first), stop: maxE(first), cpu: 'AMD EPYC 7713' }, second: { cores: second.length, start: minS(second), end: maxE(second), cpu: 'AMD EPYC 7713P' },
+      per_hour: { from: '2026-11-22T18:00:00Z', counts: perHour } },
+    stamps, statement: STATEMENT, premises, limits: LIMITS.map(([b, t]) => ({ b, text: t })), second_program: SECOND, chen: CHEN, corrections_beside: FIXES, rest: REST,
+    catalogue: { cores: 23409, sha256: '0d3d2caf830c9d5af9ad64ce6da120c83cd12600bc0acf70ae90f747dfab208d' }, bundle_sha256: '3c3e0b08b1a2c6b411dd43aa86a65de02adf8e56b64320fd82b2061016c26dd2',
+    results_before_first_block: before };
 }
 function boxes() {
-  const s = sealedLedger();
+  const r6 = r6box();
   /* the C35 statement: the first sentence of the sealed text, as the reveal draft fixes it */
   const stmtFile = path.join(os.homedir(), 'Projects', 'seals', 'r310-c35-2026-11-22', 'src', 'STATEMENT.md');
   need(fs.existsSync(stmtFile), 'the sealed C35 statement is not on this machine');
@@ -315,7 +413,7 @@ function boxes() {
   const COROL = { text: 'In a triangle-free graph on 40 vertices with no independent set of size 10, deleting any 5 vertices leaves an independent set of size 9; so at least 6 deletions are needed to leave none.', label: 'prose proof, not in Lean, conditional on Goedgebeur–Radziszowski’s uniqueness of the (3,9;35)-graph; derived in a reading by GPT-6.2-astra (a control-room session) and checked by the control room' };
   cite(REVEAL2, COROL.text);
   return {
-    what: 'The three boxes of /r310/: two opened (Theorem C35; the second computation of Case R(7)), one sealed (Case R(6): codegree six). A sealed box shows its name, its Bitcoin anchors and its progress, rounded down to a whole percent, and nothing else; it opens only after audit, on Carlos Toledo’s word.',
+    what: 'The three boxes of /r310/, all opened: Theorem C35; the second computation of Case R(7); Case R(6), the three-edge branch (sealed until 25 November 2026, opened on Carlos Toledo’s word that night, with the rest of the case).',
     credits: CREDITS,
     boxes: [
       { n: 1, id: 'c35', state: 'opened', label: 'Theorem C35', statement: C35, attained: 'The bound 39 is attained.', also: ALSO, posed: POSED, corollary: COROL,
@@ -336,19 +434,14 @@ function boxes() {
         configurations: 977008, by_level: { level3: 879379, level4: 97627, full: 2 },
         run: { start: '2026-11-22T02:17:45Z', end: '2026-11-22T08:32:12Z', cpu_s: 677467, wall_s: 22466, vcpu: 32 },
         premises },
-      { n: 3, id: 'c6', state: 'sealed', label: 'Case R(6): codegree six',
-        stamps: [
-          { block: 977085, at: '2026-11-22T18:17:27Z', what: 'the registration of the running computation' },
-          { block: 977089, at: '2026-11-22T19:03:33Z', what: 'further derivations' },
-          { block: 977108, at: '2026-11-22T22:02:41Z', what: 'a draw registration' },
-          { block: 977301, at: '2026-11-24T01:10:46Z', what: 'the final record, after it finished' }],
-        progress_percent: s.percent, as_of: s.as_of }
+      Object.assign({ n: 3, id: 'c6', state: 'opened', label: 'Case R(6), the three-edge branch', map_label: 'Case R(6): codegree six',
+        opened: { on: '2026-11-25', words: 'Everything, seal opened', what: 'The box was sealed from 22 to 25 November 2026: only its name, its Bitcoin anchors and its progress were shown. On the operator’s word on 25 November 2026 (a dialog answer, the options spelled out) the seal was opened: everything of the case is shown, with the anchors shown while it was sealed.' } }, r6)
     ]
   };
 }
 
 /* ------------------------------------------------------------------ the corrections ledger */
-/* whose / caught_by name a track or a tool, never a person. `where`: c35, r7, lane (the lane's own files), sealed. */
+/* whose / caught_by name a track or a tool, never a person. `where`: c35, r7, r6 (box 3), lane (the lane's own files). */
 function corrections() {
   const CM = 'cert-machine', AG = 'a cert-machine agent', CL = 'the Claude track', AS = 'the Astra track';   /* the models behind each: the credits table */
   const E = [
@@ -387,41 +480,60 @@ function corrections() {
     ['2026-11-23T05:05Z', 'c35', 'our prior-art scout (an agent)', 'the reveal day’s prior-art re-check (an agent)', 'searching again', 'Our prior-art scout of 21 Nov missed a public note (andrey-kokoev/marici, dated 9 Nov) that had posed the induced-C35 question and left it not excluded.', 'the page cites it beside the theorem', RECHECK, 'Not found by the 21 Nov scout.'],
     ['2026-11-23T05:15Z', 'r7', CM, 'the reveal package (an agent), reading Chen’s history', 'git history', 'Our 04:02 note put the label “cert (custom trace)” of Chen’s C-004 at his round 1; it arrived in round 2, at 17:49:01 UTC.', 'corrected in the reveal’s source and here', REVEAL2, 'by the history it arrived in round 2'],
     ['2026-11-23T04:41Z', 'c35', AS, AG, 'reading the source', 'A model’s reading called a lower bound “Chen’s”; it is an unnumbered lemma in an idea-scout note of his run, not in his claims list.', 'the page names it as the scout note’s', CHENAUD, 'Calling it "his" lower bound in an e-mail overstates its'],
-    /* the sealed box: one line each, the date and nothing of the method */
-    ['2026-11-22T15:25Z', 'sealed', 'a model track', AG, 'an audit', 'A step in a model’s proof was worded ambiguously; the step was valid.', 'noted', null, '41a395cf8ce0004c'],
-    ['2026-11-22T16:06Z', 'sealed', AS, AG, 'an audit', 'A claim that rules were fixed before a test was backed only by local clocks.', 'refused', null, '1fee7e8b97681ed6'],
-    ['2026-11-22T16:43Z', 'sealed', AS, AG, 'an audit', 'A second claim of registration before the outcome was backed only by local clocks.', 'refused', null, 'e649f4aa9f102833'],
-    ['2026-11-22T16:43Z', 'sealed', AS, AG, 'an audit', 'A check described as separate was the same track’s own, written three minutes later.', 'noted', null, '8b2a8ab36157d9a0'],
-    ['2026-11-22T18:21Z', 'sealed', CM, CM, 'the running machine', 'Our time estimate for the running computation was too low.', 'recorded as a deviation; I chose to let it run', null, '52972550233ee2ed'],
-    ['2026-11-22T18:50Z', 'sealed', AS, AG, 'an audit', 'Audited files were edited in place: the originals were kept, but a hash manifest stopped checking.', 'restored at the audited hashes (19:29 UTC)', null, 'e2ad3d8bb1835414'],
-    ['2026-11-22T18:50Z', 'sealed', AS, AG, 'brute force', 'An earlier formula, carried into a new setting, failed there.', 'replaced', null, 'f4ca7c7b7ca88568'],
-    ['2026-11-22T18:50Z', 'sealed', AS, AG, 'an audit', 'A report gave figures with no file behind them.', 'the files were produced later (20:39 UTC)', null, '4396cbd154cf25ed'],
-    ['2026-11-22T18:50Z', 'sealed', AS, AG, 'reading the program', 'A safeguard claimed for a future test was not what its program checked.', 'refused; rebuilt and certified by reading (22:06 UTC)', null, '6fa1b60b481cd573'],
-    ['2026-11-22T19:20Z', 'sealed', CL, AG, 'an audit', 'Four phrases in a model’s report said more than its files.', 'listed', null, 'cab4b6c5dbbe1ed3'],
-    ['2026-11-22T19:29Z', 'sealed', AS, AG, 'an audit', 'Audited files were replaced in place again, and a hash list went stale.', 'a rule: an audited file is never overwritten; a new version takes a new name', null, 'ec12862a17af6fee'],
-    ['2026-11-22T20:39Z', 'sealed', AS, AG, 'an audit', 'A test receipt shown as the track’s own was ours, read in place from our seal folder.', 'noted', null, '13e1e3e3c2fcb057'],
-    ['2026-11-22T20:39Z', 'sealed', AG, AG, 'its own log', 'An agent ran two read-only commands on our seal folder and left one empty file.', 'noted', null, '9e95efa2a9831f9a'],
-    ['2026-11-22T22:06Z', 'sealed', CM, AG, 'an audit', 'Three hash suffixes were misprinted in our audit notes; the files were right.', 'noted', null, 'f45bfd12b144cfad'],
-    ['2026-11-23T03:14Z', 'sealed', AS, AG, 'an audit', 'Programs sent a User-Agent naming the project to two public services from a private lane.', 'noted', null, '6810f64b016395d6'],
-    ['2026-11-23T03:14Z', 'sealed', AS, AG, 'an audit', 'A machine presented as independent was a virtual machine on the same computer.', 'refused as independent', null, 'f94cb1f2d24a8cc9'],
-    ['2026-11-23T03:14Z', 'sealed', CL, AG, 'an audit', 'Two statements in a model’s note were refuted; one more had never been measured.', 'refuted; listed', null, '011be3beb4378a7c'],
-    ['2026-11-23T03:14Z', 'sealed', CM, 'the Claude track, then an audit', 'a model’s note', 'A reason given in one of our audit notes was wrong; its conclusion stood.', 'erratum filed', null, '0f416a98f3d00100'],
-    ['2026-11-23T03:14Z', 'sealed', CM, AG, 'an audit', 'A slip in one of our own notes was carried into a model’s text.', 'noted', null, 'b13fecea47c03618'],
-    ['2026-11-23T04:30Z', 'sealed', AS, AG, 'an audit', 'A model’s cost estimate was not supported.', 'refused', null, '1bad09a8ef035abb'],
-    ['2026-11-23T04:30Z', 'sealed', AS, AG, 'an audit', 'Three wording slips in a model’s report.', 'listed', null, '43cdc8643c577e37'],
-    ['2026-11-23T07:31Z', 'sealed', 'the second program (the Astra track’s code)', AG, 'a second program’s full run, joined with ours by our own code', 'An independent second program, run over every input of the sealed computation, disagreed with ours on a small number of inputs; until each was decided, no input it touched counted as closed. Found 07:31 UTC.', 'resolved at 08:01 UTC; no verdict changes', null, '5c8203e09c0bfa5f'],
-    ['2026-11-23T04:45Z', 'sealed', CM, CM, 'reading the receipt whole', 'We read a timestamp receipt only in part and “corrected” a registration’s time to a later one; the whole receipt proves the earlier time.', 'the correction withdrawn', null, 'a1dd2067e5c9b5c4']
+    /* box 3 (Case R(6)), sealed until 25 Nov 2026 and cited then by a line hash only: now with its words and its source.
+       Each needle is a phrase of the control room's log line that the hash named. */
+    ['2026-11-22T15:25Z', 'r6', 'a model track', AG, 'an audit of the tightened pruning rule', 'In the proof of the tightened pruning rule of the three-edge branch, one step was worded ambiguously. The step was valid: on 2,094 real graphs with the exact bound and 104,700 weight vectors the rule rejected no real graph’s own side triple.', 'noted', LOG, 'every proof step valid (one worded ambiguously)'],
+    ['2026-11-22T16:06Z', 'r6', AS, AG, 'an audit of the blind pilot on 16 catalogue cores', 'The pilot was presented as blind in time, its rules fixed before the draw. Only local clocks backed it: no OpenTimestamps receipt, no commit. File birth times and the session log agreed on the order, but neither is outside the Mac.', 'refused', LOG, 'Blind in time: REFUSED.'],
+    ['2026-11-22T16:43Z', 'r6', AS, AG, 'an audit of the second pilot (four fresh cores)', 'A second claim of registration before any outcome, again backed only by local clocks (no receipt).', 'refused', LOG, 'Registered before any outcome: REFUSED'],
+    ['2026-11-22T16:43Z', 'r6', AS, AG, 'reading the files', 'The second pilot’s “separate verifier” was the same track’s code, written three minutes later.', 'noted', LOG, 'the "separate verifier" is the same track\'s, written three minutes later'],
+    ['2026-11-22T18:21Z', 'r6', CM, CM, 'the running machine', 'Our estimate for the full three-edge run was 9 to 11 hours and about US$10. After 115 cores it measured 125 s of wall per core, a projection of 15 to 25 hours; the run took about 961 CPU-hours on two machines in the end.', 'recorded as a deviation; the operator chose to let it run', LOG, 'Projection 15 to 25 hours, US$15 to 24, not 9 to 11 hours and US$10.'],
+    ['2026-11-22T18:50Z', 'r6', AS, AG, 'an audit of the corrected records', 'Four audited record files of the two pilots were corrected in place. The originals were kept under as-run/ with the audited hashes, but the two registrations’ bodies were edited, so their FROZEN.sha256 no longer checked and FREEZE.txt named a hash the file no longer had.', 'restored at the audited hashes (19:29 UTC)', LOG, 'each preserved under as-run/ with the audited hash'],
+    ['2026-11-22T18:50Z', 'r6', AS, AG, 'brute force over 2^12 patterns', 'The three-edge formula of the Hall screen, carried into the four-edge branch, is wrong there on 252 patterns of 4,096.', 'replaced by the four-edge closed form, which brute force confirms on 4,096 of 4,096', LOG, 'The three-edge formula is wrong on 252 patterns.'],
+    ['2026-11-22T18:50Z', 'r6', AS, AG, 'reading the report against its folder', 'A report gave figures for its development core 0 (863,744 records; two sent to the fill search) with no file behind them.', 'the files were produced later (20:39 UTC)', LOG, 'no file behind them: development core 0 (863,744 records; two to the fill search).'],
+    ['2026-11-22T18:50Z', 'r6', AS, AG, 'reading the program', 'A safeguard was claimed for future draws: “a draw cannot start without an outside receipt”. The program checked the receipt against FREEZE.txt’s bytes, never opened FROZEN.sha256, and the draw program asked for no receipt.', 'refused; rebuilt and certified by reading (22:06 UTC)', LOG, 'FREEZE.txt\'s bytes but never opens FROZEN.sha256'],
+    ['2026-11-22T19:20Z', 'r6', CL, AG, 'an audit of the four-edge work', 'Four phrases in the Claude track’s four-edge note said more than its files: “both tests assume…”, “16 agree” (14 before, 2 after), “none at k = 5”, and “before the other file was opened”.', 'listed', LOG, 'Wording the files do not support, for Claude'],
+    ['2026-11-22T19:29Z', 'r6', AS, AG, 'checking the hashes', 'Audited files were replaced in place again: the three-edge reduction’s .tex and .pdf (19:06:07 UTC; the page our first note hashed no longer resolved at its path, and our reader rebuilt it byte for byte) and the four-edge reduction note. A hash list went stale on 10 of 61 lines.', 'a rule: an audited file is never overwritten; a new version takes a new name', LOG, 'The track replaced audited files in place again'],
+    ['2026-11-22T20:39Z', 'r6', AS, AG, 'an audit of the draw gate', 'A test receipt shown as the track’s own, a “genuine receipt at block 974704”, was our first seal’s receipt, read in place from our seal folder.', 'noted', LOG, 'is OUR first seal\'s receipt, read in place from ~/Projects/seals'],
+    ['2026-11-22T20:39Z', 'r6', AG, AG, 'its own log', 'An agent of ours ran two read-only git commands on our seal folder and left one empty file in the session’s scratch folder.', 'noted', LOG, 'two read-only git commands on the seal folder'],
+    ['2026-11-22T22:06Z', 'r6', CM, AG, 'an audit of draw gate v4', 'Three hash suffixes were misprinted in our audit notes (…2d94 for …2fb2, …5d94 for …2d94, …632e for …023a); the files were right.', 'noted', LOG, 'Three suffix slips in our own notes (the files are right)'],
+    ['2026-11-23T03:14Z', 'r6', AS, AG, 'an audit of the toy draws', 'Both draw gates sent the User-Agent “cert-machine/round21” to the two block services, naming the project from a private lane.', 'noted', LOG, 'send User-Agent "cert-machine/round21" to the two services'],
+    ['2026-11-23T03:14Z', 'r6', AS, AG, 'an audit of the second counting program', 'A run presented as on an independent machine, “Debian 12 arm64”, was a virtual machine on the same Mac.', 'refused as independent', LOG, '"Debian 12 arm64" was a Lima VM on this same Mac'],
+    ['2026-11-23T03:14Z', 'r6', CL, AG, 'an audit of the Claude track’s note', 'Two statements in the Claude track’s note were refuted (that the pigeon test can fire on a Hall survivor; a gap claimed as a catalogue fact), and a third, “the bare point already obeys (mu)”, had never been measured: it fails on 2 of 60 as returned.', 'refuted; listed', LOG, 'was never measured: fails on 2 of 60 as returned'],
+    ['2026-11-23T03:14Z', 'r6', CM, 'the Claude track, then an audit', 'a model’s note', 'A reason given in one of our audit notes was wrong: it said only an R(7)-type premise forbids two equal common rows, but codegree 8 and 9 are impossible outright on 40 vertices. Its conclusion stood; no verdict changed.', 'erratum filed', LOG, 'R6-TIGHT-AUDIT.md line 30\'s reason is wrong'],
+    ['2026-11-23T03:14Z', 'r6', CM, AG, 'an audit of the four-edge spec', 'A slip in our own note (a size-three row described by its size instead of its zero type) was carried into a model’s spec.', 'noted', LOG, 'the slip began in OUR v1 note'],
+    ['2026-11-23T04:30Z', 'r6', AS, AG, 'an audit of the four-edge catalogue plan', 'A model’s estimate of 42 to 43 minutes to build the four-edge catalogue was not supported.', 'refused', LOG, 'the 42–43 min estimate REFUSED'],
+    ['2026-11-23T04:30Z', 'r6', AS, AG, 'an audit of the prose items', 'Three wording slips in a model’s report on the three-edge branch’s prose items; no error in our programs.', 'listed', LOG, 'Errors: none in our programs; three wording slips in the report.'],
+    ['2026-11-23T07:31Z', 'r6', 'the second program (the Astra track’s code)', AG, 'a second program’s full run, joined with ours by our own code', 'The second counting program, run over every core, disagreed with ours on 16 of the 10,425 cores then compared (32 of 23,409 in the end): it wrote more records after the Hall screen. Until each was decided, nothing about the box could say “all excluded”.', 'resolved at 08:01 UTC; no verdict changes', LOG, 'the second counting program ENDED on all 23,409 cores, and it DISAGREES with ours on 16'],
+    ['2026-11-23T04:45Z', 'r6', CM, CM, 'reading the receipt whole', 'We read the three-edge registration’s timestamp receipt only in part (its listing cut after four lines) and “corrected” its Bitcoin time to 02:08 UTC on 23 November. The whole receipt holds three attestations, the earliest block 977085 at 18:17:27 UTC on 22 November.', 'the correction withdrawn', LOG, 'I cut ots info with head -4'],
+    ['2026-11-23T17:23Z', 'r6', CM, CM, 'reading the pilot’s run log', 'The four-edge cost pilot’s ENDED line was lost: our launch line sent its standard output to /dev/null after appending it to run.log, so run.log is empty. The pilot log, the room ledger and the summary are intact.', 'listed as a deviation', LOG, 'the pilot\'s ENDED line was lost'],
+    ['2026-11-23T19:21Z', 'r6', CM, AG, 'optimizing before deciding', 'The registered cost of the four-edge branch, about US$2,530, was biased low: 9 of the 20 drawn cores were on the enumerator’s slow path, where 66.4% of the catalogue sits. Weighted by the catalogue: about US$3,111.', 'the estimate replaced; the branch not run', LOG, 'The registered US$2,530 was biased LOW'],
+    ['2026-11-24T03:24Z', 'r6', CM, 'the reveal package (an agent)', 'the final join', 'This ledger said the second program would be corrected and compared again over every input when the run ended. The corrected version was compared on 129 cores, then on 6,512 on a rented machine before that run was stopped on cost; never on all 23,409.', 'said in box 3', R6SPEC, 'This ledger said the second program would be corrected and compared again over every input when the run ended.'],
+    ['2026-11-24T03:24Z', 'r6', CM, 'the reveal package (an agent)', 'the final join', 'This ledger called the second program independent. Its counting path was written after its track had read and patched ours: separately written, not blind.', 'reworded', R6SPEC, 'This ledger called the second program independent.'],
+    ['2026-11-24T03:55Z', 'r6', CM, 'the reveal package (an agent)', 'reading the registration against the files', 'Three steps registered for after the run had no record or not the registered form: the same programs on 12 cores on a second kind of machine, the machine’s own hash list, and a separate tally with its program kept.', 'the 12-core recheck was then made, late: 12 of 12 equal (09:51 UTC, 24 Nov); the other two are listed in box 3', R6SPEC, 'Three steps registered for after the run have no record or not the registered form'],
+    ['2026-11-24T03:55Z', 'r6', CM, 'the reveal package (an agent)', 'reading the registration against the files', 'The file of deviations lists one. The stop at 16,927 cores, the second machine and a start by hand were recorded in the log only.', 'listed in box 3', R6SPEC, 'The file of deviations lists one.'],
+    ['2026-11-24T03:55Z', 'r6', CL, 'the reveal package (an agent)', 'reading the record before it opened', 'A derivation note in the record says “R(7), not yet closed”. Chen’s run had closed it the day before.', 'corrected beside the file, in box 3', R6SPEC, 'Chen\'s run had closed it the day before.'],
+    ['2026-11-24T09:26Z', 'r6', CM, 'the reveal package (an agent)', 'hashing the files', 'Our log called the ledger’s hash (34a67324…5d7b) the hash of FINAL.sha256; it is the ledger’s line inside it. The file FINAL.sha256 itself, which the receipt commits to, hashes to e7769301…fb0a.', 'corrected in the log', LOG, '34a67324…5d7b is the ledger\'s line INSIDE FINAL.sha256'],
+    /* the attack on 40 (23–25 Nov): errors the control room's ledger records, ours and the models' */
+    ['2026-11-24T10:52Z', 'lane', AS, CM, 'ruling the gate by its own words', 'A report called gate G4b a PASS. By the gate’s own terms it is a FAIL: the gate asked for a route with a finite projected total under 5,000 core-hours, and the report’s own first line says no complete argument has a defensible price.', 'ruled FAIL', LEDG, 'BY THE GATE\'S OWN TERMS IT IS A FAIL'],
+    ['2026-11-24T17:31Z', 'lane', 'a file of round 1 (the Claude track)', CM, 'counting edges', 'A control file named exoo39.g6 has 172 edges; the class identified as Exoo’s graph has 167. Both are valid 39-vertex controls; the file’s name is not a claim that it is Exoo’s.', 'renamed in the ledger’s words', LEDG, 'round1/claude-b/critique/exoo39.g6 has 172 edges'],
+    ['2026-11-24T18:12Z', 'lane', CM, AG, 'an audit run over all 6,180 non-regular distributions', 'Our roster of 519 non-regular distributions was built with Chen’s unchecked floors. Without them, one more key survives at the lower tier, (8,0,0,32); the hole closes at the higher tier.', 'listed; the key later excluded by the three-lows theorem', LEDG, 'A HOLE FOUND IN OUR OWN ROSTER'],
+    ['2026-11-24T19:02Z', 'lane', AS, AG, 'a second ladder table', 'The one-level counting row at k = 8 was given as 30; with neighbours’ degrees per vertex the true row is 29.', 'corrected: 19, 24, 29, 36, 43', LEDG, 'the true one-level row is 19, 24, 29, 36, 43'],
+    ['2026-11-24T20:40Z', 'lane', AG, AG, 'its own next report', 'An agent’s report gave 7 and 10 roots at (23,6); the numbers were 6 and 9.', 'corrected by the agent', LEDG, '(A correction by the agent to its G14 report: 6 and 9 roots there, not 7 and 10.)'],
+    ['2026-11-24T21:09Z', 'lane', AS, CM, 'ruling the gate by its own words', 'A report’s verdict line said “PASS UNIFORM” for an inequality whose weights can differ by host: that is the LP’s dual in one form, not one inequality. Part 3 of the gate was not met.', 'ruled: part 1 met, part 3 not', LEDG, 'that is the LP\'s dual in one form, not ONE'],
+    ['2026-11-24T21:09Z', 'lane', AS, AS, 'its own control', 'A control file called control167.g6 has 168 edges; the audited 167-edge graph was used for the reported control.', 'corrected by the track', LEDG, 'the file it had called control167.g6 has 168 edges'],
+    ['2026-11-25T01:50Z', 'lane', AG, AG, 'brute force on sample cards', 'Two bugs in an auditor’s own search were caught by its completeness checks against a brute force, before the full run.', 'fixed before the run', LEDG, 'Two bugs in the audit\'s own search were caught by these']
   ];
   /* a resolved entry's full resolution, in words that reveal no method (the control room's, 2026-11-23) */
-  const RESOLVED = { '2026-11-23T07:31Z sealed': 'Resolved: the second program was the one in error (it omitted two conditions of a screen both programs implement); ours was right, and every input the disagreement touched was decided anyway by our tests and our second method. No verdict changes. The second program is being corrected and will be compared again over every input when the sealed run ends.' };
+  const RESOLVED = { '2026-11-23T07:31Z r6': 'Resolved at 08:01 UTC: the second program was the one in error. It applied only the first of the Hall screen’s three side conditions, an omission inherited from its pilot version; ours applies all three. Across the catalogue: 32 cores, 14,895 extra records, every one refuted by our tests and found infeasible by our direct decider, so no verdict would change even if they were counted. The corrected version agrees with ours on 129 cores (a laptop) and on 6,512 (a rented run stopped on cost); it was never run on all 23,409.' };
+  cite(LOG, 'RESOLVED — our enum_own is right, emit is wrong');
+  cite(R6, 'The second program applied only the');
   const rows = E.map((e, i) => {
     const [at, where, whose, caught_by, how, what, outcome, rel, needle] = e;
-    if (rel) cite(rel, needle); else inNotes(needle);
-    if (at === '2026-11-23T07:31Z' && where === 'sealed') inNotes('28acf10c884b848a');   /* its resolution line in the log (the note: 07:35–08:01 UTC) */
+    cite(rel, needle);
     const side = whose === 'not yet known' ? 'not yet known' : /track|model session|a model track/.test(whose) ? 'a model track' : 'cert-machine';   /* the control room, its agents, scripts and documents */
     const status = /^OPEN/.test(outcome) ? 'open' : 'closed';
     const resolution = RESOLVED[at + ' ' + where];
-    return { id: 'E' + String(i + 1).padStart(2, '0'), at, where, whose, side, status, caught_by, how, what, outcome, resolution, src: rel || 'the control room’s notes, sealed', line_sha256_16: rel ? undefined : needle };
+    return { id: 'E' + String(i + 1).padStart(2, '0'), at, where, whose, side, status, caught_by, how, what, outcome, resolution, src: rel };
   }).sort((a, b) => a.at.localeCompare(b.at) || a.id.localeCompare(b.id));
   rows.forEach((r, i) => { r.n = i + 1; });
   /* five that mattered (the control room's choice, 2026-11-23): a title and one line each, for the page's strip */
@@ -430,7 +542,7 @@ function corrections() {
     ['We wrote that no theorem joins the CNF’s soundness proof', 'A gap that was not there', 'We wrote that no theorem joined the two halves of the R(7) Lean chain. The Claude track showed the join; we withdrew the claim and filed an erratum.'],
     ['The pilot’s pinned CNF generator was changed after it was pinned', 'A pinned file changed after pinning', 'The pilot’s CNF generator was edited after its hash was pinned. The pinned bytes were restored beside it and the gap was listed.'],
     ['A note said three native runs passed', 'Three runs with no files', 'A model’s note said three runs had passed; no log, script or binary was in its folder. The control room ran them again itself.'],
-    ['A reason given in one of our audit notes was wrong', 'Our own wrong reason', 'Inside the sealed box: a reason given in one of our audit notes was wrong. Its conclusion stood, and an erratum was filed.']];
+    ['A reason given in one of our audit notes was wrong', 'Our own wrong reason', 'In box 3: our audit note said only an R(7)-type premise forbids two equal common rows. Codegree 8 and 9 are impossible outright on 40 vertices. The conclusion stood; an erratum was filed.']];
   M5.forEach(([needle, title, line], i) => {
     const hit = rows.filter((r) => r.what.includes(needle));
     need(hit.length === 1, 'the five that mattered: ' + hit.length + ' rows say “' + needle + '”');
@@ -438,8 +550,8 @@ function corrections() {
   });
   const count = (f) => rows.filter(f).length;
   return {
-    what: 'Every error caught in the R(3,10) lane, by whom and how, from the control room’s log and notes: ours and the models’ alike, never a person’s. Errors inside the sealed box are one line each with a date and nothing of the method. A correction of a correction is one row, never counted as a finding.',
-    counts: { all: rows.length, sealed: count((r) => r.where === 'sealed'), opened: count((r) => r.where === 'c35' || r.where === 'r7'), lane: count((r) => r.where === 'lane'),
+    what: 'Every error caught in the R(3,10) lane, by whom and how, from the control room’s log, its notes and its gate ledger: ours and the models’ alike, never a person’s. The rows of box 3 were one line each while it was sealed; since 25 Nov 2026 they carry their words and sources. A correction of a correction is one row, never counted as a finding.',
+    counts: { all: rows.length, r6: count((r) => r.where === 'r6'), opened: count((r) => r.where === 'c35' || r.where === 'r7' || r.where === 'r6'), lane: count((r) => r.where === 'lane'),
       cert_machine: count((r) => r.side === 'cert-machine'), model_tracks: count((r) => r.side === 'a model track'), not_yet_known: count((r) => r.side === 'not yet known'),
       open: count((r) => r.status === 'open') },
     rows
@@ -450,20 +562,28 @@ function corrections() {
 function machine() {
   cite(LOG, 'cpu3c 32 vCPU / 64 GB, US$0.96/h');
   cite(LOG, 'copied home and deleted at US$20, now about 17:00 UTC');
-  for (const h of ['5fd3670cac3b5b01', 'b5984821f8a452cb', 'd8af801d6323ac91', '9f46682932c85348']) inNotes(h);   /* never started, deleted 05:10; created 05:10; deleted 07:4x; about US$2.6 for both */
-  const SECOND = { what: 'a second machine for the sealed box', vcpu: 32, usd_per_hour: '0.96', from: '2026-11-23T05:10Z', to: 'shortly after 07:40 UTC', state: 'deleted',
+  cite(LOG, 'never started (16 min, runtime null, EU-RO-1): deleted 05:10;');
+  cite(LOG, 'created 05:10.');
+  cite(LOG, 'about US$2.6 used (the two emit pods)');
+  const SECOND = { what: 'a machine for box 3’s second counting program', vcpu: 32, usd_per_hour: '0.96', from: '2026-11-23T05:10Z', to: 'shortly after 07:40 UTC', state: 'deleted',
     earlier: 'one created at 04:54 UTC that never started, deleted at 05:10 UTC', usd_both: '2.6' };
   /* the model sessions run from this Mac (GPT-6.2 Astra by command line), read from their own run files */
-  const ar = path.join(LANE, 'astra-runs');
-  let started = 0, finished = 0, firstAt = null, lastAt = null;
-  for (const d of fs.readdirSync(ar, { withFileTypes: true })) {
-    if (!d.isDirectory()) continue;
-    const f = path.join(ar, d.name, 'RUN.txt');
+  /* every folder with a RUN.txt: astra-runs/* (the side tasks of 23 Nov) and the attack's lines B–E (round4/astra-*,
+     round5/astra-*); rounds 1–3 are archived and not counted */
+  const runDirs = [];
+  for (const [par, rx] of [['astra-runs', /./], ['round4', /^astra-/], ['round5', /^astra-/]])
+    for (const d of fs.readdirSync(path.join(LANE, par), { withFileTypes: true })) if (d.isDirectory() && rx.test(d.name)) runDirs.push(path.join(LANE, par, d.name));
+  let started = 0, finished = 0, tasks = 0, firstAt = null, lastAt = null;
+  for (const dir of runDirs) {
+    const f = path.join(dir, 'RUN.txt');
     if (!fs.existsSync(f)) continue;
     const L = fs.readFileSync(f, 'utf8').split('\n');
     const st = L.filter((l) => /^start |^resume /.test(l)), en = L.filter((l) => /^end /.test(l));
     started++;
-    if (st.length === en.length) finished++;
+    tasks += st.length;
+    /* a session runs while its last line is a start or a resume (a session killed at the freeze of 25 Nov 02:46 UTC
+       has a resume with no end, then a later resume) */
+    if (/^end /.test(L.filter((l) => /^(?:start|resume|end) /.test(l)).pop() || '')) finished++;
     for (const l of L) { const m = /^(?:start|end|resume|end \d+|resume \d+) (?:\d+ )?(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ)/.exec(l); if (m && (!lastAt || m[1] > lastAt)) lastAt = m[1]; }
     const t = (/^start (\S+)/.exec(L[0]) || [])[1];
     if (t && (!firstAt || t < firstAt)) firstAt = t;
@@ -524,9 +644,9 @@ function machine() {
   return {
     what: 'The machine at work, as of the newest record read: what runs now, the counts of audits and verdicts (deduplicated; our own corrections are never counted as findings), and the money per result.',
     as_of: lastAt,
-    now: { rented: { for: 'box 3, the sealed computation', vcpu: 32, usd_per_hour: '0.96', state: sealedLedger().percent === 100 ? 'finished; the machine is deleted' : 'running', second: SECOND },
-      astra: { model: 'GPT-6.2 Astra, by command line from the Mac', since: firstAt, started, finished, running: started - finished } },
-    audits: { opened_boxes: OPEN_BOX.length + runNotes.length, sealed_box: sealedNotes },
+    now: { rented: { for: 'box 3, the three-edge run', vcpu: 32, usd_per_hour: '0.96', state: 'finished; both machines are deleted', second: SECOND },
+      astra: { model: 'GPT-6.2 Astra, by command line from the Mac', since: firstAt, started, finished, running: started - finished, tasks } },
+    audits: { boxes_1_2: OPEN_BOX.length + runNotes.length, box_3: sealedNotes },
     verdicts: { rows: V, tally },
     money: { r7: { items: usd, total_usd: (total / 100).toFixed(2) }, c35: { where: 'the Mac (an M2 with 16 GB); no rented machine', usd: '0' } }
   };
@@ -585,14 +705,220 @@ async function replay() {
   };
 }
 
+/* ------------------------------------------------------------------ the whole process: rounds, lines, gates */
+function processRec() {
+  const rounds = GATES.ROUNDS.map((r) => { cite(r.file, r.needle); return { round: r.round, opened: r.opened, plain: r.plain, src: r.file }; });
+  const OUT = ['PASS', 'FAIL', 'PARTIAL', 'CONFIRMED', 'NOT CONFIRMED', 'OPEN', 'DEAD', 'UNDECIDED', 'RUNNING'];
+  const gates = GATES.GATES.map((g) => {
+    need(OUT.includes(g.outcome), 'gate ' + g.id + ' has no outcome word');
+    need(rounds.some((r) => r.round === g.round), 'gate ' + g.id + ' names an unknown round');
+    if (g.condition_file) cite(g.condition_file, g.condition_needle);
+    cite(LEDG, g.ledger_needle);
+    if (g.report) read(g.report);
+    return { id: g.id, round: g.round, line: g.line, ruled: g.ruled, outcome: g.outcome, condition: g.condition, condition_written_first: !!g.condition_file,
+      condition_src: g.condition_file, count: g.count, ruled_out: g.ruled_out, report: g.report, src: LEDG };
+  });
+  for (let i = 1; i < gates.length; i++) need(gates[i].ruled >= gates[i - 1].ruled, 'the gates are not in the ledger’s order at ' + gates[i].id);
+  /* what runs now: the two Astra sessions, read from their run files and their own newest checkpoint (not a ruling) */
+  const running = [['D', 'round4/astra-nonregular'], ['E', 'round5/astra-reach']].map(([line, dir]) => {
+    const runL = read(dir + '/RUN.txt').trim().split('\n');
+    const last = runL[runL.length - 1];
+    const m = /^resume (\d+) (\S+Z) /.exec(last);
+    if (!m) return { line: 'Astra ' + line, folder: dir, running: false, last };
+    const fu = dir + '/FOLLOWUP-' + m[1] + '.md';
+    const g = /Gate (\S+) \(written before you start\): (PASS when [^]*?)(?:;|\.\s|\n\n)/.exec(read(fu));
+    need(g, fu + ' states no gate');
+    const cond = g[2].replace(/\s+/g, ' ').trim();
+    cite(fu, cond);
+    const bud = /Budget: ([^\n]+)\./.exec(read(fu));
+    /* the session's own newest checkpoint for this gate, if it has written one yet */
+    const cdir = path.join(LANE, dir, 'work', g[1].toLowerCase());
+    let checkpoint = null;
+    if (fs.existsSync(cdir)) {
+      const cps = fs.readdirSync(cdir).filter((f) => /^CHECKPOINT-\d{4}\.md$/.test(f)).sort();
+      if (cps.length) {
+        const cpRel = dir + '/work/' + g[1].toLowerCase() + '/' + cps[cps.length - 1];
+        const v = new RegExp('^' + g[1] + ': .*$', 'm').exec(read(cpRel));
+        if (v) { cite(cpRel, v[0]); const hhmm = cps[cps.length - 1].slice(11, 15); checkpoint = { file: cpRel, hhmm_utc: hhmm.slice(0, 2) + ':' + hhmm.slice(2), line: v[0] }; }
+      }
+    }
+    return { line: 'Astra ' + line, folder: dir, running: true, gate: g[1], task: Number(m[1]), resumed: m[2], brief: fu, condition: cond, budget: bud ? bud[1] : null, checkpoint };
+  });
+  /* the earlier rounds (21–23 Nov): the control room's log, one heading per round, verbatim */
+  const early = [];
+  read(LOG).split('\n').forEach((l) => { const m = /^# Round (\d+), (.+)$/.exec(l); if (m) early.push({ n: Number(m[1]), heading: m[2].trim() }); });
+  need(early.length >= 37 && early.every((e, i) => e.n === i + 2), 'the control room’s log does not hold rounds 2 to 38 in order');
+  cite(LOG, '# Control room log, R(3,10) (PRIVATE), 2026-11-22 ~00:40 UTC');
+  cite(LOG, '## Checks by cert-machine (own code)');
+  early.unshift({ n: 1, heading: '~00:40 UTC: the log opens; checks by cert-machine with its own code; messages for the two model tracks' });
+  const tally = {};
+  for (const g of gates) tally[g.outcome] = (tally[g.outcome] || 0) + 1;
+  return { what: 'The whole process of the R(3,10) lane in order: the control room’s rounds of 22 and 23 November (C35, Case R(7), Case R(6)), then the attack on 40 (rounds 1 to 5, 23 to 25 November) and the 41 side, every gate with its pass condition as written before the run (or the ledger’s words when it was sent in a message), its outcome as the control room ruled it, its key count and what it ruled out; and the sessions running at the records’ minute, read from their own run files. A checkpoint is the session’s own words, not a ruling.',
+    rounds, gates, tally, running, early: { src: LOG, rounds: early } };
+}
+
+/* ------------------------------------------------------------------ the path ledger, parsed */
+function pathsRec() {
+  const parse = (rel, rx) => read(rel).split('\n').filter((l) => rx.test(l)).map((l) => {
+    const c = l.replace(/^\|\s*/, '').replace(/\s*\|\s*$/, '').split(' | ');
+    need(c.length >= 4, rel + ': a row with fewer than four cells: ' + l.slice(0, 40));
+    return c;
+  });
+  const cls = (st) => /^DEAD/.test(st) ? 'dead' : /^(RUNNING|QUEUED)/.test(st) ? (/^QUEUED/.test(st) ? 'queued' : 'running')
+    : /^(PROVED|ANSWERED|DONE|REPRODUCED|STAGE 1 DONE|G16 CONFIRMED)/.test(st) ? 'stands' : /^FAIL/.test(st) ? 'dead' : 'open';
+  const rows = parse(PATHSF, /^\| (F|N)\d+ \|/).map((c) => ({ id: c[0], family: c[1], path: c.slice(2, c.length - 2).join(' | '), status: c[c.length - 2], by: c[c.length - 1] }));
+  /* two rows whose status the path ledger did not update after a later ruling: the ledger's ruling beside them */
+  const LATER = { N16: ['the monovariant M1 (gate M1) FAILED at 02:50 UTC on 25 Nov: as a bounded-move monovariant this path is dead through moves of size 4', 'N16 as a bounded-move monovariant is DEAD through r = 4 on (3,7;22)'],
+    N21: ['G14 then passed at 0 roots (the twin (18,5) excluded without the independence clause) and G15 showed both local windows at 40 non-empty', 'G15 (the local window at 40): PASS — both windows are NON-EMPTY'] };
+  for (const r of rows) {
+    r.class = cls(r.status);
+    if (LATER[r.id]) { cite(LEDG, LATER[r.id][1]); r.later = LATER[r.id][0]; if (r.id === 'N16') r.class = 'dead'; }
+  }
+  need(rows.length >= 36, 'the path ledger has ' + rows.length + ' rows');
+  const ids = rows.map((r) => r.id);
+  need(new Set(ids).size === ids.length, 'a path id repeats');
+  const side41 = parse('lane41/LANE.md', /^\| A\d+b? \|/).map((c) => ({ id: c[0], path: c[1], status: c.slice(2, c.length - 1).join(' | '), by: c[c.length - 1] }));
+  for (const r of side41) r.class = cls(r.status);
+  const A2 = side41.find((r) => r.id === 'A2');
+  if (A2 && /^RUNNING/.test(A2.status)) { cite(LEDG, 'lane 41, gate A2 (as amended): FAIL — no witness; Cayley graphs of order 40 EXCLUDED with LRAT'); A2.class = 'open';
+    A2.later = 'gate A2 FAILED at 08:25 UTC on 25 Nov (no witness); its exclusions stand: none of the 258 known 39-vertex graphs extends, and no Cayley graph of order 40 is a (3,10;40)-graph'; }
+  cite(PATHSF, 'a path is DEAD only with the number');
+  cite(PATHSF, 'a path SURVIVES only after a second, independent program reproduces its first result');
+  const tally = {};
+  for (const r of rows) tally[r.class] = (tally[r.class] || 0) + 1;
+  return { what: 'The path ledger of the attack on 40 (round5/PATHS.md, opened 24 Nov 16:35 UTC), row by row as the control room keeps it: a path gets a row before anybody works on it; it is dead only with the number that killed it; it survives only after a second program reproduces it. The class (dead, stands, open, running, queued) is read from the status’s first word; two rows not updated after a later ruling carry the ledger’s ruling beside them. Then the 41 side (lane41/LANE.md).',
+    src: PATHSF, rows, tally, side41: { src: 'lane41/LANE.md', rows: side41 } };
+}
+
+/* ------------------------------------------------------------------ the field map's explanatory content */
+function fieldmapRec() {
+  const F = (needle) => { cite(FMAP, needle); return FMAP; };
+  const ladder = [[3, 6, 'Folklore; a short pencil argument.'], [4, 9, 'Proved by hand (1955).'], [5, 14, 'Proved by hand (1955).'], [6, 18, 'Proved by hand; a four-page proof exists.'],
+    [7, 23, 'Proved by hand in 1968. The last rung with a proof a person can read.'], [8, 28, 'Computer, 1992: every candidate for the untouched part was listed.'], [9, 36, '1982. Counting alone closes the hard case here.'],
+    [10, null, 'Open: 40 or 41. Lower bound 1989, upper bound 41 in 2025 after about three CPU-years.']].map(([k, v, why]) => {
+    F('[' + k + ',' + (v === null ? 40 : v) + ",'" + why + "']"); return { k, value: v, why };
+  });
+  const nested = [[0, 40, 'the whole graph', 'unknown: the question'], [1, 35, 'R(3,9) = 36', '1 graph'], [2, 27, 'R(3,8) = 28', '477,142 graphs'], [3, 22, 'R(3,7) = 23', '191 graphs'], [4, 17, 'R(3,6) = 18', '7 graphs'],
+    [5, 13, 'R(3,5) = 14', '1 graph'], [6, 8, 'R(3,4) = 9', '3 graphs'], [7, 5, 'R(3,3) = 6', '1 graph: the 5-cycle'], [8, 2, 'two points', '1 graph: a single line'], [9, 0, 'nothing left', 'every point is touched']].map(([j, cap, by, count]) => {
+    F('[' + j + ',' + cap + ",'" + by + "','" + count + "'"); return { j, cap, by, count };
+  });
+  cite(LEDG, 'all 7 (3,6;17), all 191 (3,7;22), all 477,142 (3,8;27), the (3,9;35)-graph');
+  const slack = [['18', 'k = 6', 0, 'Closed by hand.'], ['23', 'k = 7', 1, 'Closed by hand in 1968.'], ['28', 'k = 8', 5, 'Closed in 1992 by listing every candidate untouched part.'], ['36', 'k = 9', -5, 'Counting alone: the untouched part would need 85 lines and gets 80.'],
+    ['42', 'k = 10', 4, 'Closed in 2013: 2,104,151 candidates glued, about 50 CPU-years.'], ['40', 'k = 10', 13, 'Open. The untouched part has 99 lines; the minimum is 86.']].map(([n, k, v, why]) => {
+    F("['" + n + "','" + k + "'," + v + ",'" + why + "']"); return { n: Number(n), k, slack: v, why };
+  });
+  cite(LEDG, 'the twin terms 0, +1, +5, −5, +4, +8.5, +13 (the methods scout\'s table re-derived)');
+  const methods = [[43, 'One-level line counting (the classical method)'], [43, 'Line counts at every nested level'], [43, 'Counts of unconnected sets inside the untouched part'], [43, 'The same with shared whole-number profiles'],
+    [43, 'Spectral moments plus line counting'], [43, 'Split by whether a rigid 8-point core exists'], [43, 'Subsets of one largest unconnected set'], [43, 'Unions of neighbourhood traces'], [43, 'Subsets of one neighbourhood'],
+    [43, 'Deletion test without the full list one point below'], [45, 'Counts of unconnected sets with domination'], [45, 'Spectral moments alone'], [46, 'A degree-based weight function fitted to the small cases']].map(([reach, name]) => {
+    F('[' + reach + ",'" + name + "']"); return { reach, name };
+  });
+  F('One more method, colouring, reaches only 82 and is off the scale.');
+  const published = [[42, 2013, 'Published bound 42 (2013): about 50 CPU-years and a list of part of the level below.'], [41, 2025, 'Published bound 41 (2025): about 3 CPU-years and a larger such list.']].map(([reach, year, why]) => {
+    F('[' + reach + ",'" + year + "','" + why + "']"); return { reach, year, why };
+  });
+  cite(LEDG, 'Fourteen methods measured at k = 6..10. At k = 10 every one that needs no catalogue');
+  const phantoms = [
+    { name: 'The one-view phantom', blind: 'blind to agreement', what: 'Take one real graph on 30 points and pretend it is what every one of the 40 points sees outside its neighbours. Every count made from a single point is then consistent, at any depth.', why: 'It forgets that the views of two points overlap and must agree where they do. This is why ten methods stop at 43. Sharper methods are fooled the same way by a blend of about seven real graphs.', n1: 'Every count made from a single point is then consistent, at any depth.', n2: 'Sharper methods are fooled the same way by a blend of about seven real graphs.' },
+    { name: 'The pair phantom', blind: 'blind to triples', what: 'A table of how many pairs of each kind exist, with every pair consistent in itself. It satisfies 35 exact equations in whole numbers.', why: 'Pairs are never asked to agree on a third point. The same phantom, one level up. Found at the stratum with largest codegree 4.', n1: 'It satisfies 35 exact equations in whole numbers.', n2: 'Pairs are never asked to agree on a third point.' },
+    { name: 'The scale phantom', blind: 'blind to size', what: 'A real graph with the same proportions as ours, 320 points with 72 neighbours each, where every neighbourhood is a largest unconnected set. Built from a 2010 paper’s recipe.', why: 'Any argument that only uses ratios would exclude it too, and it exists. So ratios alone can never work.', n1: '320 points with 72 neighbours each, where every neighbourhood is a largest unconnected set.', n2: 'Any argument that only uses ratios would exclude it too, and it exists. So ratios alone can never work.' }];
+  for (const p of phantoms) { F(p.n1); F(p.n2); delete p.n1; delete p.n2; }
+  const fourth = 'Real graphs on 40 points obey every local rule (9 neighbours each, no triangle, 1 to 3 shared neighbours) and still contain ten unconnected points. So nothing built from local rules alone can finish the proof.';
+  F(fourth);
+  const notFooled = 'Three kinds of input survive all three phantoms: an exact small Ramsey number applied to a region of the graph (18 points untouched by 4 chosen ones must contain 6 unconnected, since R(3,6) = 18); whole-number constraints; and statements that force two or more points’ views to agree.';
+  F('Three kinds of input survive all three phantoms: an exact small Ramsey number applied to a region of the graph');
+  cite(LEDG, 'a fourth phantom.');
+  const funnel = [['An idea', 'from a paper, an agent, or from the operator'], ['A row in the ledger', 'written before any work starts'], ['The test bench', '22 points: possible; 23 points: impossible'], ['A second program', 'written separately, same answer'], ['The gate', 'ruled by the words written before the run'], ['Run at 40', 'only what passed everything above']];
+  F("['A row in the ledger','written before','any work starts']");
+  F("['The test bench','22 points: possible','23 points: impossible']");
+  F('Dead, with the number that killed it');
+  const bench = 'The test bench is the pair 22 and 23. At 22 points ten graphs of the regular kind exist; at 23 none does; and counting leaves slack there, as it does at 40. A method must say “possible” at 22 and “impossible” at 23 without being handed the list of smaller graphs.';
+  F('The test bench is the pair 22 and 23. At 22 points ten graphs of the regular kind exist; at 23 none does');
+  const tools = [['Astra, four at once', 'GPT sessions started from this Mac. Each gets one bounded task and a gate. They read everything, write only in their own folder.'], ['Claude agents', 'The second programs: re-derive a result from the written mathematics before opening the first program’s output. Also the paper scouts.'],
+    ['Complete catalogues', 'Every graph at the solved rungs, on disk (477,142 at one of them). A method that “excludes” a graph that exists is wrong.'], ['Two proof checkers', 'Every machine refutation is replayed by two independent checkers before it counts.'],
+    ['Gates written first', 'What counts as pass or fail is written and timestamped before the run, then ruled by its own words.'], ['The path ledger', 'A row before any work. Dead only with the number that killed it. Alive only after a second program.'],
+    ['Claimbox', 'End of the funnel: a surviving lemma becomes a decidable object over a pinned catalogue.'], ['One Mac', '8 cores, no rented machines. Any route ending in thousands of CPU-hours is out by rule.']].map(([b, t]) => { F(b); F(t.split('. ')[0].replace(/’/g, "'").replace(/[“”]/g, '"')); return { b, t }; });
+  const questions = [
+    ['What flips between 22 and 23?', 'Ten regular graphs exist on 22 points; none on 23. Every count we can write is satisfied on both sides. Something that is not a count separates them. At 18 points the answer is now known: the counts are forced to a single table, every local piece is a real graph, and still the pieces cannot be assembled into one graph, even ignoring the ten-set rule. At 23 they can be assembled, so something more breaks there. Name it, and it is the thing to carry up to 40.'],
+    ['What is the smallest statement about two views agreeing?', 'Each point sees 30 others outside its neighbours. Two joined points share 22 of those. A proof must use that overlap. Listing all overlaps is the brute force we ruled out; a single inequality about them is what is missing.'],
+    ['Why do extreme graphs end 8, 5, 2, 0?', 'In every solved case, a graph at the limit contains unconnected sets whose untouched parts are a fixed 8-point graph, then a 5-cycle, then a single line. All 477,142 graphs one rung down do. At 40 only the last step is proved. Counting cannot prove the next; it would need 45 points.'],
+    ['Is the regular case the whole problem?', 'In every catalogue, whenever a graph exists, one with the maximum possible number of lines exists too. If that held at 40, a counterexample would exist only if a 9-regular one did, and half the map would vanish. No proof is known at any size.'],
+    ['Can rigid spots be forced, then chained?', 'When a region is exactly as large as a Ramsey number allows, its shape is one of a handful. One such spot (three points fully joined to four) fixes seven whole neighbourhoods. The open question is whether such spots must exist, and whether two of them can coexist.'],
+    ['Where do the 13 extra lines go?', 'Each untouched part has 13 more lines than the leanest possible graph of its size. The leanest graphs are understood, built from a few patterns. Nothing is known 13 lines above them. A description of what the surplus must look like would be new mathematics.']].map(([q, t]) => { F(q); F(t); return { q, text: t }; });
+  const glossary = [['unconnected set', 'Points with no line between any two of them. Mathematicians say “independent set”.'], ['regular', 'Every point has the same number of neighbours. Here 9, giving 180 lines.'], ['codegree', 'How many neighbours two unjoined points share.'],
+    ['outside graph', 'What is left after removing a point and all its neighbours.'], ['gate', 'A pass/fail rule written before a run.'], ['phantom', 'Something that passes a method’s checks without being a real graph.']].map(([w, d]) => { F('<dt>' + w + '</dt><dd>' + d.replace(/’/g, "'").replace(/[“”]/g, '"') + '</dd>'); return { word: w, def: d, src: FMAP }; });
+  glossary.push({ word: 'largest codegree c*', def: 'The most neighbours two unjoined points have in common; the regular case is split by it, from 3 to 7.', src: F('the most neighbours two unjoined points have in common') });
+  glossary.push({ word: 'window W(n, d, cap)', def: 'The d-regular triangle-free graphs on n vertices in which every two non-adjacent vertices have between 1 and cap common neighbours, with no independence condition at all.', src: PATHSF });
+  cite(PATHSF, 'does a d-regular triangle-free graph with every non-adjacent codegree in 1..cap exist at all, with NO independence condition?');
+  glossary.push({ word: 'the twins', def: 'The regular cases already closed that are built like the case at 40: (6,18), (7,23), (8,28). Every path is asked first to close them without the catalogue of the level below.', src: PATHSF });
+  cite(PATHSF, 'Every path is asked first to close those twins without the catalogue of the level below.');
+  glossary.push({ word: 'second program', def: 'Code written from the statement alone by another session, without reading the first program; “independent” on this page means that and nothing more.', src: FMAP });
+  /* the lane's own map of where a counterexample could hide, at the records' minute (the field map's figures of
+     25 Nov 01:56 UTC, brought up to the ledger's last entries) */
+  const strata = [
+    { k: 'Not regular', what: 'Some vertex has 6, 7 or 8 neighbours.', state: 'reduced, open', done: 283, of: 519, unit: 'degree distributions excluded',
+      text: '283 of the 519 distributions left after five integer rays are excluded at published edge floors, every one by two programs: at most two vertices of degree 6 (two routes), then (0,16,0,24), (0,4,28,8) and a degree-7 floor of 109 with its 8 keys. 236 survive. The floor 110 is running (G31).', needles: [[LEDG, 'STANDING: 283 of 519 excluded, every one of the ten beyond G16\'s 273 now re-derived by a second program'], [LEDG, 'THEOREM, NOW ON TWO PROGRAMS: a maximal triangle-free graph on 40 vertices with α ≤ 9 has AT MOST TWO VERTICES OF']] },
+    { k: 'Codegree 3', what: 'Regular; no two unjoined vertices share more than 3.', state: 'reduced, open', done: null,
+      text: 'Covered by 7 rooted configurations (two programs), none closed. Its local window looks rigid: every symmetric member found is one graph G, which has an independent 10-set. Proved with LRAT: no member other than G has a symmetry of order 5, 7 or a prime ≥ 11, a fixed-point-free involution, or an involution fixing exactly two vertices; involutions fixing four or six vertices remain (the next gate is running); the asymmetric case is priced at 298 core-hours or more and parked.', needles: [[LEDG, 'With W1c (5^8 = {G}): the involution type 2^20 is DECIDED.'], [LEDG, 'No member of W(40,9,3) admits an involution fixing exactly two vertices'], [LEDG, 'at least ~298 core-hours, probably far more']] },
+    { k: 'Codegree 4', what: 'Regular; the largest shared neighbourhood is 4.', state: 'reduced, open', done: 9, of: 69, unit: 'profiles closed',
+      text: '69 six-row profiles, 9 closed by short arguments a person can read (two derivations), 60 open. A rigid 2K₂ root is forced at every maximum pair (confirmed), but a real 40-vertex graph satisfies all of its one- and two-point cards.', needles: [[LEDG, 'G7 CONFIRMED by a second derivation'], [LEDG, 'has a 2K_2 root J whose one-point and two-point cards are ALL legal']] },
+    { k: 'Codegree 5', what: 'Regular; the largest is 5.', state: 'open', done: 0, of: 1957, unit: 'profiles (single-source count)',
+      text: '1,839 + 118 profiles before any exclusion (one session’s count). Not attacked.', needles: [[LEDG, 'c* = 5: 1,839 + 118 profiles before exclusion']] },
+    { k: 'Codegree 6', what: 'Regular; the largest is 6.', state: 'one branch computed', done: 1, of: 7, unit: 'cross-edge branches computed',
+      text: 'The three-edge branch: all 23,409 cores excluded under six premises (box 3). The four-edge branch: a 20-core cost pilot only. Five to nine cross-edges: not run.', needles: [[R6, 'It does not decide R(3,10), and it does not close Case R(6).']] },
+    { k: 'Codegree 7', what: 'Regular; the largest is 7.', state: 'excluded', done: 1, of: 1, unit: 'computed twice',
+      text: 'Excluded: 977,008 configurations, every one refuted; first by Chen’s run, then by ours (box 2).', needles: [[PROD, 'All 977,008 configurations ended CERTIFIED-UNSAT.']] }];
+  for (const st of strata) { for (const [rel, nd] of st.needles) cite(rel, nd); st.src = st.needles.map((n) => n[0]); delete st.needles; }
+  const settled = 'Also settled: a vertex with 4 or 5 neighbours is impossible; codegree above 7 is impossible; codegree 1 and 2 are excluded (the second conditionally).';
+  F('a point with 4 or 5 neighbours is impossible; codegree above 7 is impossible; codegree 1 and 2 are excluded (the second conditionally).');
+  /* forecasts: the field map's numbers, never a fact */
+  const forecasts = { at: '2026-11-25T01:56Z', src: FMAP, items: [
+    { value: '≈ 80%', what: 'that the answer is 40' }, { value: '20–25%', what: 'that anyone gives a complete, checked answer within a year' }, { value: '≈ 7%', what: 'that this lane alone settles it within a year (up from 5% on two confirmed gates)' }],
+    moves: 'The lane’s number moves up if something closes the 23-point regular case without the list below it, and again if the same thing bites at 40. It moves down if all three attempts on that case fail the same way.' };
+  F('The answer is 40. Unmoved by today.'); F('Anyone gives a complete, checked answer within a year.'); F('This lane alone does. Up from 5% on two confirmed gates.');
+  F('It moves down if all three attempts on that case fail the same way.');
+  F('state at 01:56 UTC, 25 Nov 2026');
+  return { what: 'The explanatory content of the lane’s private field map (round5/dashboard/r310-field-map.html, state at 01:56 UTC on 25 Nov 2026), rebuilt as data with a needle per sentence and number: the ladder of R(3,k), the nested structure, the slack, the reach of methods, the three phantoms, the funnel and its tools, six open questions, a glossary, the lane’s own map of strata brought up to the ledger’s last entries, and the field map’s forecasts, kept apart as forecasts.',
+    src: FMAP, ladder, nested, slack, methods, published, phantoms, fourth, not_fooled: notFooled, funnel, bench, tools, questions, glossary, strata, settled, forecasts };
+}
+
+/* ------------------------------------------------------------------ the sources, published with a redaction pass */
+const HOLD = [[/^audit\/gr2013\//, 'a published paper’s text (Goedgebeur and Radziszowski 2013): linked, not republished'],
+  [/^audit\/chen-23678020\//, 'Zhiyang Chen’s report as read: linked to its Zenodo record, not republished'],
+  [/^audit\/chen-ralph-2026-11-23\/repo\//, 'a file of Zhiyang Chen’s public repository (github.com/jeffchen006/Ramsey-R3-10): linked, not republished'],
+  [/CHEN-NOTE/, 'a draft of a note to Zhiyang Chen: correspondence with a person, not republished (its facts are cited in the records)']];
+const REDACT = [[/ssh -i|root@|\b\d{1,3}(?:\.\d{1,3}){3}\b/, 'an ssh host or a network address'], [/id_ed25519|api[_ -]?key|password|secret key|token=/i, 'a credential'],
+  [/[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,}/, 'an e-mail address'],
+  [/\bsequent\b|outreach\/|\bplumb\b|sagui|atalaia|null-edit|job appl|Patrick White/i, 'another private project or private correspondence']];
+function publishSources() {
+  const dest = path.join(OUT, 'sources');
+  const files = [];
+  for (const [rel] of [...SRC.entries()].sort()) {
+    const buf = fs.readFileSync(path.join(LANE, rel));
+    const hold = HOLD.find(([rx]) => rx.test(rel));
+    const e = { file: rel, sha256: sha(buf), bytes: buf.length };
+    if (hold) { Object.assign(e, { published: false, why: hold[1] }); files.push(e); continue; }
+    if (buf.length > 5e6) { Object.assign(e, { published: false, why: 'too large for the repository; named by its sha256' }); files.push(e); continue; }
+    const withheld = [];
+    const out = buf.toString('utf8').split('\n').map((l, i) => { const r = REDACT.find(([rx]) => rx.test(l)); if (!r) return l; withheld.push({ line: i + 1, why: r[1] }); return '[line ' + (i + 1) + ' withheld from the public copy: ' + r[1] + ']'; }).join('\n');
+    Object.assign(e, { published: true, path: 'corpus/r310-live/sources/' + rel, published_sha256: sha(Buffer.from(out)), withheld });
+    files.push(e);
+    e._out = out;
+  }
+  return { files, dest };
+}
+
 /* ------------------------------------------------------------------ write / check / log */
 const J = (o) => JSON.stringify(o, null, 1) + '\n';
 async function all() {
-  const recs = { 'cases.json': cases(), 'boxes.json': boxes(), 'corrections.json': corrections(), 'machine.json': machine(), 'replay.json': await replay() };
+  const recs = { 'cases.json': cases(), 'boxes.json': boxes(), 'corrections.json': corrections(), 'machine.json': machine(), 'replay.json': await replay(),
+    'process.json': processRec(), 'paths.json': pathsRec(), 'fieldmap.json': fieldmapRec() };
   /* every source cited, with the first twelve hex digits of its sha256, for the page's trust layer */
   recs['cases.json'].sources = [...SRC.entries()].sort().map(([rel, h]) => ({ file: rel, sha256_12: h }));
-  /* the sealed box shows its open discrepancies as a count only, read from the ledger's open sealed rows */
-  recs['boxes.json'].boxes[2].open_discrepancies = recs['corrections.json'].rows.filter((r) => r.where === 'sealed' && r.status === 'open').length;
+  const pub = publishSources();
+  recs['sources/MANIFEST.json'] = { what: 'The lane files the records of /r310/ cite, as published here: each with the sha256 of the original; a public copy (corpus/r310-live/sources/<path>) when it may be published, with every line withheld from it named with its reason (the original keeps every line; the published copy’s sha256 is given); or the reason it is not republished. Third-party texts are linked, not copied; big data is named by its sha256.',
+    published_on: '2026-11-25', files: pub.files.map((f) => { const o = Object.assign({}, f); delete o._out; return o; }) };
+  recs._sourceBytes = pub.files.filter((f) => f.published).map((f) => [f.path, f._out]);
   return recs;
 }
 (async () => {
@@ -603,7 +929,7 @@ async function all() {
     const B = JSON.parse(fs.readFileSync(path.join(OUT, 'boxes.json'), 'utf8')), K = JSON.parse(fs.readFileSync(path.join(OUT, 'corrections.json'), 'utf8'));
     const f = path.join(OUT, 'page-log.json');
     const L = fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : { what: 'The public change log of /r310/: one dated entry per change of the page or of its state. The builder refuses when the newest entry’s state is not the records’.', entries: [] };
-    L.entries.push({ at: new Date().toISOString().slice(0, 16) + 'Z', progress_percent: B.boxes[2].progress_percent, corrections: K.counts.all, what });
+    L.entries.push({ at: new Date().toISOString().slice(0, 16) + 'Z', box3: B.boxes[2].state, corrections: K.counts.all, what });
     fs.writeFileSync(f, J(L));
     console.log('page-log.json: entry ' + L.entries.length + ' at ' + L.entries[L.entries.length - 1].at);
     return;
@@ -612,6 +938,7 @@ async function all() {
   if (argv.includes('--check')) {
     let bad = 0;
     for (const [f, o] of Object.entries(recs)) {
+      if (f === '_sourceBytes') continue;
       const p = path.join(OUT, f);
       if (!fs.existsSync(p) || fs.readFileSync(p, 'utf8') !== J(o)) { console.error('  differs: corpus/r310-live/' + f); bad++; }
     }
@@ -619,9 +946,11 @@ async function all() {
     console.log('corpus/r310-live: ' + Object.keys(recs).length + ' records re-derived, all equal');
     return;
   }
-  fs.mkdirSync(OUT, { recursive: true });
-  for (const [f, o] of Object.entries(recs)) fs.writeFileSync(path.join(OUT, f), J(o));
-  const B = recs['boxes.json'].boxes[2], K = recs['corrections.json'].counts;
-  console.log('corpus/r310-live written: ' + recs['cases.json'].nodes.length + ' cases, sealed box at ' + B.progress_percent + '% (as of ' + B.as_of + '), '
-    + K.all + ' corrections (' + K.sealed + ' sealed), ' + recs['machine.json'].verdicts.rows.length + ' verdict rows, ' + SRC.size + ' sources');
+  fs.mkdirSync(path.join(OUT, 'sources'), { recursive: true });
+  for (const [f, o] of Object.entries(recs)) if (f !== '_sourceBytes') fs.writeFileSync(path.join(OUT, f), J(o));
+  for (const [p, bytes] of recs._sourceBytes) { fs.mkdirSync(path.dirname(path.join(ROOT, p)), { recursive: true }); fs.writeFileSync(path.join(ROOT, p), bytes); }
+  const B = recs['boxes.json'].boxes[2], K = recs['corrections.json'].counts, P = recs['process.json'], M = recs['sources/MANIFEST.json'].files;
+  console.log('corpus/r310-live written: ' + recs['cases.json'].nodes.length + ' cases, box 3 ' + B.state + ' (' + B.tally.excluded + ' of ' + B.tally.cores + ' cores excluded), '
+    + K.all + ' corrections (' + K.r6 + ' in box 3), ' + P.gates.length + ' gates, ' + P.running.length + ' sessions running, ' + recs['paths.json'].rows.length + ' paths, '
+    + recs['machine.json'].verdicts.rows.length + ' verdict rows, ' + SRC.size + ' sources (' + M.filter((f) => f.published).length + ' published, ' + M.reduce((t, f) => t + (f.withheld ? f.withheld.length : 0), 0) + ' lines withheld)');
 })().catch((e) => die(e.stack || e.message));

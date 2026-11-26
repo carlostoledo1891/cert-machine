@@ -1,0 +1,469 @@
+{
+ "what": "The explanatory content of the lane’s private field map (round5/dashboard/r310-field-map.html, state at 01:56 UTC on 25 Nov 2026), rebuilt as data with a needle per sentence and number: the ladder of R(3,k), the nested structure, the slack, the reach of methods, the three phantoms, the funnel and its tools, six open questions, a glossary, the lane’s own map of strata brought up to the ledger’s last entries, and the field map’s forecasts, kept apart as forecasts.",
+ "src": "round5/dashboard/r310-field-map.html",
+ "ladder": [
+  {
+   "k": 3,
+   "value": 6,
+   "why": "Folklore; a short pencil argument."
+  },
+  {
+   "k": 4,
+   "value": 9,
+   "why": "Proved by hand (1955)."
+  },
+  {
+   "k": 5,
+   "value": 14,
+   "why": "Proved by hand (1955)."
+  },
+  {
+   "k": 6,
+   "value": 18,
+   "why": "Proved by hand; a four-page proof exists."
+  },
+  {
+   "k": 7,
+   "value": 23,
+   "why": "Proved by hand in 1968. The last rung with a proof a person can read."
+  },
+  {
+   "k": 8,
+   "value": 28,
+   "why": "Computer, 1992: every candidate for the untouched part was listed."
+  },
+  {
+   "k": 9,
+   "value": 36,
+   "why": "1982. Counting alone closes the hard case here."
+  },
+  {
+   "k": 10,
+   "value": null,
+   "why": "Open: 40 or 41. Lower bound 1989, upper bound 41 in 2025 after about three CPU-years."
+  }
+ ],
+ "nested": [
+  {
+   "j": 0,
+   "cap": 40,
+   "by": "the whole graph",
+   "count": "unknown: the question"
+  },
+  {
+   "j": 1,
+   "cap": 35,
+   "by": "R(3,9) = 36",
+   "count": "1 graph"
+  },
+  {
+   "j": 2,
+   "cap": 27,
+   "by": "R(3,8) = 28",
+   "count": "477,142 graphs"
+  },
+  {
+   "j": 3,
+   "cap": 22,
+   "by": "R(3,7) = 23",
+   "count": "191 graphs"
+  },
+  {
+   "j": 4,
+   "cap": 17,
+   "by": "R(3,6) = 18",
+   "count": "7 graphs"
+  },
+  {
+   "j": 5,
+   "cap": 13,
+   "by": "R(3,5) = 14",
+   "count": "1 graph"
+  },
+  {
+   "j": 6,
+   "cap": 8,
+   "by": "R(3,4) = 9",
+   "count": "3 graphs"
+  },
+  {
+   "j": 7,
+   "cap": 5,
+   "by": "R(3,3) = 6",
+   "count": "1 graph: the 5-cycle"
+  },
+  {
+   "j": 8,
+   "cap": 2,
+   "by": "two points",
+   "count": "1 graph: a single line"
+  },
+  {
+   "j": 9,
+   "cap": 0,
+   "by": "nothing left",
+   "count": "every point is touched"
+  }
+ ],
+ "slack": [
+  {
+   "n": 18,
+   "k": "k = 6",
+   "slack": 0,
+   "why": "Closed by hand."
+  },
+  {
+   "n": 23,
+   "k": "k = 7",
+   "slack": 1,
+   "why": "Closed by hand in 1968."
+  },
+  {
+   "n": 28,
+   "k": "k = 8",
+   "slack": 5,
+   "why": "Closed in 1992 by listing every candidate untouched part."
+  },
+  {
+   "n": 36,
+   "k": "k = 9",
+   "slack": -5,
+   "why": "Counting alone: the untouched part would need 85 lines and gets 80."
+  },
+  {
+   "n": 42,
+   "k": "k = 10",
+   "slack": 4,
+   "why": "Closed in 2013: 2,104,151 candidates glued, about 50 CPU-years."
+  },
+  {
+   "n": 40,
+   "k": "k = 10",
+   "slack": 13,
+   "why": "Open. The untouched part has 99 lines; the minimum is 86."
+  }
+ ],
+ "methods": [
+  {
+   "reach": 43,
+   "name": "One-level line counting (the classical method)"
+  },
+  {
+   "reach": 43,
+   "name": "Line counts at every nested level"
+  },
+  {
+   "reach": 43,
+   "name": "Counts of unconnected sets inside the untouched part"
+  },
+  {
+   "reach": 43,
+   "name": "The same with shared whole-number profiles"
+  },
+  {
+   "reach": 43,
+   "name": "Spectral moments plus line counting"
+  },
+  {
+   "reach": 43,
+   "name": "Split by whether a rigid 8-point core exists"
+  },
+  {
+   "reach": 43,
+   "name": "Subsets of one largest unconnected set"
+  },
+  {
+   "reach": 43,
+   "name": "Unions of neighbourhood traces"
+  },
+  {
+   "reach": 43,
+   "name": "Subsets of one neighbourhood"
+  },
+  {
+   "reach": 43,
+   "name": "Deletion test without the full list one point below"
+  },
+  {
+   "reach": 45,
+   "name": "Counts of unconnected sets with domination"
+  },
+  {
+   "reach": 45,
+   "name": "Spectral moments alone"
+  },
+  {
+   "reach": 46,
+   "name": "A degree-based weight function fitted to the small cases"
+  }
+ ],
+ "published": [
+  {
+   "reach": 42,
+   "year": 2013,
+   "why": "Published bound 42 (2013): about 50 CPU-years and a list of part of the level below."
+  },
+  {
+   "reach": 41,
+   "year": 2025,
+   "why": "Published bound 41 (2025): about 3 CPU-years and a larger such list."
+  }
+ ],
+ "phantoms": [
+  {
+   "name": "The one-view phantom",
+   "blind": "blind to agreement",
+   "what": "Take one real graph on 30 points and pretend it is what every one of the 40 points sees outside its neighbours. Every count made from a single point is then consistent, at any depth.",
+   "why": "It forgets that the views of two points overlap and must agree where they do. This is why ten methods stop at 43. Sharper methods are fooled the same way by a blend of about seven real graphs."
+  },
+  {
+   "name": "The pair phantom",
+   "blind": "blind to triples",
+   "what": "A table of how many pairs of each kind exist, with every pair consistent in itself. It satisfies 35 exact equations in whole numbers.",
+   "why": "Pairs are never asked to agree on a third point. The same phantom, one level up. Found at the stratum with largest codegree 4."
+  },
+  {
+   "name": "The scale phantom",
+   "blind": "blind to size",
+   "what": "A real graph with the same proportions as ours, 320 points with 72 neighbours each, where every neighbourhood is a largest unconnected set. Built from a 2010 paper’s recipe.",
+   "why": "Any argument that only uses ratios would exclude it too, and it exists. So ratios alone can never work."
+  }
+ ],
+ "fourth": "Real graphs on 40 points obey every local rule (9 neighbours each, no triangle, 1 to 3 shared neighbours) and still contain ten unconnected points. So nothing built from local rules alone can finish the proof.",
+ "not_fooled": "Three kinds of input survive all three phantoms: an exact small Ramsey number applied to a region of the graph (18 points untouched by 4 chosen ones must contain 6 unconnected, since R(3,6) = 18); whole-number constraints; and statements that force two or more points’ views to agree.",
+ "funnel": [
+  [
+   "An idea",
+   "from a paper, an agent, or from the operator"
+  ],
+  [
+   "A row in the ledger",
+   "written before any work starts"
+  ],
+  [
+   "The test bench",
+   "22 points: possible; 23 points: impossible"
+  ],
+  [
+   "A second program",
+   "written separately, same answer"
+  ],
+  [
+   "The gate",
+   "ruled by the words written before the run"
+  ],
+  [
+   "Run at 40",
+   "only what passed everything above"
+  ]
+ ],
+ "bench": "The test bench is the pair 22 and 23. At 22 points ten graphs of the regular kind exist; at 23 none does; and counting leaves slack there, as it does at 40. A method must say “possible” at 22 and “impossible” at 23 without being handed the list of smaller graphs.",
+ "tools": [
+  {
+   "b": "Astra, four at once",
+   "t": "GPT sessions started from this Mac. Each gets one bounded task and a gate. They read everything, write only in their own folder."
+  },
+  {
+   "b": "Claude agents",
+   "t": "The second programs: re-derive a result from the written mathematics before opening the first program’s output. Also the paper scouts."
+  },
+  {
+   "b": "Complete catalogues",
+   "t": "Every graph at the solved rungs, on disk (477,142 at one of them). A method that “excludes” a graph that exists is wrong."
+  },
+  {
+   "b": "Two proof checkers",
+   "t": "Every machine refutation is replayed by two independent checkers before it counts."
+  },
+  {
+   "b": "Gates written first",
+   "t": "What counts as pass or fail is written and timestamped before the run, then ruled by its own words."
+  },
+  {
+   "b": "The path ledger",
+   "t": "A row before any work. Dead only with the number that killed it. Alive only after a second program."
+  },
+  {
+   "b": "Claimbox",
+   "t": "End of the funnel: a surviving lemma becomes a decidable object over a pinned catalogue."
+  },
+  {
+   "b": "One Mac",
+   "t": "8 cores, no rented machines. Any route ending in thousands of CPU-hours is out by rule."
+  }
+ ],
+ "questions": [
+  {
+   "q": "What flips between 22 and 23?",
+   "text": "Ten regular graphs exist on 22 points; none on 23. Every count we can write is satisfied on both sides. Something that is not a count separates them. At 18 points the answer is now known: the counts are forced to a single table, every local piece is a real graph, and still the pieces cannot be assembled into one graph, even ignoring the ten-set rule. At 23 they can be assembled, so something more breaks there. Name it, and it is the thing to carry up to 40."
+  },
+  {
+   "q": "What is the smallest statement about two views agreeing?",
+   "text": "Each point sees 30 others outside its neighbours. Two joined points share 22 of those. A proof must use that overlap. Listing all overlaps is the brute force we ruled out; a single inequality about them is what is missing."
+  },
+  {
+   "q": "Why do extreme graphs end 8, 5, 2, 0?",
+   "text": "In every solved case, a graph at the limit contains unconnected sets whose untouched parts are a fixed 8-point graph, then a 5-cycle, then a single line. All 477,142 graphs one rung down do. At 40 only the last step is proved. Counting cannot prove the next; it would need 45 points."
+  },
+  {
+   "q": "Is the regular case the whole problem?",
+   "text": "In every catalogue, whenever a graph exists, one with the maximum possible number of lines exists too. If that held at 40, a counterexample would exist only if a 9-regular one did, and half the map would vanish. No proof is known at any size."
+  },
+  {
+   "q": "Can rigid spots be forced, then chained?",
+   "text": "When a region is exactly as large as a Ramsey number allows, its shape is one of a handful. One such spot (three points fully joined to four) fixes seven whole neighbourhoods. The open question is whether such spots must exist, and whether two of them can coexist."
+  },
+  {
+   "q": "Where do the 13 extra lines go?",
+   "text": "Each untouched part has 13 more lines than the leanest possible graph of its size. The leanest graphs are understood, built from a few patterns. Nothing is known 13 lines above them. A description of what the surplus must look like would be new mathematics."
+  }
+ ],
+ "glossary": [
+  {
+   "word": "unconnected set",
+   "def": "Points with no line between any two of them. Mathematicians say “independent set”.",
+   "src": "round5/dashboard/r310-field-map.html"
+  },
+  {
+   "word": "regular",
+   "def": "Every point has the same number of neighbours. Here 9, giving 180 lines.",
+   "src": "round5/dashboard/r310-field-map.html"
+  },
+  {
+   "word": "codegree",
+   "def": "How many neighbours two unjoined points share.",
+   "src": "round5/dashboard/r310-field-map.html"
+  },
+  {
+   "word": "outside graph",
+   "def": "What is left after removing a point and all its neighbours.",
+   "src": "round5/dashboard/r310-field-map.html"
+  },
+  {
+   "word": "gate",
+   "def": "A pass/fail rule written before a run.",
+   "src": "round5/dashboard/r310-field-map.html"
+  },
+  {
+   "word": "phantom",
+   "def": "Something that passes a method’s checks without being a real graph.",
+   "src": "round5/dashboard/r310-field-map.html"
+  },
+  {
+   "word": "largest codegree c*",
+   "def": "The most neighbours two unjoined points have in common; the regular case is split by it, from 3 to 7.",
+   "src": "round5/dashboard/r310-field-map.html"
+  },
+  {
+   "word": "window W(n, d, cap)",
+   "def": "The d-regular triangle-free graphs on n vertices in which every two non-adjacent vertices have between 1 and cap common neighbours, with no independence condition at all.",
+   "src": "round5/PATHS.md"
+  },
+  {
+   "word": "the twins",
+   "def": "The regular cases already closed that are built like the case at 40: (6,18), (7,23), (8,28). Every path is asked first to close them without the catalogue of the level below.",
+   "src": "round5/PATHS.md"
+  },
+  {
+   "word": "second program",
+   "def": "Code written from the statement alone by another session, without reading the first program; “independent” on this page means that and nothing more.",
+   "src": "round5/dashboard/r310-field-map.html"
+  }
+ ],
+ "strata": [
+  {
+   "k": "Not regular",
+   "what": "Some vertex has 6, 7 or 8 neighbours.",
+   "state": "reduced, open",
+   "done": 283,
+   "of": 519,
+   "unit": "degree distributions excluded",
+   "text": "283 of the 519 distributions left after five integer rays are excluded at published edge floors, every one by two programs: at most two vertices of degree 6 (two routes), then (0,16,0,24), (0,4,28,8) and a degree-7 floor of 109 with its 8 keys. 236 survive. The floor 110 is running (G31).",
+   "src": [
+    "round1/LEDGER.md",
+    "round1/LEDGER.md"
+   ]
+  },
+  {
+   "k": "Codegree 3",
+   "what": "Regular; no two unjoined vertices share more than 3.",
+   "state": "reduced, open",
+   "done": null,
+   "text": "Covered by 7 rooted configurations (two programs), none closed. Its local window looks rigid: every symmetric member found is one graph G, which has an independent 10-set. Proved with LRAT: no member other than G has a symmetry of order 5, 7 or a prime ≥ 11, a fixed-point-free involution, or an involution fixing exactly two vertices; involutions fixing four or six vertices remain (the next gate is running); the asymmetric case is priced at 298 core-hours or more and parked.",
+   "src": [
+    "round1/LEDGER.md",
+    "round1/LEDGER.md",
+    "round1/LEDGER.md"
+   ]
+  },
+  {
+   "k": "Codegree 4",
+   "what": "Regular; the largest shared neighbourhood is 4.",
+   "state": "reduced, open",
+   "done": 9,
+   "of": 69,
+   "unit": "profiles closed",
+   "text": "69 six-row profiles, 9 closed by short arguments a person can read (two derivations), 60 open. A rigid 2K₂ root is forced at every maximum pair (confirmed), but a real 40-vertex graph satisfies all of its one- and two-point cards.",
+   "src": [
+    "round1/LEDGER.md",
+    "round1/LEDGER.md"
+   ]
+  },
+  {
+   "k": "Codegree 5",
+   "what": "Regular; the largest is 5.",
+   "state": "open",
+   "done": 0,
+   "of": 1957,
+   "unit": "profiles (single-source count)",
+   "text": "1,839 + 118 profiles before any exclusion (one session’s count). Not attacked.",
+   "src": [
+    "round1/LEDGER.md"
+   ]
+  },
+  {
+   "k": "Codegree 6",
+   "what": "Regular; the largest is 6.",
+   "state": "one branch computed",
+   "done": 1,
+   "of": 7,
+   "unit": "cross-edge branches computed",
+   "text": "The three-edge branch: all 23,409 cores excluded under six premises (box 3). The four-edge branch: a 20-core cost pilot only. Five to nine cross-edges: not run.",
+   "src": [
+    "reveal-draft/r6-2026-11-24/REVEAL-R6.md"
+   ]
+  },
+  {
+   "k": "Codegree 7",
+   "what": "Regular; the largest is 7.",
+   "state": "excluded",
+   "done": 1,
+   "of": 1,
+   "unit": "computed twice",
+   "text": "Excluded: 977,008 configurations, every one refuted; first by Chen’s run, then by ours (box 2).",
+   "src": [
+    "claude-r7/PROD-RESULT.md"
+   ]
+  }
+ ],
+ "settled": "Also settled: a vertex with 4 or 5 neighbours is impossible; codegree above 7 is impossible; codegree 1 and 2 are excluded (the second conditionally).",
+ "forecasts": {
+  "at": "2026-11-25T01:56Z",
+  "src": "round5/dashboard/r310-field-map.html",
+  "items": [
+   {
+    "value": "≈ 80%",
+    "what": "that the answer is 40"
+   },
+   {
+    "value": "20–25%",
+    "what": "that anyone gives a complete, checked answer within a year"
+   },
+   {
+    "value": "≈ 7%",
+    "what": "that this lane alone settles it within a year (up from 5% on two confirmed gates)"
+   }
+  ],
+  "moves": "The lane’s number moves up if something closes the 23-point regular case without the list below it, and again if the same thing bites at 40. It moves down if all three attempts on that case fail the same way."
+ }
+}

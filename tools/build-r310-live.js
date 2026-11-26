@@ -1,19 +1,21 @@
 #!/usr/bin/env node
 /* build-r310-live.js — site/r310/index.html: R(3,10), in the open. Research and its verification on one page, while it happens.
 
-   R(3,10) is 40 or 41 and nothing here decides which. The page shows the process: the whole (3,10;40) question as a
-   map of cases with who closed each (the hero), the boxes (two opened: Theorem C35 and a second computation of Case
-   R(7); one sealed: a case worked on now), a replay of one recorded run, every error caught on the way, and the
+   R(3,10) is 40 or 41 and nothing here decides which. The page shows the whole lane: the (3,10;40) question as a map
+   of cases with who closed each (the hero), the question explained from the ground up (the field map's content), the
+   lane's own map of strata, the three boxes (Theorem C35, a second computation of Case R(7), and Case R(6)'s three-edge
+   branch, sealed until 25 Nov 2026 and opened on the operator's word with the rest of the case), the whole process
+   (every round, line and gate, dead ends with the passes, and what runs now), the path ledger, six open questions,
+   the lane's forecasts set apart as forecasts, a replay of one recorded run, every error caught on the way, and the
    machine at work. Rigor is one click down, in "Why you can trust this": every record, every hash, every rule.
 
    EVERY NUMBER AND EVERY SENTENCE OF STATE IS READ from corpus/r310-live/ (written from the lane's files by
    tools/r310-live-records.js, which refuses when a source no longer says what a record states). This builder reads
-   nothing else, and refuses when the records disagree with each other, when the newest page-log entry is not the
-   records' state, or when the sealed box would show more than its name, its anchors and its progress.
+   nothing else, and refuses when the records disagree with each other or when the newest page-log entry is not the
+   records' state.
 
-   THE SEALED BOX shows its name, its three Bitcoin anchors and a percentage rounded down, and nothing else. Its
-   corrections are one line each. The box's name is the only place its case number appears on the page, and the
-   builder counts that.
+   FORECASTS never share a typography or a frame with a decided number (WARRANT): they are drawn only in the forecasts
+   section, in their own italic type and dashed frame, and the builder counts that.
 
    OPENED_UTC is the one switch the control room sets at launch: the time the two boxes open (the publication). While
    it is unset the build refuses, unless FOR_PREVIEW=1, which builds a preview saying "opening: at publication" and
@@ -41,12 +43,14 @@ const DIR = 'corpus/r310-live/';
 const J = (f) => { const p = path.join(ROOT, DIR + f); need(fs.existsSync(p), 'a record is gone: ' + DIR + f); return JSON.parse(fs.readFileSync(p, 'utf8')); };
 const sha12 = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex').slice(0, 12);
 const CASES = J('cases.json'), BX = J('boxes.json'), K = J('corrections.json'), M = J('machine.json'), RP = J('replay.json'), PL = J('page-log.json');
+const PR = J('process.json'), PA = J('paths.json'), FM = J('fieldmap.json'), MAN = J('sources/MANIFEST.json');
 /* THE LAUNCH SWITCH: set to the publication time ('2026-11-23T12:00Z' form) by the control room, at launch */
 const OPENED_UTC = '2026-11-23T05:48Z';
 const PREVIEW = process.env.FOR_PREVIEW === '1';
 need(OPENED_UTC !== null || PREVIEW, 'OPENED_UTC is unset: the control room sets it at launch (the publication time); FOR_PREVIEW=1 builds a preview');
 need(OPENED_UTC === null || /^\d{4}-\d\d-\d\dT\d\d:\d\dZ$/.test(OPENED_UTC), 'OPENED_UTC is not a UTC time like 2026-11-23T12:00Z');
 const RECORD_URL = 'https://github.com/carlostoledo1891/cert-machine/tree/main/corpus/r310-c35-r7';
+const SRC_URL = 'https://github.com/carlostoledo1891/cert-machine/tree/main/corpus/r310-live/sources';
 
 /* ---------------------------------------------------------------- values, from their records */
 const V = (file, ptr, standing = W.DECIDED, fmt = 'int') => W.val({ rec: { path: DIR + file, ptr }, standing, fmt });
@@ -59,27 +63,28 @@ const utcs = (iso) => { const d = new Date(iso); return d.getUTCDate() + ' ' + M
 /* ---------------------------------------------------------------- the records agree with each other */
 const B1 = BX.boxes.find((b) => b.id === 'c35'), B2 = BX.boxes.find((b) => b.id === 'r7'), B3 = BX.boxes.find((b) => b.id === 'c6');
 need(B1 && B2 && B3 && BX.boxes.length === 3, 'the boxes record does not hold the three boxes');
-need(B1.state === 'opened' && B2.state === 'opened' && B3.state === 'sealed', 'a box’s state is not the one the page draws');
-const LABEL6 = B3.label;
-need(LABEL6 === 'Case R(6): codegree six', 'the sealed box is not named as Chen’s report names its case');
-need(Object.keys(B3).sort().join(',') === 'as_of,id,label,n,open_discrepancies,progress_percent,stamps,state', 'the sealed box’s record holds more than its name, its anchors and its progress');
-need(Number.isInteger(B3.progress_percent) && B3.progress_percent >= 0 && B3.progress_percent <= 100, 'the sealed box’s progress is not a whole percent');
-need(B3.stamps.length >= 3 && B3.stamps.every((s, i) => i === 0 || s.at > B3.stamps[i - 1].at) && B3.stamps.every((s) => Number.isInteger(s.block)), 'the sealed box’s anchors are not three or more blocks in time order');
+need(B1.state === 'opened' && B2.state === 'opened' && B3.state === 'opened', 'a box’s state is not the one the page draws');
+const LABEL6 = B3.map_label;
+need(LABEL6 === 'Case R(6): codegree six', 'box 3 is not named as Chen’s report names its case');
+const T6 = B3.tally;
+need(T6.excluded === T6.cores && T6.open === 0 && T6.witness === 0 && T6.refuted_by_tests + T6.open_by_tests === T6.screened && T6.open_by_tests === T6.infeasible_by_search, 'box 3’s tally does not sum');
+need(B3.run.first.cores + B3.run.second.cores === T6.cores && B3.run.per_hour.counts.reduce((a, b) => a + b, 0) === T6.cores, 'box 3’s machines do not hold every core');
+need(B3.stamps.length >= 2 && B3.stamps.every((s) => Number.isInteger(s.block)) && B3.stamps.every((s, i) => i === 0 || s.block > B3.stamps[i - 1].block), 'box 3’s anchors are not blocks in order');
 const lv = B2.by_level, rl = RP.by_level;
 need(lv.level3 === rl.level3 && lv.level4 === rl.level4 && lv.full === rl.full, 'the replay’s levels are not box 2’s');
 need(lv.level3 + lv.level4 + lv.full === B2.configurations, 'box 2’s levels do not sum to its configurations');
 need(RP.cores.reduce((s, c) => s + c.configurations, 0) === B2.configurations, 'the replay’s cores do not sum to box 2’s configurations');
 need(RP.frames.refuted[RP.frames.n].join(',') === RP.cores.map((c) => c.configurations).join(','), 'the replay does not end with every configuration refuted');
 const NODES = CASES.nodes, byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
-need(byId.r7.box === 2 && byId.c35.box === 1 && byId.c6.box === 3 && byId.c6.state === 'sealed', 'the map’s boxes are not the boxes record’s');
+need(byId.r7.box === 2 && byId.c35.box === 1 && byId.c6.box === 3 && byId.c6.state === 'open', 'the map’s boxes are not the boxes record’s (Case R(6) is not closed: its node must not be decided)');
 need(byId.c6.label === LABEL6, 'the map names the sealed case otherwise than its box');
-need(K.counts.all === K.rows.length && K.counts.sealed === K.rows.filter((r) => r.where === 'sealed').length, 'the corrections’ counts are not their rows’');
-need(B3.open_discrepancies === K.rows.filter((r) => r.where === 'sealed' && r.status === 'open').length, 'the sealed box’s open discrepancies are not the ledger’s open sealed rows');
-need(K.rows.filter((r) => r.where === 'sealed').every((r) => r.line_sha256_16 && !/R\(6\)/.test(r.what + r.how + r.outcome)), 'a sealed correction says more than one line');
+need(K.counts.all === K.rows.length && K.counts.r6 === K.rows.filter((r) => r.where === 'r6').length && K.rows.every((r) => r.src && r.where !== 'sealed'), 'the corrections’ counts are not their rows’, or a row has no source');
+need(PR.gates.length === Object.values(PR.tally).reduce((a, b) => a + b, 0) && PR.rounds.length >= 6, 'the process record’s tally is not its gates’');
+need(MAN.files.length === CASES.sources.length, 'the sources manifest does not list every cited file');
 /* the public change log: the newest entry states the state the page shows */
 const LOGE = PL.entries, NEWEST = LOGE[LOGE.length - 1];
-need(NEWEST && NEWEST.progress_percent === B3.progress_percent && NEWEST.corrections === K.counts.all,
-  'the newest page-log entry says ' + (NEWEST ? NEWEST.progress_percent + '% and ' + NEWEST.corrections + ' corrections' : 'nothing') + ', the records ' + B3.progress_percent + '% and ' + K.counts.all
+need(NEWEST && NEWEST.box3 === B3.state && NEWEST.corrections === K.counts.all && LOGE.some((e) => /seal/i.test(e.what) && e.box3 === 'opened'),
+  'the newest page-log entry says ' + (NEWEST ? (NEWEST.box3 || NEWEST.progress_percent + '%') + ' and ' + NEWEST.corrections + ' corrections' : 'nothing') + ', the records box 3 ' + B3.state + ' and ' + K.counts.all + ' (and an entry must say the seal was opened)'
   + ': add a dated entry with node tools/r310-live-records.js --log "…"');
 need(MKT.isMarketing('r310/index.html'), 'the page is not on design/marketing.js’s list: its figures would print hashes on the surface');
 
@@ -144,7 +149,7 @@ function zoomBox(L, id) {
 }
 function mapSvg(L, narrow) {
   const o = ['<svg viewBox="0 0 ' + L.w + ' ' + L.h + '" role="img" class="cm-svg" data-base="0 0 ' + L.w + ' ' + L.h + '" aria-label="' + ea('The (3,10;40) question as a tree of ' + NODES.length
-    + ' cases. Each box is a case with its state: a filled dot decided, a closed padlock running under seal, a hollow dot open. Select a case to zoom to it and read who decided it.') + '">'];
+    + ' cases. Each box is a case with its state: a filled dot decided, a hollow dot open. Select a case to zoom to it and read who decided it.') + '">'];
   /* edges: structure, drawn first */
   for (const n of NODES) {
     if (!n.parent) continue;
@@ -198,7 +203,7 @@ function caseDetail(n) {
     + '<h3>' + esc(n.label) + '</h3><p class="cd-sub">' + esc(n.sub) + '. ' + esc(n.note) + '</p><ul class="cd-cr">' + credits + '</ul>';
 }
 const NARROW_MAP = mapSvg(LN, true), WIDE_MAP = mapSvg(LW, false);
-const KEY = '<div class="cm-key" aria-label="the states">' + ['decided', 'sealed', 'open', 'refused'].map((st) => {
+const KEY = '<div class="cm-key" aria-label="the states">' + ['decided', 'open', 'refused'].map((st) => {
   const n = NODES.filter((x) => x.state === st).length;
   return '<span>' + ICON_STATE(st) + esc(STATE_WORD[st]) + ' <span class="cm-kn">' + (n ? N(n) : 'none today') + '</span></span>';
 }).join('') + '</div>';
@@ -260,16 +265,41 @@ const R7BOX = '<article class="bx bx-open" id="box-2"><div class="bx-h">' + ICON
   + '<p class="bx-p bx-fix"><b>A correction beside the seal.</b> ' + esc(B2.sealed_correction) + ' Sealed bytes cannot change, so it is corrected here.</p>'
   + '<p class="bx-p bx-gap"><b>Not established:</b> the run checks none of the six premises; the proofs were deleted after both checkers read them (about 2.5 TB), as registered, and the ledger keeps each one’s hash and both verdicts; the ledger is the machine’s own account; nobody outside has read it. It does not decide R(3,10).</p>'
   + '</article>';
-const SEALBOX = '<article class="bx bx-sealed" id="box-3"><div class="bx-h">' + ICON(lock(11, 12, 11), 22, 20, '0 0 22 20') + '<span>box 3 · sealed</span></div>'
-  + '<h3>' + esc(LABEL6) + '</h3>'
-  + '<p class="bx-p">' + (B3.progress_percent === 100 ? 'Finished; the box stays sealed. Its rules were stamped before and while it ran, and its final record when it ended; these Bitcoin blocks confirm the stamps, each from its own time:' : 'Running now. Its rules were stamped before and while it runs; these Bitcoin blocks confirm the stamps, each from its own time:') + '</p><ul class="bx-stamps">' + B3.stamps.map((s, i) => stamp(B3, i, 'c6')).join('') + '</ul>'
-  + '<div class="pg" role="img" aria-label="' + ea(B3.progress_percent + ' percent done') + '"><span style="--w:' + B3.progress_percent + '%"></span></div>'
-  + '<p class="pg-n"><span class="pg-v">' + V('boxes.json', '/boxes[id=c6]/progress_percent') + '%</span> done, rounded down, at ' + esc(utc(B3.as_of)) + ' (the newest copy of its ledger at home)</p>'
-  + (B3.open_discrepancies ? '<p class="pg-n pg-open"><b>' + V('boxes.json', '/boxes[id=c6]/open_discrepancies') + ' open discrepanc' + (B3.open_discrepancies === 1 ? 'y' : 'ies') + '</b> (in the corrections ledger)</p>' : '')
-  + '<p class="bx-p">Nothing else about it is shown. It opens only after audit, on my word; its replay waits for that.</p></article>';
-const BOXES = C.section({ lab: 'the boxes', title: 'Two boxes opened, one sealed', id: 'boxes', wide: true,
-  bodyRaw: '<div class="col">' + C.pRaw('Work in progress is kept in a sealed box: what it is, its rules stamped in Bitcoin, how far it has got, and nothing else. A box opens only after its audit. These are the first two to open.') + '</div>'
-    + '<div class="wide"><div class="bx-grid">' + C35BOX + R7BOX + SEALBOX + '</div></div>' });
+const stamp6 = (s, i) => '<li><span class="bk">block ' + V('boxes.json', '/boxes[id=c6]/stamps/' + i + '/block', W.DECIDED, 'raw') + '</span> '
+  + (s.at ? esc(utcs(s.at)) : 'confirmed by ' + esc(utc(s.by))) + ' — ' + esc(s.what) + '</li>';
+const hourSvg = (() => {
+  const c = B3.run.per_hour.counts, w = 300, h = 92, bw = w / c.length, mx = Math.max(...c);
+  const o = ['<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" class="r6h" aria-label="' + ea('Cores of the three-edge run finished per hour, ' + c.length + ' hours from 22 Nov 18:00 UTC: ' + N(B3.run.first.cores) + ' on the first machine, then ' + N(B3.run.second.cores) + ' on the second') + '">'];
+  c.forEach((v, i) => { const hh = (v / mx) * (h - 26); o.push('<rect x="' + (i * bw + 0.5).toFixed(1) + '" y="' + (h - 18 - hh).toFixed(1) + '" width="' + (bw - 1).toFixed(1) + '" height="' + hh.toFixed(1) + '" fill="var(--c-s4)"/>'); });
+  const sx = ((Date.parse(B3.run.first.stop) - Date.parse(B3.run.per_hour.from)) / 3600000) * bw;
+  o.push('<line x1="' + sx.toFixed(1) + '" x2="' + sx.toFixed(1) + '" y1="4" y2="' + (h - 18) + '" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="2 3"/>');
+  o.push('<text x="2" y="' + (h - 4) + '" class="t-ax">22 Nov 18:00</text><text x="' + (w - 2) + '" y="' + (h - 4) + '" text-anchor="end" class="t-ax">24 Nov 00:45</text><text x="' + (sx - 4).toFixed(1) + '" y="12" text-anchor="end" class="t-note">machine 2 →</text></svg>');
+  return o.join('');
+})();
+const premItems = (ps) => '<ul class="bx-rows bx-lim">' + ps.map((p) => '<li><b>' + esc(p.id) + '</b> ' + esc(p.text) + ' <span class="bx-pc">— ' + esc(p.checked) + '.</span></li>').join('') + '</ul>';
+const R6V = (ptr) => V('boxes.json', '/boxes[id=c6]/tally/' + ptr);
+const R6BOX = '<article class="bx bx-open" id="box-3"><div class="bx-h">' + ICON(lockOpen(11, 12, 11), 22, 20, '0 0 22 20') + '<span>box 3 · opened</span></div>'
+  + '<h3>' + esc(B3.label) + '</h3>'
+  + '<p class="bx-p bx-first"><b>The seal, opened.</b> ' + esc(B3.opened.what) + '</p>'
+  + '<p class="bx-p bx-gap bx-gap-top"><b>Not established, first:</b></p><ul class="bx-rows bx-lim">' + B3.limits.map((l) => '<li><b>' + esc(l.b) + '</b> ' + esc(l.text) + '</li>').join('') + '</ul>'
+  + '<p class="bx-p">It holds only under six premises:</p>' + premItems(B3.premises)
+  + '<p class="bx-p">Then: ' + R6V('excluded') + ' of ' + R6V('cores') + ' cores excluded, ' + R6V('open') + ' open, ' + R6V('completions') + ' with a completion. A core is the graph on the 26 vertices adjacent to neither marked vertex. For each core the run lists every admissible choice of the six side rows: '
+    + R6V('baseline') + ' in all. A screen leaves ' + R6V('screened') + '. Two tests refute ' + R6V('refuted_by_tests') + ' of those. The ' + R6V('open_by_tests') + ' left, on ' + R6V('open_cores') + ' cores, are each shown infeasible by an exhaustive search that uses neither test. The same search also took a sample on every core, '
+    + R6V('sampled') + ' records in all: none completes, and none contradicts the tests. That sample is ' + V('boxes.json', '/boxes[id=c6]/tally/sample_share_percent', W.DECIDED, 'raw') + '% of the screened records: it can catch an unsound test, not one false refutation among millions.</p>'
+  + '<figure class="r6f">' + hourSvg + '<figcaption data-record="' + ea(DIR + 'boxes.json@' + sha12(DIR + 'boxes.json')) + '">Cores finished per hour, by the machines’ own clock: ' + V('boxes.json', '/boxes[id=c6]/run/first/cores') + ' on the first machine, then, after a stop on the money rule, ' + V('boxes.json', '/boxes[id=c6]/run/second/cores') + ' on a second; about ' + V('boxes.json', '/boxes[id=c6]/run/cpu_hours') + ' CPU-hours.</figcaption></figure>'
+  + said(B3.statement)
+  + '<p class="bx-p"><b>A second program, and where it stops.</b> ' + esc(B3.second_program) + '</p>'
+  + '<p class="bx-p">' + esc(B3.chen) + '</p>'
+  + '<p class="bx-p bx-anchor">In Bitcoin</p><ul class="bx-stamps">' + B3.stamps.map(stamp6).join('') + '</ul>'
+  + '<p class="bx-p bx-pc">The rules were stamped at 18:07 UTC by our clock, before the machine existed; Bitcoin confirms them from 18:17:27 UTC, seven minutes after the run began, when ' + V('boxes.json', '/boxes[id=c6]/results_before_first_block') + ' of the 23,409 cores had a result. The final record is confirmed 25 minutes after the run ended. A stamp proves a date, nothing else. Blocks 977089 and 977108 were shown while the box was sealed, as “further derivations” and “a draw registration”: they anchor the four-edge derivations and a toy registration of the draw gate.</p>'
+  + '<p class="bx-p bx-open-at">Opened 25 Nov 2026, on the operator’s word</p>'
+  + '<p class="bx-p"><b>The rest of the case.</b> ' + esc(B3.rest.four_edge) + ' ' + esc(B3.rest.five_to_nine) + '</p>'
+  + '<p class="bx-p"><b>Corrections beside the record.</b> ' + esc(B3.corrections_beside) + '</p>'
+  + '<p class="bx-p">The run’s working files the page cites are public in <a href="' + ea(SRC_URL) + '">corpus/r310-live/sources/</a>; the full ledger (one row per core) is named by its sha256 in the trust layer below.</p>'
+  + '</article>';
+const BOXES = C.section({ lab: 'the boxes', title: 'Three boxes, all opened', id: 'boxes', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('Work in progress was kept in a sealed box: what it is, its rules stamped in Bitcoin, how far it had got, and nothing else; a box opened only after its audit. The first two opened on 23 November. The third, Case R(6), opened on 25 November 2026 on the operator’s word, with the rest of its case: the seal of this lane is gone.') + '</div>'
+    + '<div class="wide"><div class="bx-grid">' + C35BOX + R7BOX + R6BOX + '</div></div>' });
 
 /* ---------------------------------------------------------------- watch a core die: the replay */
 const share = (s, n) => (s[1] / n < 0.05 ? 0 : s[1] / n < 0.15 ? 1 : 2);
@@ -307,15 +337,15 @@ const REPLAY = C.section({ lab: 'watch a core die', title: 'A replay of the R(7)
     + '<div class="figbox dual"><div class="hv-w">' + RPW + '</div><div class="hv-n">' + RPN + '</div></div>'
     + '<figcaption data-record="' + ea(DIR + 'replay.json@' + sha12(DIR + 'replay.json')) + '">A <b>replay</b> of the recorded run, about ' + N(speed) + ' times faster than it ran; not live. '
     + 'Shade: the share of a square’s configurations that needed level 4 (light under 5%, middle 5 to 15%, bright 15% or more); a ring: one of the ' + N(lv.full) + ' configurations that needed the full CNF. '
-    + 'The times are interpolated between the run log’s checkpoints. The replay of the sealed case waits for its box to open.</figcaption></figure></div>'
+    + 'The times are interpolated between the run log’s checkpoints. Box 3’s run is drawn hour by hour inside its box.</figcaption></figure></div>'
     + '<script type="application/json" id="rp-data">' + JSON.stringify(RPDATA).replace(/</g, '\\u003c') + '</script>' });
 
 /* ---------------------------------------------------------------- the corrections ledger */
-const WHERE = { c35: 'box 1', r7: 'box 2', lane: 'the lane', sealed: 'box 3 (sealed)' };
-const T0 = Date.parse('2026-11-21T17:00:00Z'), T1 = Date.parse('2026-11-23T07:00:00Z');
+const WHERE = { c35: 'box 1', r7: 'box 2', r6: 'box 3', lane: 'the lane' };
+const T0 = Date.parse('2026-11-21T12:00:00Z'), T1 = Date.parse('2026-11-25T03:00:00Z');
 function shape(where, x, y, side, s) {
   const f = side === 'cert-machine' ? 'var(--ink)' : 'none', st = 'stroke="var(--ink)" stroke-width="1.4"';
-  if (where === 'sealed') return lock(x, y + 1, s * 1.7).replace('fill="var(--ink)"', 'fill="' + (f === 'none' ? 'var(--sunk)' : f) + '" stroke="var(--ink)" stroke-width="1.2"');
+  if (where === 'r6') return '<path d="M' + x + ' ' + (y - s) + ' L' + (x + s) + ' ' + (y + s * 0.8) + ' L' + (x - s) + ' ' + (y + s * 0.8) + 'Z" fill="' + f + '" ' + st + '/>';
   if (where === 'c35') return '<path d="M' + x + ' ' + (y - s) + ' L' + (x + s) + ' ' + y + ' L' + x + ' ' + (y + s) + ' L' + (x - s) + ' ' + y + 'Z" fill="' + f + '" ' + st + '/>';
   if (where === 'lane') return '<rect x="' + (x - s * 0.8) + '" y="' + (y - s * 0.8) + '" width="' + (s * 1.6) + '" height="' + (s * 1.6) + '" fill="' + f + '" ' + st + '/>';
   return '<circle cx="' + x + '" cy="' + y + '" r="' + (s * 0.85) + '" fill="' + f + '" ' + st + '/>';
@@ -325,7 +355,7 @@ function ledgerSvg(narrow) {
   const X = (iso) => L + (Date.parse(iso) - T0) / (T1 - T0) * (w - L - R);
   const lanes = [['cert-machine', 'cert-machine', 'and its agents'], ['a model track', 'the two', 'model tracks']];
   const h = top + lanes.length * laneH + 34;
-  const o = ['<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + ea(K.counts.all + ' errors caught in this lane between 21 and 23 November, on a time axis: the upper lane the errors of cert-machine and its agents, the lower lane those of the two model tracks. A diamond is box 1, a dot box 2, a square the lane’s own files, a padlock the sealed box.') + '">'];
+  const o = ['<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + ea(K.counts.all + ' errors caught in this lane between 21 and 25 November, on a time axis: the upper lane the errors of cert-machine and its agents, the lower lane those of the two model tracks. A diamond is box 1, a dot box 2, a triangle box 3, a square the lane’s own files.') + '">'];
   lanes.forEach(([side, name1, name2], i) => {
     const y0 = top + i * laneH;
     o.push('<rect x="' + L + '" y="' + y0 + '" width="' + (w - L - R) + '" height="' + (laneH - 8) + '" rx="4" fill="var(--surface)"/>');
@@ -340,7 +370,7 @@ function ledgerSvg(narrow) {
       o.push('<g class="lg-m" data-cm="' + ea(utc(r.at) + ' · ' + WHERE[r.where]) + '" data-cmv="' + ea(r.what) + '" tabindex="0">' + shape(r.where, x, y, side, s) + '</g>');
     }
   });
-  const ticks = narrow ? ['2026-11-22T00:00:00Z', '2026-11-22T12:00:00Z', '2026-11-23T00:00:00Z'] : ['2026-11-21T18:00:00Z', '2026-11-22T00:00:00Z', '2026-11-22T06:00:00Z', '2026-11-22T12:00:00Z', '2026-11-22T18:00:00Z', '2026-11-23T00:00:00Z', '2026-11-23T06:00:00Z'];   /* the axis runs to 07:00 so the last label stays inside */
+  const ticks = narrow ? ['2026-11-22T00:00:00Z', '2026-11-23T00:00:00Z', '2026-11-24T00:00:00Z', '2026-11-25T00:00:00Z'] : ['2026-11-22T00:00:00Z', '2026-11-22T12:00:00Z', '2026-11-23T00:00:00Z', '2026-11-23T12:00:00Z', '2026-11-24T00:00:00Z', '2026-11-24T12:00:00Z', '2026-11-25T00:00:00Z'];
   const yb = top + lanes.length * laneH;
   for (const t of ticks) {
     const x = X(t), d = new Date(t), lab = d.getUTCHours() === 0 ? d.getUTCDate() + ' Nov' : String(d.getUTCHours()).padStart(2, '0') + ':00';
@@ -351,14 +381,12 @@ function ledgerSvg(narrow) {
   o.push('</svg>');
   return o.join('');
 }
-const legendShapes = '<div class="lg-key">' + [['c35', 'box 1'], ['r7', 'box 2'], ['lane', 'the lane’s own files'], ['sealed', 'box 3, sealed']].map(([wh, t]) => '<span>' + ICON(shape(wh, 11, 9, 'cert-machine', 5), 22, 18) + esc(t) + '</span>').join('')
+const legendShapes = '<div class="lg-key">' + [['c35', 'box 1'], ['r7', 'box 2'], ['r6', 'box 3'], ['lane', 'the lane’s own files']].map(([wh, t]) => '<span>' + ICON(shape(wh, 11, 9, 'cert-machine', 5), 22, 18) + esc(t) + '</span>').join('')
   + '<span>' + ICON(shape('r7', 11, 9, 'cert-machine', 5), 22, 18) + 'filled: ours</span><span>' + ICON(shape('r7', 11, 9, 'a model track', 5), 22, 18) + 'hollow: a model’s</span></div>';
-const srcOf = (r) => r.line_sha256_16 ? 'a line of the control room’s notes, sealed (sha256 ' + r.line_sha256_16 + '…)' : r.src;
-const ledgerTable = (rows, sealed) => C.table({
-  cols: sealed ? [{ h: 'when' }, { h: 'what, and its source' }, { h: 'whose' }, { h: 'caught by' }, { h: 'then' }] : [{ h: 'when' }, { h: 'where' }, { h: 'what, and its source' }, { h: 'whose' }, { h: 'caught by, how' }, { h: 'then' }],
-  rows: rows.map((r) => { const what = { raw: esc(r.what) + (r.resolution ? '<span class="lg-res">' + esc(r.resolution) + '</span>' : '') + '<span class="lg-src">' + C.breakable(srcOf(r)) + '</span>' };
-    return sealed ? [utc(r.at), what, r.whose, r.caught_by, r.outcome] : [utc(r.at), WHERE[r.where], what, r.whose, r.caught_by + ', ' + r.how, r.outcome]; }) }).replace('<table>', '<table class="lg-t">');
-const OPENROWS = K.rows.filter((r) => r.where !== 'sealed'), SEALROWS = K.rows.filter((r) => r.where === 'sealed');
+const srcOf = (r) => r.src;
+const ledgerList = (rows) => '<ol class="gts">' + rows.map((r) => '<li class="gt"><div class="gt-h">' + ICON(shape(r.where, 11, 9, r.side, 5), 22, 18) + '<span class="gt-t">' + esc(utc(r.at)) + ' · ' + esc(WHERE[r.where]) + '</span></div>'
+  + '<p class="gt-c">' + esc(r.what) + '</p>' + (r.resolution ? '<p class="gt-l">' + esc(r.resolution) + '</p>' : '')
+  + '<p class="gt-l"><b>Whose</b> ' + esc(r.whose) + ' · <b>caught by</b> ' + esc(r.caught_by) + ', ' + esc(r.how) + ' · <b>then</b> ' + esc(r.outcome) + '</p><p class="gt-s">' + C.breakable(srcOf(r)) + '</p></li>').join('') + '</ol>';
 const FIVE = K.rows.filter((r) => r.mattered).sort((a, b) => a.mattered.n - b.mattered.n);
 need(FIVE.length === 5, 'the ledger’s record does not mark five that mattered');
 const STRIP = '<ol class="f5">' + FIVE.map((r) => '<li class="f5-i"><span class="f5-k">' + ICON(shape(r.where, 11, 9, r.side, 5), 22, 18) + esc(utc(r.at)) + ' · ' + esc(WHERE[r.where]) + '</span>'
@@ -367,14 +395,11 @@ const span = ((Date.parse(K.rows[K.rows.length - 1].at) - Date.parse(K.rows[0].a
 const LEDGER = C.section({ lab: 'the corrections ledger', title: 'Every error caught, by whom and how', id: 'corrections', wide: true,
   bodyRaw: '<div class="col">' + C.pRaw(V('corrections.json', '/counts/all') + ' errors in about ' + Math.round(span) + ' hours, ours and the models’ alike: '
     + V('corrections.json', '/counts/cert_machine') + ' by cert-machine and its agents, ' + V('corrections.json', '/counts/model_tracks') + ' by the two model tracks. '
-    + (K.counts.not_yet_known ? V('corrections.json', '/counts/not_yet_known') + ' not yet known (drawn in the upper lane). ' : '')
-    + V('corrections.json', '/counts/sealed') + ' are inside the sealed box, one line each with nothing of the method; ' + (K.counts.open ? V('corrections.json', '/counts/open') + ' still open' : 'none is open') + '. Five that mattered:') + '</div>'
+    + V('corrections.json', '/counts/r6') + ' concern box 3; while it was sealed they were one line each, and since 25 November they carry their words and their sources. ' + (K.counts.open ? V('corrections.json', '/counts/open') + ' still open' : 'None is open') + '. Five that mattered:') + '</div>'
     + '<div class="wide">' + STRIP + '</div>'
     + '<div class="wide"><figure><div class="figbox dual"><div class="hv-w">' + ledgerSvg(false) + '</div><div class="hv-n">' + ledgerSvg(true) + '</div></div>'
     + '<figcaption data-record="' + ea(DIR + 'corrections.json@' + sha12(DIR + 'corrections.json')) + '">' + legendShapes + 'Each mark is one error, at the time it was recorded; hover or focus one to read it.</figcaption></figure></div>'
-    + '<div class="wide"><details class="more"><summary>All ' + N(K.counts.all) + ', with sources</summary>'
-    + '<div class="col"><h3 class="lg-h">The opened boxes and the lane, in full (' + N(OPENROWS.length) + ')</h3></div>' + ledgerTable(OPENROWS, false)
-    + '<div class="col"><h3 class="lg-h">Inside the sealed box (' + N(SEALROWS.length) + ')</h3></div>' + ledgerTable(SEALROWS, true) + '</details></div>' });
+    + '<div class="wide"><details class="more"><summary>All ' + N(K.counts.all) + ', with sources</summary>' + ledgerList(K.rows) + '</details></div>' });
 
 /* ---------------------------------------------------------------- the machine at work */
 const STEPS = [
@@ -389,9 +414,9 @@ const vt = M.verdicts.tally;
 const AS = M.now.astra;
 const SEC = M.now.rented.second;
 const NOW = C.stats([
-  { k: 'rented machine, box 3', vRaw: V('machine.json', '/now/rented/vcpu') + ' vCPU', nRaw: 'US$' + V('machine.json', '/now/rented/usd_per_hour', W.COMPUTED, 'raw') + ' an hour, ' + esc(M.now.rented.state) },
-  { k: 'GPT-6.2-astra sessions', vRaw: V('machine.json', '/now/astra/started'), nRaw: 'since ' + esc(utc(AS.since, false)) + ' today: ' + V('machine.json', '/now/astra/finished') + ' done, ' + V('machine.json', '/now/astra/running') + ' running' },
-  { k: 'audit notes, opened boxes', vRaw: V('machine.json', '/audits/opened_boxes'), nRaw: 'and ' + V('machine.json', '/audits/sealed_box') + ' inside the sealed box' },
+  { k: 'rented machines, box 3', vRaw: V('machine.json', '/now/rented/vcpu') + ' vCPU', nRaw: 'US$' + V('machine.json', '/now/rented/usd_per_hour', W.COMPUTED, 'raw') + ' an hour each, ' + esc(M.now.rented.state) },
+  { k: 'GPT-6.2-astra sessions', vRaw: V('machine.json', '/now/astra/started'), nRaw: 'since ' + esc(utc(AS.since)) + ': ' + V('machine.json', '/now/astra/tasks') + ' tasks, ' + V('machine.json', '/now/astra/running') + ' running now' },
+  { k: 'audit notes, boxes 1 and 2', vRaw: V('machine.json', '/audits/boxes_1_2'), nRaw: 'and ' + V('machine.json', '/audits/box_3') + ' on box 3' },
   { k: 'errors caught', vRaw: V('corrections.json', '/counts/all'), n: 'the ledger above' }]);
 const vRows = C.table({ cols: [{ h: 'when' }, { h: 'box' }, { h: 'what was checked' }, { h: 'verdict' }],
   rows: M.verdicts.rows.map((r) => [utc(r.at), r.box === 'c35' ? 'box 1' : 'box 2', r.what, { raw: C.tag(r.verdict, 'held') }]) });
@@ -409,6 +434,175 @@ const MACHINE = C.section({ lab: 'the machine at work', title: 'What runs now, a
     + '<div class="wide"><details class="more"><summary>The ' + N(M.verdicts.rows.length) + ' checks, one by one</summary>' + vRows + '</details></div>'
     + '<div class="col"><h3 class="lg-h">Money per result</h3></div>' + money });
 
+/* ---------------------------------------------------------------- the question from the ground up (the field map's content) */
+const figRec = (file, cap) => '<figcaption data-record="' + ea(DIR + file + '@' + sha12(DIR + file)) + '">' + cap + '</figcaption>';
+const dualFig = (w, n, cap, file) => '<div class="wide"><figure><div class="figbox dual"><div class="hv-w">' + w + '</div><div class="hv-n">' + n + '</div></div>' + figRec(file, cap) + '</figure></div>';
+function ladderSvg(narrow) {
+  const W0 = narrow ? 360 : 1000, H0 = narrow ? 250 : 260, x0 = narrow ? 34 : 60, x1 = W0 - 12, y0 = H0 - 46, top = 22, max = 44;
+  const step = (x1 - x0) / FM.ladder.length, bw = Math.min(narrow ? 26 : 56, step * 0.62), y = (v) => y0 - (v / max) * (y0 - top);
+  const o = ['<svg viewBox="0 0 ' + W0 + ' ' + H0 + '" role="img" aria-label="' + ea('Known values of R(3,k): ' + FM.ladder.map((d) => 'k = ' + d.k + ': ' + (d.value === null ? '40 or 41' : d.value)).join('; ')) + '">'];
+  for (const v of [0, 10, 20, 30, 40]) o.push('<line x1="' + x0 + '" x2="' + x1 + '" y1="' + y(v).toFixed(1) + '" y2="' + y(v).toFixed(1) + '" stroke="var(--rule)" stroke-width="1"/><text x="' + (x0 - 8) + '" y="' + (y(v) + 4).toFixed(1) + '" text-anchor="end" class="t-ax">' + v + '</text>');
+  FM.ladder.forEach((d, i) => {
+    const cx = x0 + step * i + step / 2;
+    if (d.value === null) {
+      o.push('<rect x="' + (cx - bw / 2).toFixed(1) + '" y="' + y(40).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + (y0 - y(40)).toFixed(1) + '" rx="3" fill="var(--c-s4)"/>');
+      o.push('<rect x="' + (cx - bw / 2).toFixed(1) + '" y="' + y(41).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + (y(40) - y(41)).toFixed(1) + '" rx="2" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-dasharray="2 3"/>');
+      o.push('<text x="' + cx.toFixed(1) + '" y="' + (y(41) - 7).toFixed(1) + '" text-anchor="middle" class="t-lab">40 or 41</text>');
+    } else {
+      o.push('<rect x="' + (cx - bw / 2).toFixed(1) + '" y="' + y(d.value).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + (y0 - y(d.value)).toFixed(1) + '" rx="3" fill="var(--c-s4)"/>');
+      o.push('<text x="' + cx.toFixed(1) + '" y="' + (y(d.value) - 7).toFixed(1) + '" text-anchor="middle" class="t-lab">' + d.value + '</text>');
+    }
+    o.push('<text x="' + cx.toFixed(1) + '" y="' + (y0 + 16) + '" text-anchor="middle" class="t-ax">' + d.k + '</text>');
+  });
+  o.push('<text x="' + ((x0 + x1) / 2) + '" y="' + (y0 + 36) + '" text-anchor="middle" class="t-note">k, the size of the forbidden independent set</text></svg>');
+  return o.join('');
+}
+function nestedSvg(narrow) {
+  const W0 = narrow ? 360 : 1000, rowH = narrow ? 30 : 28, top = 30, x0 = narrow ? 30 : 70, xm = narrow ? 200 : 560, H0 = top + FM.nested.length * rowH + 8;
+  const w = (v) => (v / 40) * (xm - x0);
+  const o = ['<svg viewBox="0 0 ' + W0 + ' ' + H0 + '" role="img" aria-label="' + ea('Choose j independent vertices; the vertices none of them touches number at most: ' + FM.nested.map((d) => 'j = ' + d.j + ': ' + d.cap).join(', ')) + '">'];
+  o.push('<text x="' + (x0 - 8) + '" y="16" text-anchor="end" class="t-note">j</text><text x="' + x0 + '" y="16" class="t-note">at most this many untouched</text>' + (narrow ? '' : '<text x="' + (xm + 70) + '" y="16" class="t-note">graphs exactly at that cap</text>'));
+  FM.nested.forEach((d, i) => {
+    const yy = top + i * rowH;
+    o.push('<text x="' + (x0 - 8) + '" y="' + (yy + 14) + '" text-anchor="end" class="t-lab">' + d.j + '</text>');
+    if (d.cap > 0) o.push('<rect x="' + x0 + '" y="' + (yy + 2) + '" width="' + w(d.cap).toFixed(1) + '" height="16" rx="3" fill="' + (d.j === 0 ? 'none' : 'var(--c-s4)') + '"' + (d.j === 0 ? ' stroke="var(--ink)" stroke-width="1.4" stroke-dasharray="2 3"' : '') + '/>');
+    o.push('<text x="' + (x0 + w(d.cap) + 8).toFixed(1) + '" y="' + (yy + 14) + '" class="t-lab">' + d.cap + (narrow ? '' : '') + '</text>');
+    if (!narrow) o.push('<text x="' + (xm + 70) + '" y="' + (yy + 14) + '" class="t-note">' + esc(d.by + ' · ' + d.count) + '</text>');
+    else o.push('<text x="' + (x0 + w(d.cap) + 34).toFixed(1) + '" y="' + (yy + 14) + '" class="t-note">' + esc(d.count.replace(/ graphs?$/, '').replace(/: .*/, '')) + '</text>');
+  });
+  o.push('</svg>');
+  return o.join('');
+}
+function slackSvg(narrow) {
+  const W0 = narrow ? 360 : 1000, H0 = 250, x0 = narrow ? 36 : 60, x1 = W0 - 10, top = 20, bot = 190, min = -6, max = 14;
+  const step = (x1 - x0) / FM.slack.length, bw = Math.min(48, step * 0.55), y = (v) => bot - ((v - min) / (max - min)) * (bot - top);
+  const o = ['<svg viewBox="0 0 ' + W0 + ' ' + H0 + '" role="img" aria-label="' + ea('The slack left by counting in the regular case: ' + FM.slack.map((d) => d.n + ' vertices, ' + (d.slack > 0 ? '+' : '') + d.slack).join('; ')) + '">'];
+  for (const v of [-5, 0, 5, 10]) o.push('<line x1="' + x0 + '" x2="' + x1 + '" y1="' + y(v).toFixed(1) + '" y2="' + y(v).toFixed(1) + '" stroke="' + (v === 0 ? 'var(--rule-strong)' : 'var(--rule)') + '" stroke-width="1"/><text x="' + (x0 - 8) + '" y="' + (y(v) + 4).toFixed(1) + '" text-anchor="end" class="t-ax">' + (v > 0 ? '+' : '') + v + '</text>');
+  FM.slack.forEach((d, i) => {
+    const cx = x0 + step * i + step / 2, open = d.n === 40, yy = Math.min(y(d.slack), y(0)), hh = Math.max(2, Math.abs(y(d.slack) - y(0)));
+    o.push('<rect x="' + (cx - bw / 2).toFixed(1) + '" y="' + yy.toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + hh.toFixed(1) + '" rx="3" fill="' + (open ? 'none' : 'var(--c-s4)') + '"' + (open ? ' stroke="var(--ink)" stroke-width="1.4" stroke-dasharray="2 3"' : '') + '/>');
+    o.push('<text x="' + cx.toFixed(1) + '" y="' + (d.slack < 0 ? y(d.slack) + 15 : y(d.slack) - 7).toFixed(1) + '" text-anchor="middle" class="t-lab">' + (d.slack > 0 ? '+' : '') + d.slack + '</text>');
+    o.push('<text x="' + cx.toFixed(1) + '" y="' + (bot + 18) + '" text-anchor="middle" class="t-ax">' + d.n + '</text>');
+    o.push('<text x="' + cx.toFixed(1) + '" y="' + (bot + 34) + '" text-anchor="middle" class="t-note">' + (open ? 'open' : d.slack < 0 ? 'by counting' : 'closed') + '</text>');
+  });
+  o.push('<text x="' + x0 + '" y="' + (bot + 54) + '" class="t-note">vertices, regular case</text></svg>');
+  return o.join('');
+}
+function reachSvg(narrow) {
+  const rows = FM.methods.map((m) => ({ v: m.reach, name: m.name, pub: false })).concat(FM.published.map((p) => ({ v: p.reach, name: 'published, ' + p.year + ', with a census of the level below', pub: true })));
+  const W0 = narrow ? 360 : 1000, lab = narrow ? 0 : 400, x0 = lab + (narrow ? 8 : 16), x1 = W0 - 30, rh = narrow ? 12 : 15, top = 22, lo = 38, hi = 47;
+  const H0 = top + rows.length * rh + 30, x = (v) => x0 + ((v - lo) / (hi - lo)) * (x1 - x0);
+  const o = ['<svg viewBox="0 0 ' + W0 + ' ' + H0 + '" role="img" aria-label="' + ea('Reach of ' + FM.methods.length + ' measured methods at k = 10, the smallest number of vertices each proves impossible: ' + FM.methods.map((m) => m.name + ' ' + m.reach).join('; ') + '; the published proofs reached 42 (2013) and 41 (2025) with a census of the level below; the answer is 40 or 41') + '">'];
+  for (const v of [40, 41]) o.push('<line x1="' + x(v).toFixed(1) + '" x2="' + x(v).toFixed(1) + '" y1="' + (top - 8) + '" y2="' + (H0 - 24) + '" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="2 3"/>');
+  o.push('<text x="' + x(40.5).toFixed(1) + '" y="' + (top - 10) + '" text-anchor="middle" class="t-note">the answer: 40 or 41</text>');
+  rows.forEach((r, i) => {
+    const yy = top + i * rh;
+    o.push('<rect x="' + x0 + '" y="' + (yy + 1) + '" width="' + (x(r.v) - x0).toFixed(1) + '" height="' + (rh - 4) + '" rx="2" fill="' + (r.pub ? 'none' : 'var(--c-s4)') + '"' + (r.pub ? ' stroke="var(--ink)" stroke-width="1.2"' : '') + '><title>' + esc('Reach ' + r.v + ': ' + r.name) + '</title></rect>');
+    o.push('<text x="' + (x(r.v) + 5).toFixed(1) + '" y="' + (yy + rh - 4) + '" class="t-ax">' + r.v + '</text>');
+    if (!narrow) o.push('<text x="' + lab + '" y="' + (yy + rh - 4) + '" text-anchor="end" class="t-note">' + esc(r.name.length > 58 ? r.name.slice(0, 56) + '…' : r.name) + '</text>');
+  });
+  for (const v of [38, 40, 42, 44, 46]) o.push('<text x="' + x(v).toFixed(1) + '" y="' + (H0 - 8) + '" text-anchor="middle" class="t-ax">' + v + '</text>');
+  o.push('</svg>');
+  return o.join('');
+}
+const PHANT = '<div class="cardgrid g3">' + FM.phantoms.map((p) => '<article class="card"><span class="card-k">' + ICON(glyphOut('FAIL', 11, 9), 22, 18) + esc(p.blind) + '</span><h3>' + esc(p.name) + '</h3><p>' + esc(p.what) + '</p><p class="card-d">' + esc(p.why) + '</p></article>').join('') + '</div>';
+const EXPLAIN = C.section({ lab: 'the question, from the ground up', title: 'Two rules that pull against each other', id: 'explain', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('Take 40 points and join some pairs. Two rules: no three points all joined to each other, and no ten points with no line among them. Lines kill the unjoined sets; too many lines close a triangle. If no drawing obeys both rules, R(3,10) = 40; if one does, it is 41.') + '</div>'
+    + '<div class="col"><h3 class="lg-h">Inside the 40-point question sits every smaller one</h3>' + C.pRaw('Pick j points with no lines among them. The points none of them touches must obey the same two rules with 10 − j in place of 10, so their number is capped by a smaller Ramsey number, and those are all known exactly. In the hard case every point has 9 neighbours and leaves 30 untouched, under the cap of 35.') + '</div>'
+    + dualFig(nestedSvg(false), nestedSvg(true), 'Bars: the most points that can stay untouched after j independent points are chosen; beside them, how many graphs exist exactly at that cap (every one on disk). Only the top, 40 itself, is unknown.', 'fieldmap.json')
+    + '<div class="col"><h3 class="lg-h">The ladder: seven rungs are solid</h3>' + C.pRaw('R(3,k) is the first number of points at which no triangle and no independent k-set cannot both hold. Up to 23 there is a proof a person can read; 28 and 36 needed a computer.') + '</div>'
+    + dualFig(ladderSvg(false), ladderSvg(true), FM.ladder.map((d) => 'R(3,' + d.k + '): ' + d.why).map(esc).join(' '), 'fieldmap.json')
+    + '<div class="col"><h3 class="lg-h">Why 40 is different: the slack is 13</h3>' + C.pRaw('In the hard, regular case the untouched part of each point has a fixed number of lines. Counting works when that number falls below the fewest lines such a graph can have. The bars show how far above the minimum it lands. No regular case ever closed had more than 5.') + '</div>'
+    + dualFig(slackSvg(false), slackSvg(true), FM.slack.map((d) => d.n + ' points (' + d.k + '): ' + d.why).map(esc).join(' ') + ' Two programs derived these terms from published tables.', 'fieldmap.json')
+    + '<div class="col"><h3 class="lg-h">The reach of methods: none gets under 43</h3>' + C.pRaw('Each method was run on the solved rungs first, then at k = 10. Its reach is the smallest number of points it can prove impossible; the answer needs 40. One more method, colouring, reaches only 82.') + '</div>'
+    + dualFig(reachSvg(false), reachSvg(true), 'Filled bars: the ' + N(FM.methods.length) + ' methods measured here, each to the smallest number of vertices it can prove impossible. Outlined bars: the published bounds, which needed years of computing and a list of part of the level below.', 'fieldmap.json')
+    + '<div class="col"><h3 class="lg-h">Three phantoms explain almost every failure</h3>' + C.pRaw('A phantom passes all of a method’s checks without being a graph on 40 points. A method that accepts a phantom can never prove that 40 is impossible.') + '</div>'
+    + '<div class="wide">' + PHANT + '</div>'
+    + '<div class="col"><div class="note"><span class="lab">a fourth fact, not a phantom</span>' + C.pRaw(esc(FM.fourth) + ' ' + esc(FM.not_fooled)) + '</div></div>' });
+
+/* ---------------------------------------------------------------- the lane's own map of strata */
+const STRATA = C.section({ lab: 'where a counterexample could still hide', title: 'Every stratum, and how far it has got', id: 'strata', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('Any (3,10;40)-graph may be taken maximal triangle-free, so it falls in exactly one stratum below. A proof of R(3,10) = 40 has to empty all of them. The hard half is the regular one, split by its largest codegree c*: the most neighbours two unjoined vertices have in common.') + '</div>'
+    + '<div class="wide"><div class="cardgrid g3">' + FM.strata.map((s, i) => '<article class="card"><span class="card-k">' + esc(s.state) + '</span><h3>' + esc(s.k) + '</h3><p class="card-d">' + esc(s.what) + '</p>'
+      + (s.of ? '<svg class="meter" viewBox="0 0 200 8" preserveAspectRatio="none" role="img" aria-label="' + ea(s.done + ' of ' + s.of + ' ' + s.unit) + '"><rect x="0" y="0" width="200" height="8" rx="4" fill="var(--mark)"/>'
+        + (s.done ? '<rect x="0" y="0" width="' + Math.max(4, 200 * s.done / s.of).toFixed(1) + '" height="8" rx="4" fill="var(--ink)"/>' : '') + '</svg><p class="card-n">' + V('fieldmap.json', '/strata/' + i + '/done') + ' of ' + V('fieldmap.json', '/strata/' + i + '/of') + ' ' + esc(s.unit) + '</p>' : '')
+      + '<p>' + esc(s.text) + '</p></article>').join('') + '</div></div>'
+    + '<div class="col">' + C.pRaw(esc(FM.settled)) + '</div>' });
+
+/* ---------------------------------------------------------------- the whole process */
+const OUTWORD = { PASS: 'pass', FAIL: 'fail', PARTIAL: 'partial', CONFIRMED: 'confirmed', 'NOT CONFIRMED': 'not confirmed', OPEN: 'open', DEAD: 'dead', UNDECIDED: 'undecided', RUNNING: 'running' };
+function glyphOut(o, x0, y0) {   const x = Number(x0), y = Number(y0);   /* an outcome by shape, never by colour: filled = stands, cross = failed, half = partial, ring = open */
+  const st = 'stroke="var(--ink)" stroke-width="1.5"';
+  if (o === 'PASS') return '<circle cx="' + x + '" cy="' + y + '" r="5" fill="var(--ink)"/>';
+  if (o === 'CONFIRMED') return '<circle cx="' + x + '" cy="' + y + '" r="5" fill="var(--ink)"/><circle cx="' + x + '" cy="' + y + '" r="7.5" fill="none" ' + st + '/>';
+  if (o === 'FAIL' || o === 'DEAD' || o === 'NOT CONFIRMED') return '<path d="M' + (x - 4.5) + ' ' + (y - 4.5) + ' L' + (x + 4.5) + ' ' + (y + 4.5) + ' M' + (x + 4.5) + ' ' + (y - 4.5) + ' L' + (x - 4.5) + ' ' + (y + 4.5) + '" ' + st + ' fill="none"/>' + (o === 'DEAD' ? '<rect x="' + (x - 7) + '" y="' + (y - 7) + '" width="14" height="14" fill="none" stroke="var(--ink-3)" stroke-width="1"/>' : '');
+  if (o === 'PARTIAL') return '<circle cx="' + x + '" cy="' + y + '" r="5" fill="none" ' + st + '/><path d="M' + x + ' ' + (y - 5) + ' A5 5 0 0 1 ' + x + ' ' + (y + 5) + 'Z" fill="var(--ink)"/>';
+  return '<circle cx="' + x + '" cy="' + y + '" r="5" fill="none" ' + st + '/>';
+}
+const GT0 = Date.parse('2026-11-24T00:00:00Z'), GT1 = Date.parse('2026-11-26T02:00:00Z');
+function gatesSvg(narrow) {
+  const w = narrow ? 360 : 1000, L = narrow ? 10 : 20, R = 12, top = 24, lane = narrow ? 13 : 15;
+  const X = (iso) => L + (Date.parse(iso) - GT0) / (GT1 - GT0) * (w - L - R);
+  const kinds = ['PASS', 'CONFIRMED', 'PARTIAL', 'OPEN', 'UNDECIDED', 'FAIL', 'DEAD', 'NOT CONFIRMED'];
+  const bins = {}, marks = [];
+  let maxY = 0;
+  for (const g of PR.gates) { const b = Math.round((Date.parse(g.ruled) - GT0) / (narrow ? 5400000 : 2400000)); const k = bins[b] = (bins[b] || 0) + 1; const y = top + 10 + (k - 1) * lane; maxY = Math.max(maxY, y); marks.push([g, X(g.ruled), y]); }
+  const h = maxY + 46;
+  const o = ['<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + ea(PR.gates.length + ' gates ruled between 24 and 26 November on a time axis, each drawn by its outcome: ' + Object.entries(PR.tally).map(([k, v]) => v + ' ' + OUTWORD[k]).join(', ')) + '">'];
+  const ticks = narrow ? ['2026-11-24T12:00:00Z', '2026-11-25T00:00:00Z', '2026-11-25T12:00:00Z'] : ['2026-11-24T06:00:00Z', '2026-11-24T12:00:00Z', '2026-11-24T18:00:00Z', '2026-11-25T00:00:00Z', '2026-11-25T06:00:00Z', '2026-11-25T12:00:00Z', '2026-11-25T18:00:00Z', '2026-11-26T00:00:00Z'];
+  for (const t of ticks) { const x = X(t), d = new Date(t), lab = d.getUTCHours() === 0 ? d.getUTCDate() + ' Nov' : String(d.getUTCHours()).padStart(2, '0') + ':00';
+    o.push('<line x1="' + x.toFixed(1) + '" y1="' + (top - 4) + '" x2="' + x.toFixed(1) + '" y2="' + (h - 30) + '" stroke="var(--rule)" stroke-width="1"/><text x="' + x.toFixed(1) + '" y="' + (h - 14) + '" text-anchor="middle" class="t-ax">' + esc(lab) + '</text>'); }
+  for (const [g, x, y] of marks) o.push('<g class="lg-m" tabindex="0" data-cm="' + ea(g.id + ' · ' + utc(g.ruled) + ' · ' + OUTWORD[g.outcome]) + '" data-cmv="' + ea(g.count) + '">' + glyphOut(g.outcome, x.toFixed(1), y) + '</g>');
+  o.push('<text x="' + (w - R) + '" y="' + (h - 2) + '" text-anchor="end" class="t-note">UTC, when the control room ruled</text></svg>');
+  need(kinds.every((k) => k) && h < 600, 'the gates figure stacks too high');
+  return o.join('');
+}
+const gateKey = '<div class="lg-key">' + ['PASS', 'CONFIRMED', 'PARTIAL', 'OPEN', 'FAIL', 'DEAD'].map((k) => '<span>' + ICON(glyphOut(k, 11, 9), 22, 18) + esc(OUTWORD[k]) + (k === 'OPEN' ? ' or undecided' : k === 'FAIL' ? ' or not confirmed' : '') + '</span>').join('') + '</div>';
+const gateCard = (g) => '<li class="gt"><div class="gt-h">' + ICON(glyphOut(g.outcome, 11, 9), 22, 18) + '<b class="m">' + esc(g.id) + '</b><span class="gt-o">' + esc(OUTWORD[g.outcome]) + '</span><span class="gt-t">' + esc(utc(g.ruled)) + '</span></div>'
+  + '<p class="gt-c">' + esc(g.count) + '</p><p class="gt-l"><b>Passes when</b> ' + esc(g.condition) + (g.condition_written_first ? '' : ' <em>(sent in a message, never written to disk: the ledger’s words)</em>') + '</p>'
+  + '<p class="gt-l"><b>What it ruled</b> ' + esc(g.ruled_out) + '</p><p class="gt-s">' + esc(g.line) + ' · condition: ' + C.breakable(g.condition_src || 'the ledger') + (g.report ? ' · report: ' + C.breakable(g.report) : '') + ' · ruling: ' + C.breakable(g.src) + '</p></li>';
+const roundsHtml = PR.rounds.map((r) => { const gs = PR.gates.filter((g) => g.round === r.round);
+  const t = {}; for (const g of gs) t[g.outcome] = (t[g.outcome] || 0) + 1;
+  return '<details class="more rd"><summary>' + (r.round === '41' ? 'The 41 side' : 'Round ' + esc(r.round)) + ', from ' + esc(r.opened.length > 10 ? utc(r.opened) : r.opened.slice(8, 10).replace(/^0/, '') + ' Nov') + ': ' + esc(r.plain) + (gs.length ? ' <span class="rd-n">' + N(gs.length) + ' gate' + (gs.length === 1 ? '' : 's') + ': ' + Object.entries(t).map(([k, v]) => v + ' ' + OUTWORD[k]).join(', ') + '</span>' : '') + '</summary>'
+    + (gs.length ? '<ol class="gts">' + gs.map(gateCard).join('') + '</ol>' : '<p class="gt-l">No gate is ruled in this round’s rows; its ideas and checks are in the ledger’s first table.</p>') + '</details>'; }).join('');
+const RUNNOW = '<div class="cardgrid g3">' + PR.running.map((r, i) => '<article class="card run"><span class="card-k">' + ICON(glyphOut('OPEN', 11, 9), 22, 18) + (r.running ? 'running now' : 'idle') + '</span><h3>' + esc(r.line) + (r.running ? ', gate ' + esc(r.gate) : '') + '</h3>'
+  + (r.running ? '<p><b>Passes when</b> ' + esc(r.condition.replace(/^PASS when /, '')) + '.</p><p class="card-d">Task ' + V('process.json', '/running/' + i + '/task') + ' of this session, started ' + esc(utc(r.resumed)) + '; budget ' + esc(r.budget || 'as briefed') + '.</p>'
+    + (r.checkpoint ? '<p class="card-d">Its own newest checkpoint (' + esc(r.checkpoint.hhmm_utc) + ' UTC), not a ruling: <span class="m">' + esc(r.checkpoint.line) + '</span></p>' : '<p class="card-d">No checkpoint written yet for this gate.</p>') : '<p>' + esc(r.last) + '</p>') + '</article>').join('') + '</div>';
+const FUNNEL = '<ol class="pl">' + FM.funnel.map(([t, d], i) => '<li class="pl-s"><span class="pl-n">' + (i + 1) + '</span><span class="pl-t">' + esc(t) + '</span><span class="pl-d">' + esc(d) + '</span></li>').join('') + '</ol>';
+const EARLY = '<details class="more rd"><summary>Before the attack on 40: the control room’s ' + N(PR.early.rounds.length) + ' rounds of 22 and 23 November (Theorem C35, Case R(7), Case R(6)), as its log heads them</summary><ol class="early">'
+  + PR.early.rounds.map((e) => '<li><b class="m">' + e.n + '</b> ' + esc(e.heading) + '</li>').join('') + '</ol><p class="gt-s">Source: ' + esc(PR.early.src) + ', published in the record below.</p></details>';
+const PROCESS = C.section({ lab: 'the whole process', title: 'Every gate, the dead ends with the passes', id: 'process', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('Brute force was ruled out, so ideas are cheap and tests must be cheaper. Every idea gets a row before work starts, is tried first where the answer is known, and is ruled against a gate written before its run. A failed gate leaves with the number that killed it.') + '</div>'
+    + '<div class="wide">' + FUNNEL + '</div>'
+    + '<div class="col">' + C.pRaw(esc(FM.bench)) + '</div>'
+    + '<div class="col">' + C.pRaw(N(PR.gates.length) + ' gates and measured rows ruled from 24 to 26 November: ' + Object.entries(PR.tally).sort((a, b) => b[1] - a[1]).map(([k, v]) => N(v) + ' ' + esc(OUTWORD[k])).join(', ') + '. Each is shown with its pass condition, its count and what it ruled out; a failure gets the same space as a pass.') + '</div>'
+    + '<div class="wide"><figure><div class="figbox dual"><div class="hv-w">' + gatesSvg(false) + '</div><div class="hv-n">' + gatesSvg(true) + '</div></div>' + figRec('process.json', gateKey + 'Each mark is one gate at the time the control room ruled it; hover or focus one to read its count.') + '</figure></div>'
+    + '<div class="col"><h3 class="lg-h">Running now</h3>' + C.pRaw('Read from the two sessions’ own run files at the records’ minute. A checkpoint is the session’s own words; a gate counts only when the control room rules it.') + '</div>'
+    + '<div class="wide">' + RUNNOW + '</div>'
+    + '<div class="col"><h3 class="lg-h">Round by round</h3></div><div class="wide rds">' + EARLY + roundsHtml + '</div>'
+    + '<div class="col"><h3 class="lg-h">The tools of the funnel</h3>' + C.plainList(FM.tools.map(({ b, t }) => ({ b: b + '.', text: t }))) + '</div>' });
+
+/* ---------------------------------------------------------------- the path ledger */
+const PCLS = { dead: 'dead', stands: 'stands', open: 'open or partial', running: 'running', queued: 'queued' };
+const pathCard = (r) => '<li class="gt"><div class="gt-h">' + ICON(glyphOut(r.class === 'dead' ? 'DEAD' : r.class === 'stands' ? 'PASS' : r.class === 'open' ? 'PARTIAL' : 'OPEN', 11, 9), 22, 18) + '<b class="m">' + esc(r.id) + '</b><span class="gt-o">' + esc(PCLS[r.class]) + '</span>' + (r.family ? '<span class="gt-t">' + esc(r.family) + '</span>' : '') + '</div>'
+  + '<p class="gt-c">' + esc(r.path) + '</p><p class="gt-l"><b>Status</b> ' + esc(r.status) + '</p>' + (r.later ? '<p class="gt-l"><b>Later, in the ledger</b> ' + esc(r.later) + '</p>' : '') + '<p class="gt-s">' + C.breakable(r.by) + '</p></li>';
+const PATHS = C.section({ lab: 'the path ledger', title: 'Every route tried or queued, and what happened to it', id: 'paths', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw(N(PA.rows.length) + ' paths toward 40: ' + Object.entries(PA.tally).sort((a, b) => b[1] - a[1]).map(([k, v]) => N(v) + ' ' + esc(PCLS[k])).join(', ') + '. A path is dead only with the number that killed it, and survives only after a second program reproduces it. Then ' + N(PA.side41.rows.length) + ' rows on the 41 side: the search for one (3,10;40)-graph, which would make R(3,10) = 41.') + '</div>'
+    + '<div class="wide"><details class="more"><summary>The ' + N(PA.rows.length) + ' paths toward 40</summary><ol class="gts">' + PA.rows.map(pathCard).join('') + '</ol></details>'
+    + '<details class="more"><summary>The ' + N(PA.side41.rows.length) + ' rows of the 41 side</summary><ol class="gts">' + PA.side41.rows.map(pathCard).join('') + '</ol></details></div>' });
+
+/* ---------------------------------------------------------------- open questions, forecasts, words */
+const QUESTIONS = C.section({ lab: 'where an idea could enter', title: 'Six questions open in the plain sense', id: 'questions', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('None of these needs the machinery. Each is a place where a new way of looking would change what gets tried next.') + '</div>'
+    + '<div class="wide"><div class="cardgrid g3">' + FM.questions.map((q) => '<article class="card"><h3>' + esc(q.q) + '</h3><p>' + esc(q.text) + '</p></article>').join('') + '</div></div>' });
+const FC = FM.forecasts;
+const FORECASTS = C.section({ lab: 'forecasts, not facts', title: 'Three bets, and what would move them', id: 'forecasts', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('These are forecasts, written in the lane’s private field map at ' + esc(utc(FC.at)) + '. Nothing decided them and nothing on this page rests on them. They are set apart in their own type and frame so that they cannot be read as results.') + '</div>'
+    + '<div class="wide"><div class="fc-grid">' + FC.items.map((f) => '<div class="fc"><span class="fc-k">forecast</span><span class="fc-v">' + esc(f.value) + '</span><span class="fc-d">' + esc(f.what) + '</span></div>').join('') + '</div></div>'
+    + '<div class="col"><p class="fc-note">' + esc(FC.moves) + '</p></div>' });
+const GLOSSARY = C.section({ lab: 'words', title: 'Glossary', id: 'glossary',
+  bodyRaw: C.plainList(FM.glossary.map((g) => ({ b: g.word + '.', text: g.def }))) });
+
 /* ---------------------------------------------------------------- credits */
 const CREDITS = C.section({ lab: 'credits', title: 'Whose work this is', id: 'credits', wide: true,
   bodyRaw: '<div class="col">' + C.pRaw('Carlos Toledo ran the lane: the target, the tracks side by side, every go and every cost. The work was done with Claude Opus 5.5 and Claude Fable 5.2 (Anthropic) and GPT-6.2-astra (OpenAI, in Codex), each model read from the session that wrote each file.') + '</div>'
@@ -424,17 +618,21 @@ const GAPS = '<div class="col"><div class="note ne"><span class="lab">what is no
   { b: 'Case R(7) was closed first by someone else.', text: 'Zhiyang Chen’s own AI run excluded it on 21 November. Ours is a second computation of it, and it holds only under six premises the run does not check.' },
   { b: 'Nobody outside has read any of it.', text: 'No referee, no outside replay, no reply. Most sources on the map are unrefereed too, and each is marked.' },
   { b: 'One person, models of two families, no second party.', text: 'The tracks are AI sessions working for one person. “Own” and “independent” mean code written without reading the other track’s code, nothing more.' },
-  { b: 'The sealed box claims nothing.', text: 'It shows what it is, its anchors and its progress. Its contents are not shown and are not stated.' },
+  { b: 'Case R(6) is not closed.', text: 'One of its branches, three cross-edges, is computed here under six premises, with a second program for the counting only. Of the four-edge branch only a 20-core cost pilot ran; five to nine cross-edges were not run.' },
+  { b: 'Most of the attack on 40 failed, and says so.', text: 'Every gate is shown with its outcome. The passes are partial results inside one stratum or another; none closes a stratum of the regular case.' },
   { b: 'The map is a reading.', text: 'It is the known reduction as read from the sources on a date, not a proof that its cases cover every graph.' }]) + '</div></div>';
 
 /* ---------------------------------------------------------------- why you can trust this (one click down) */
-const RECS = ['cases.json', 'boxes.json', 'corrections.json', 'machine.json', 'replay.json', 'page-log.json'];
+const RECS = ['cases.json', 'boxes.json', 'corrections.json', 'machine.json', 'replay.json', 'process.json', 'paths.json', 'fieldmap.json', 'sources/MANIFEST.json', 'page-log.json'];
 const trustBody = [
-  C.pRaw('<b>Every number on this page is read from a record.</b> The six records below are written from the lane’s own files by <span class="m">tools/r310-live-records.js</span>, which refuses when a source no longer says what a record states; this page is built from them by <span class="m">tools/build-r310-live.js</span>, which refuses when they disagree.'),
-  C.table({ cols: [{ h: 'record' }, { h: 'sha256, first 12' }, { h: 'what it holds' }], rows: RECS.map((f) => [{ raw: '<span class="m">' + esc(DIR + f) + '</span>' }, { raw: '<span class="m">' + sha12(DIR + f) + '</span>' }, J(f).what]) }),
+  C.pRaw('<b>Every number on this page is read from a record.</b> The records below are written from the lane’s own files by <span class="m">tools/r310-live-records.js</span>, which refuses when a source no longer says what a record states; this page is built from them by <span class="m">tools/build-r310-live.js</span>, which refuses when they disagree.'),
+  '<ul class="tl-list">' + RECS.map((f) => '<li><span class="m">' + esc(DIR + f) + '</span> <span class="hx">' + sha12(DIR + f) + '</span><br>' + esc(J(f).what) + '</li>').join('') + '</ul>',
   C.pRaw('<b>The sources.</b> The records cite ' + N(CASES.sources.length) + ' files of the lane by a phrase each must contain; their hashes are fixed here so that the files, when they open, can be checked against them:'),
-  C.table({ cols: [{ h: 'source' }, { h: 'sha256, first 12' }], rows: CASES.sources.map((s) => [{ raw: '<span class="m">' + C.breakable(s.file) + '</span>' }, { raw: '<span class="m">' + esc(s.sha256_12) + '</span>' }]) }),
-  C.pRaw('The sealed box’s corrections cite their source line by the first 16 hex digits of its hash, so nothing of the sealed work is quoted.'),
+  '<ul class="tl-list">' + CASES.sources.map((s) => '<li><span class="m">' + C.breakable(s.file) + '</span> <span class="hx">' + esc(s.sha256_12) + '</span></li>').join('') + '</ul>',
+  C.pRaw('<b>The sources, published.</b> ' + N(MAN.files.filter((f) => f.published).length) + ' of the ' + N(MAN.files.length) + ' cited files are public in <a href="' + ea(SRC_URL) + '">corpus/r310-live/sources/</a>, copied after a redaction pass; <span class="m">sources/MANIFEST.json</span> names every withheld line (' + N(MAN.files.reduce((t, f) => t + (f.withheld ? f.withheld.length : 0), 0)) + ' in all) with its reason. Not republished, and why:'),
+  '<ul class="tl-list">' + MAN.files.filter((f) => !f.published).map((f) => '<li><span class="m">' + C.breakable(f.file) + '</span>: ' + esc(f.why) + '</li>').join('') + '</ul>',
+  C.pRaw('<b>Box 3’s ledger</b> (one row per core, ' + N(B3.ledger.bytes) + ' bytes) is <span class="m">' + esc(B3.ledger.file) + '</span>, sha256 <span class="hx">' + esc(B3.ledger.sha256) + '</span>; the final hash list that block 977301 confirms, <span class="m">FINAL.sha256</span>, has sha256 <span class="hx">' + esc(B3.ledger.final_sha256) + '</span>; the catalogue of 23,409 cores, sha256 <span class="hx">' + esc(B3.catalogue.sha256) + '</span>; the bundle of the run, sha256 <span class="hx">' + esc(B3.bundle_sha256) + '</span>. While box 3 was sealed, its corrections cited their source lines by hash; they now cite the files.'),
+  C.pRaw('<b>The seal, opened.</b> On 25 November 2026 the operator answered a dialog with the options spelled out: “' + esc(B3.opened.words) + '”. The lane’s privacy ended that night: box 3, the whole process and the working files are public, and the anchors shown while it was sealed are kept.'),
   C.pRaw('<b>The seals.</b> Box 1’s digest is <span class="hx">' + esc(B1.seal.digest) + '</span> (line ' + B1.seal.registry_line + ' of <span class="m">seals/registry.jsonl</span>, Bitcoin block ' + B1.seal.block + '); box 2’s is <span class="hx">' + esc(B2.seal.digest)
     + '</span> (line ' + B2.seal.registry_line + ', block ' + B2.seal.block + '). An opened seal publishes its files, salt and manifest, and anyone re-derives the digest with <span class="m">instruments/seal/</span>. The opened seals and the record: '
     + (OPENED_UTC ? '<a href="' + ea(RECORD_URL) + '">corpus/r310-c35-r7/ in the cert-machine repository</a>.' : 'published at launch, in the cert-machine repository at <span class="m">corpus/r310-c35-r7/</span>.') + ' A seal proves possession by a date, nothing else.'),
@@ -442,7 +640,7 @@ const trustBody = [
     + esc(B2.ledger_release.package_sha256) + '</span>; the ledger inside it, <span class="m">prod.tsv</span>, sha256 <span class="hx">' + esc(B2.ledger_release.prod_sha256) + '</span>.'),
   C.pRaw('<b>The two regenerated configurations</b> (' + B2.regenerated.ids.map((x) => N(x).replace(/,/g, '')).join(' and ') + '): the kit is <a href="' + ea(B2.regenerated.kit_url) + '">' + esc(B2.regenerated.kit) + '</a>, with a README and <span class="m">' + esc(B2.regenerated.tar) + '</span>, sha256 <span class="hx">' + esc(B2.regenerated.tar_sha256) + '</span>.'),
   C.pRaw('<b>Chen’s claim C-004</b> is commit <span class="m">' + esc(CASES.chen_c004.commit) + '</span> of github.com/jeffchen006/Ramsey-R3-10, committed ' + esc(utcs(CASES.chen_c004.at)) + ' (the committer’s clock).'),
-  C.pRaw('<b>What the build refuses.</b> The page is not built when: the replay’s counts are not box 2’s; box 2’s levels do not sum to its configurations; the sealed box’s record holds anything beyond its name, its three anchors and a whole percent; the map names the sealed case otherwise than its box; a sealed correction says more than one line; the newest change-log entry is not the records’ state; the case number of the sealed box appears anywhere but in its name; the opening time is unset outside a preview.'),
+  C.pRaw('<b>What the build refuses.</b> The page is not built when: the replay’s counts are not box 2’s; box 2’s levels do not sum to its configurations; box 3’s tally does not sum (refuted and open make the screened records; the two machines make the 23,409 cores) or its map node says decided; a correction has no source; the gates’ tally is not the gates’; the sources manifest misses a cited file; the newest change-log entry is not the records’ state, or no entry says the seal was opened; a forecast’s type appears outside the forecasts section; the opening time is unset outside a preview. The records tool refuses before that when a source no longer says what a record states, or when box 3’s ledger, recounted row by row, does not give its tally.'),
   C.pRaw('<b>How to read a mark.</b> A plain number is decided: exact arithmetic or a checker backs it. A number underlined in dashes is computed or quoted: someone printed it and nothing here decided it (a price, a claimant’s count).'),
   W.legendHtml()];
 const TRUST = C.section({ lab: 'one click down', title: 'Why you can trust this', id: 'trust', wide: true,
@@ -450,17 +648,17 @@ const TRUST = C.section({ lab: 'one click down', title: 'Why you can trust this'
 
 /* ---------------------------------------------------------------- changes */
 const CHANGES = C.section({ lab: 'changes', title: 'Changes to this page', id: 'changes',
-  bodyRaw: C.plainList(LOGE.slice().reverse().map((e) => ({ b: e.at.replace('T', ' ').replace('Z', ' UTC') + '.', text: e.what + ' (Box 3 at ' + e.progress_percent + '%; ' + e.corrections + ' corrections.)' }))) });
+  bodyRaw: C.plainList(LOGE.slice().reverse().map((e) => ({ b: e.at.replace('T', ' ').replace('Z', ' UTC') + '.', text: e.what + (e.box3 ? ' (Box 3 ' + e.box3 + '; ' : ' (Box 3 at ' + e.progress_percent + '%; ') + e.corrections + ' corrections.)' }))) });
 
 /* ---------------------------------------------------------------- the page */
 const TITLE = 'R(3,10), in the open';   /* the operator's title and URL, from REVEAL-v2 */
 const HEADER = C.header({ eyebrow: 'Carlos Toledo · live research and its verification', title: TITLE,
-  deck: 'Is there a graph on 40 vertices with no triangle and no 10 vertices pairwise unjoined? If none exists, R(3,10) = 40; if one does, 41. Nobody knows, and nothing on this page decides it. This is the work, shown while it happens: every case of the question and who closed it, what runs now in a sealed box, and every error caught on the way.' })
-  + '<div class="col">' + C.scope('A live page, rebuilt from its records; this build reads them up to ' + (() => { const d = new Date(M.as_of > B3.as_of ? M.as_of : B3.as_of);
+  deck: 'Is there a graph on 40 vertices with no triangle and no 10 vertices pairwise unjoined? If none exists, R(3,10) = 40; if one does, 41. Nobody knows, and nothing on this page decides it. This is the whole lane, shown as it happened: every case of the question and who closed it, three opened boxes, every gate with its dead ends, what runs now, and every error caught on the way.' })
+  + '<div class="col">' + C.scope('A live page, rebuilt from its records; this build reads them up to ' + (() => { const d = new Date([M.as_of].concat(PR.running.filter((r) => r.running).map((r) => r.resumed)).sort().pop());
     return utc(d.toISOString(), false) + ' on ' + d.getUTCDate() + ' ' + ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][d.getUTCMonth()] + ' ' + d.getUTCFullYear(); })()
-    + '. Nothing on it is refereed. How this page updates: it is rebuilt from its records at every phase finish, and its change log at the foot says what changed.') + '</div>';
+    + '. Nothing on it is refereed. The lane was private until 25 November 2026; that night its seal was opened. How this page updates: it is rebuilt from its records at every phase finish, and its change log at the foot says what changed.') + '</div>';
 const MAPSEC = '<section class="cm-sec" id="map"><div class="col sec-head"><div class="lab">the case map</div><h2>The whole question, case by case</h2></div>' + MAPBLOCK + '</section>';
-let body = [HEADER, GAPS, MAPSEC, BOXES, REPLAY, LEDGER, MACHINE, CREDITS, TRUST, CHANGES].join('\n\n');
+let body = [HEADER, GAPS, MAPSEC, EXPLAIN, STRATA, BOXES, PROCESS, PATHS, QUESTIONS, FORECASTS, REPLAY, LEDGER, MACHINE, CREDITS, GLOSSARY, TRUST, CHANGES].join('\n\n');
 /* marketing page: a value's tooltip says its standing's word; the reasons are said once, in the trust layer, by the legend */
 body = body.replace(/(<span class="w-val (w-(decided|computed|chosen|refused))\b[^"]*"[^>]*?) title="[^"]*"/g, (m0, pre, cls, st) => pre + ' title="' + st + '"');
 
@@ -547,6 +745,42 @@ const STYLE = `
 .pl-n{font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-4)}
 .pl-t{font-family:var(--f-display);font-weight:var(--weight-title);color:var(--ink)}
 .pl-d{font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.cardgrid{display:grid;gap:var(--s-4);align-items:start}
+.cardgrid.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.cardgrid.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:1000px){.cardgrid.g3,.cardgrid.g2{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-m);padding:var(--s-5);min-width:0;display:flex;flex-direction:column;gap:var(--s-2)}
+.card h3{margin:0}
+.card p{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-2)}
+.card p.card-d{color:var(--ink-3)}
+.card-k{display:flex;align-items:center;gap:var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.card-n{font-family:var(--f-mono);color:var(--ink)!important}
+.meter{display:block;width:100%;height:var(--s-2);margin:var(--s-1) 0 0}
+.gts{list-style:none;margin:var(--s-3) 0 0;padding:0;display:grid;gap:var(--s-3)}
+.gt{background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-m);padding:var(--s-5);min-width:0}
+.gt-h{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-1) var(--s-3);font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3)}
+.gt-h b{color:var(--ink);font-weight:var(--weight-medium)}
+.gt-o{text-transform:uppercase;letter-spacing:var(--track-loose);color:var(--ink)}
+.gt-c{margin:var(--s-2) 0 var(--s-1);color:var(--ink);font-size:var(--text-small);line-height:var(--leading-body)}
+.gt-l{margin:0 0 var(--s-1);font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-2)}
+.gt-l b{color:var(--ink);font-weight:var(--weight-medium)}
+.gt-s{margin:0;font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-4);overflow-wrap:anywhere}
+.rds>details{margin-top:var(--s-2)}
+.rd-n{display:block;font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3);margin-top:var(--s-1)}
+.early{margin:var(--s-3) 0 var(--s-2);padding:0;list-style:none;display:grid;gap:var(--s-1);font-size:var(--text-small);color:var(--ink-2);line-height:var(--leading-snug)}
+.early b{display:inline-block;min-width:var(--s-6);color:var(--ink-4)}
+.fc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-4)}
+@media (max-width:1000px){.fc-grid{grid-template-columns:minmax(0,1fr)}}
+.fc{border:1px solid var(--rule-strong);outline:1px solid var(--ink-4);outline-offset:calc(-1 * var(--s-2));border-radius:var(--radius-m);padding:var(--s-5);display:flex;flex-direction:column;gap:var(--s-1);background:transparent;min-width:0}
+.fc-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.fc-v{font-family:var(--f-sans);font-style:italic;font-weight:var(--weight-body);font-size:var(--text-2);color:var(--ink-2)}
+.fc-d{font-style:italic;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.fc-note{font-style:italic;color:var(--ink-3);font-size:var(--text-small)}
+.r6f{margin:var(--s-3) 0}
+.r6f figcaption{font-size:var(--text-eyebrow);color:var(--ink-3);line-height:var(--leading-snug)}
+.r6h{width:100%;height:auto;display:block}
+.bx-gap-top{border-top:none;padding-top:0;margin-top:0}
+.bx-lim li b{color:var(--ink)}
+.tl-list{list-style:none;margin:0 0 var(--s-4);padding:0;display:grid;gap:var(--s-2);font-size:var(--text-small);line-height:var(--leading-snug);color:var(--ink-2);overflow-wrap:anywhere}
 .trust .col>p{color:var(--ink-2)}
 .hx{font-family:var(--f-mono);font-size:var(--text-small);overflow-wrap:anywhere}
 .lg-src{overflow-wrap:anywhere}
@@ -581,15 +815,15 @@ function f(now){if(t0===null)t0=now;var k=Math.min(1,(now-t0)/dur);paint(k*D.wal
 let html = TPL.render({
   title: TITLE, bodyRaw: body, footRaw: '<p>Built by tools/build-r310-live.js from the records in corpus/r310-live/. The research and its checks by Carlos Toledo with Claude Opus 5.5 and Claude Fable 5.2 (Anthropic) and GPT-6.2-astra (OpenAI, in Codex); the page built with Claude Opus 5.5. Unrefereed.</p>',
   path: '/r310/', cssRaw: STYLE, scriptRaw: require(path.join(ROOT, 'design', 'charts.js')).script() + SCRIPT, lang: 'en',
-  desc: 'R(3,10) is 40 or 41, and nothing here decides which. A live page of the research and its checks: the whole (3,10;40) question as a map of cases and who closed each, two opened results (Theorem C35 and a second computation of Case R(7)), one case running under seal, every error caught, and what the machine costs.',
+  desc: 'R(3,10) is 40 or 41, and nothing here decides which. A live page of the whole lane: the (3,10;40) question as a map of cases and who closed each, the question explained, three opened results (Theorem C35, a second computation of Case R(7), the three-edge branch of Case R(6)), every gate with its dead ends, what runs now, and every error caught.',
   og: { image: '/og-r310.png', alt: require(path.join(ROOT, 'tools', 'build-og-report.js')).alt('r310') }
 });
-/* the sealed case's number appears only in its name (the box, the map's box and list, a title) */
+/* a forecast's type is drawn only in the forecasts section */
 const visible = html.replace(/<script[\s\S]*?<\/script>/g, '');
-const all6 = (visible.match(/R\(6\)/g) || []).length, named6 = (visible.match(/Case R\(6\): codegree six/g) || []).length;
-need(all6 === named6, 'the sealed case’s number appears ' + (all6 - named6) + ' time(s) outside its name');
+const fcSec = (/<section[^>]*id="forecasts"[\s\S]*?<\/section>/.exec(visible) || [''])[0];
+need((visible.match(/class="fc[ "-]/g) || []).length === (fcSec.match(/class="fc[ "-]/g) || []).length && fcSec.length > 0, 'a forecast is drawn outside the forecasts section');
 need(!/\b(?:TODO|undefined|NaN)\b/.test(visible.replace(/<[^>]+>/g, ' ')), 'a placeholder reached the page');
 fs.mkdirSync(OUTDIR, { recursive: true });
 fs.writeFileSync(path.join(OUTDIR, 'index.html'), html);
-console.log('site/r310/index.html written: ' + NODES.length + ' cases, box 3 at ' + B3.progress_percent + '%, ' + K.counts.all + ' corrections, ' + M.verdicts.rows.length + ' verdicts; '
+console.log('site/r310/index.html written: ' + NODES.length + ' cases, box 3 ' + B3.state + ', ' + PR.gates.length + ' gates, ' + PA.rows.length + ' paths, ' + K.counts.all + ' corrections, ' + M.verdicts.rows.length + ' verdicts; '
   + (OPENED_UTC ? 'opened ' + OPENED_UTC : 'PREVIEW: opening at publication'));

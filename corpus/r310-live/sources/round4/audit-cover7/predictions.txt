@@ -1,0 +1,39 @@
+Predictions written 2026-11-24 12:02:34 UTC, BEFORE cover.py was run for the first time.
+(existence.py and controls.py had been run; their results are in existence.out, controls.out.)
+
+MAIN  My regenerated columns (STATEMENT.md section 5; generator: nauty genbg, filter and
+      rows mine) all have coefficient >= 0 under the claimant's fifteen multipliers:
+      edge links, non-edge links of type 1, 2, 3 under (NEG), r_0..r_3.
+      Minimum 0 in each of the four link classes. Scalars on r_h: 3072, 0, 0, 0.
+      Number of admissible edge links: 221 (the claimant's printed "eligible").
+      If any column is negative: find the constraint that removes it and whether the
+      written statement justifies that constraint.
+
+(a)   Trace-level brute force for one six-set: exactly eleven profiles (i<=j, t) are
+      consistent with 40 vertices, degree 9, no triangle, cap 3, codegree >= 1; each fixes
+      the trace multiset. Four of them are outside the seven: (1,2,1) and the three with
+      i = 0. Nothing local excludes them; the lemma does not say they do not occur.
+      Link level: each of the eleven occurs as a rectangle in some admissible link.
+
+(b)   done before this file: see controls.out.
+
+(c)   Changing ONE multiplier by +1 or -1 (30 variants). Predicted: refused, by a negative
+      column, in at least 26 of 30. Predicted to stay sound (all columns >= 0, right side
+      still negative, but no longer -46,080): "nonedges" +1 (right side -45,480) and
+      "walk2" +1 (right side -44,640). My checker tests both things separately: column
+      signs, and the right side against the claimed -46,080; so all 30 must be refused as
+      "not the claimed certificate", and I report which of them are refused on column signs.
+      Not sure about: the direction of each of the other rows in which every tight column
+      has entry zero.
+
+(d)   Allowing ONE of the seven profiles next to (1,2,1) in the columns (7 variants):
+      predicted a negative column in all seven, because a rectangle of profile p adds
+      -1280 (1,1,*), -1536 (1,2,*) or -2048 (2,2,*) to a base that is at most 84 + 72 for
+      types 2 and 3; for (2,2,1) the base is 6240, so it needs a type-1 link with four
+      such rectangles, or three and more than 96 of small terms: predicted negative, less
+      sure.
+
+HYP   Which hypotheses carry weight (no claim by the claimant; for the record):
+      dropping the empty-trace filter i+j+t >= 4: predicted NO negative column (the
+      rectangles it readmits under (NEG) have i = 0 or j = 0 and their terms are >= 0);
+      dropping the perfect matching / matching >= 7: no prediction.

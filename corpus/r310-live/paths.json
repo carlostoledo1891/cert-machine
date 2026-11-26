@@ -1,0 +1,364 @@
+{
+ "what": "The path ledger of the attack on 40 (round5/PATHS.md, opened 24 Nov 16:35 UTC), row by row as the control room keeps it: a path gets a row before anybody works on it; it is dead only with the number that killed it; it survives only after a second program reproduces it. The class (dead, stands, open, running, queued) is read from the status’s first word; two rows not updated after a later ruling carry the ledger’s ruling beside them. Then the 41 side (lane41/LANE.md).",
+ "src": "round5/PATHS.md",
+ "rows": [
+  {
+   "id": "F1",
+   "family": "cases + SAT",
+   "path": "4,443 boards, each completed by SAT",
+   "status": "DEAD",
+   "by": "G3: 0 of 10 in 2 CPU-h each; line A stopped 16:32 UTC at 13.9 CPU-h on ONE board, 242 leaves open, open count flat for 2.5 h → more than 60,000 CPU-h for all",
+   "class": "dead"
+  },
+  {
+   "id": "F2",
+   "family": "one-level counting",
+   "path": "edge numbers e(3,9,n)",
+   "status": "DEAD",
+   "by": "needs 100 / 97, exact minima 86 / 95",
+   "class": "dead"
+  },
+  {
+   "id": "F3",
+   "family": "enumerate + glue",
+   "path": "the shared (3,8;20+c) part of a pair",
+   "status": "DEAD",
+   "by": "c = 6 next two layers > 70,000 CPU-h; c ≤ 5 no finite price",
+   "class": "dead"
+  },
+  {
+   "id": "F4",
+   "family": "flag algebras",
+   "path": "asymptotic densities",
+   "status": "DEAD",
+   "by": "54 (Lidický–Pfender's table)",
+   "class": "dead"
+  },
+  {
+   "id": "F5",
+   "family": "pair counting, regular case",
+   "path": "c* = 3 → seven rooted configurations",
+   "status": "NOT PURSUED in this form: G6 FAIL (20:56 UTC) — 655 of 3,631 assignments, 0 of 7 profiles closed after about 5 CPU-hours; four of the seven occur in a real 40-vertex graph with the local structure (G15), so they need independent 10-sets. Kept: the cover (2 sources), the bound f ≤ 16 at (1,1,3)",
+   "by": "round4/astra-workarounds/REPORT-4.md (LEDGER.md)",
+   "class": "open"
+  },
+  {
+   "id": "F6",
+   "family": "pair counting, regular case",
+   "path": "c* = 4: 69 six-row profiles, nine closed by short arguments (exact small Ramsey numbers), 60 profiles / 493 words open",
+   "status": "OPEN: G7 PASS (confirmed) then G11 FAIL 0 of 60 — pressure with catalogue equality closes 188 deeper placements, no profile; new: an independent 7-set with antineighbourhood 2K_2 at every maximum pair (single-source). Closure fraction falls upward",
+   "by": "round4/astra-c4/REPORT-3.md (LEDGER.md)",
+   "class": "open"
+  },
+  {
+   "id": "F7",
+   "family": "joint statistics, non-regular",
+   "path": "exclude degree distributions",
+   "status": "G16 CONFIRMED (two programs): 273; then single-source (Astra), AUD-2 (11:09) CONFIRMED G24 +1 (0,4,28,8) and G27 f7 >= 109 (+8) by a second program; G22 +1 (0,16,0,24) CONFIRMED by a second program (AUD-2c, 17:19): 283 of 519, 236 survive. n6 = 2 line PARKED. G28 (f7 >= 110) FAIL 13:17: degree-4 branch closed, min-degree 5/6 critical cards open (59 root types). G29 FAIL 17:17: deletable-edge branch closed by two programs; 5 of 59 critical root types excluded, 54 open. G30 FAIL 21:19: 15 of 59 types closed (44 open). NEXT: G31 (type 58, parent repair)",
+   "by": "round4/astra-nonregular/REPORT-3.md; round5/audit-nonregular; round5/audit-g16 (LEDGER.md)",
+   "class": "stands"
+  },
+  {
+   "id": "F8",
+   "family": "pair lemma",
+   "path": "P66 (n6 ≤ 2)",
+   "status": "STAGE 1 DONE TWICE: the second sweep is complete — 477,142 lines, SAT 118, UNSAT 477,024, 0 disagreements, every proof through both checkers. With stage 2 (two encodings) P66 is computed twice at every stage; its reduction is still prose. With it: 273 of 519 non-regular distributions excluded",
+   "by": "round1/control/p66-stage1b (sweep/SUMMARY-MERGED.txt; LEDGER.md)",
+   "class": "stands"
+  },
+  {
+   "id": "N1",
+   "family": "the ladder",
+   "path": "REACH of every method at k = 6..10",
+   "status": "G9 FAIL, CONFIRMED by a second table (19:00 UTC); true one-level row 19, 24, 29, 36, 43. Phantoms named: one real card repeated (ranges), a mixture of a few real cards (identities), the 320-vertex graph (ratios only)",
+   "by": "round5/astra-reach/REPORT-2.md; round5/reach-claude (LEDGER.md)",
+   "class": "open"
+  },
+  {
+   "id": "N2",
+   "family": "multi-level counting",
+   "path": "independent 3-, 4-, 5-, 6-sets: outside graphs fully catalogued",
+   "status": "DEAD (inside N1: all residual-edge levels reach 43; an exact point survives at the known-impossible order 42)",
+   "by": "single-source (Astra)",
+   "class": "dead"
+  },
+  {
+   "id": "N3",
+   "family": "potential functions",
+   "path": "weights fitted by LP to exact small data",
+   "status": "DEAD (inside N1: the certified degree potential reaches 46)",
+   "by": "single-source (Astra)",
+   "class": "dead"
+  },
+  {
+   "id": "N4",
+   "family": "independent-set profiles",
+   "path": "i_j system with expansion bounds",
+   "status": "DEAD (inside N1: independent-set counts with domination reach 45)",
+   "by": "single-source (Astra)",
+   "class": "dead"
+  },
+  {
+   "id": "N5",
+   "family": "spectral / SDP at finite n",
+   "path": "with exact small Ramsey values as constraints",
+   "status": "DEAD in its moment form (inside N1: 45; 43 with the edge recursion); the sum-of-squares form is row N11",
+   "by": "single-source (Astra)",
+   "class": "dead"
+  },
+  {
+   "id": "N6",
+   "family": "forced rich root",
+   "path": "independent 6-set with a (3,4;8) outside",
+   "status": "PARTLY: a rich root is FORCED at orders 17 and 22 from the catalogues one below (inside N1); at 40 the tested systems admit both a rich and an avoiding witness; see N13",
+   "by": "single-source (Astra)",
+   "class": "open"
+  },
+  {
+   "id": "N7",
+   "family": "proof mining",
+   "path": "WHY do the finished exclusions work? minimal reasons → a lemma",
+   "status": "DEAD: 0 lemmas. Small reasons are already screens (655 of 655 at line B: one or two free vertices, or one forced 10-set); large refutations are diffuse (about 170 independent sets spread over the core; at least 8 core vertices needed; 7 random ones never suffice on 16 of 16 cores)",
+   "by": "round5/miner (single-source; LEDGER.md has the block)",
+   "class": "dead"
+  },
+  {
+   "id": "N8",
+   "family": "methods from neighbouring problems",
+   "path": "the scout's report: round5/lit-methods/PATHS.md (17:03 UTC)",
+   "status": "DONE — three paths kept (N10–N12), fifteen rejected with a number or a sentence",
+   "by": "Claude agent",
+   "class": "stands"
+  },
+  {
+   "id": "N10",
+   "family": "SAT proves ROWS, an LP sums them",
+   "path": "local inequalities (\"a root of profile P receives at most t marks\") proved by SAT on boards with two or three marks fixed, summed by double counting; the method of an unrefereed Nov 2026 preprint that moved R(3,3,3,3) from 62 to 60 on one Apple machine (872 CPU-h)",
+   "status": "DEAD at 40 in this form: closes (6,18) and (7,23) but no faster than plain SAT (11.1 against 9.3 CPU-s); at (8,28) neither closes; the rows the LP needs are exactly the ones that are false one vertex below, and those cost the whole problem. Not built: the asymmetric sender/receiver form",
+   "by": "round5/rows-sat (single-source; LEDGER.md)",
+   "class": "dead"
+  },
+  {
+   "id": "N11",
+   "family": "finite-n sum of squares",
+   "path": "a symmetric SOS hierarchy at n fixed (FlagSOS.jl + an own exact-certificate program), with rooted constraints the limit theory cannot state",
+   "status": "DEAD (S1 FAIL): closes (6,3) at level 3 and (18,6) at level 7 (6 with rooted PSD caps; exact certificate, two checkers); (23,7) OPEN at levels 7, 8, 9 in every variant; (28,8) open at 8; level 10, the first that sees a 10-set, beyond the Mac. The open point is a pseudo-density, not a real graph one level down",
+   "by": "round5/sos-finite (LEDGER.md)",
+   "class": "dead"
+  },
+  {
+   "id": "N12",
+   "family": "higher subgraph identities in an exact LP",
+   "path": "McKay–Radziszowski 1997 (R(4,6) ≤ 41 with no census below); level 3 is empty for triangle-free graphs, level 4 = 4-cycles, new parameters from level 5",
+   "status": "DEAD from k = 8 on: with the catalogue the identities close (6,18) and (7,23), but at (8,28) and (10,40) seven real cards mix to an exact feasible point at ≤ 7-vertex types",
+   "by": "round5/reach-claude (single-source)",
+   "class": "dead"
+  },
+  {
+   "id": "N9",
+   "family": "structure theory",
+   "path": "the scout's report: round5/lit-structure/PATHS.md (17:11 UTC)",
+   "status": "DONE — \"the structure theory stops well below this size\": no theorem in print reaches n/α = 40/9 or a (3,9;30)-graph 13 edges above the minimum; four testable statements kept (N13–N16), twelve rejected",
+   "by": "Claude agent",
+   "class": "stands"
+  },
+  {
+   "id": "N13",
+   "family": "rigid residues (\"tail law\")",
+   "path": "FIRST RUNG A THEOREM (from R(3, K10 − e) = 37, Goedgebeur–Radziszowski 2013): every (3,10;n)-graph with n ≥ 37 has an independent 8-set I and an edge xy with no edge between I and {x,y}. Next rungs (an independent 7-set with outside C5, a 6-set with outside a (3,4;8)-graph) hold in every complete top catalogue (all 477,142 at k = 8), unproved",
+   "status": "REPRODUCED as a fact about the catalogues; first rung a theorem; the 5-cycle rung at 40 not provable by counting. AS A ROOT: UNDECIDED and not pursued — at (8,28) neither the three tail roots nor a pair board finish in 1,343 CPU-s; from 18 to 23 the tails' cost grows ×290 against ×4.8 for the board",
+   "by": "round5/structure-tests (LEDGER.md, two blocks)",
+   "class": "stands"
+  },
+  {
+   "id": "N14",
+   "family": "one stratum's cores under all filters",
+   "path": "how R(3,8) ≤ 28's regular case was closed (McKay–Zhang 1992): enumerate G_v of ONE stratum with degrees, forbidden codegrees and trace conditions imposed together; never measured at 40",
+   "status": "DEAD as a filter: degree and codegree keep 0.82 of 10,910 cores one level down; about 10^14 cores at 40 (REASONED). The force is in the pair tests, i.e. the gluing",
+   "by": "round5/structure-tests/item4",
+   "class": "dead"
+  },
+  {
+   "id": "N15",
+   "family": "integrality of pentagon counts",
+   "path": "per vertex Σ c·f is even; over all non-adjacent pairs Σ c·f ≡ 0 mod 5; conditions a rational Farkas screen cannot see",
+   "status": "DEAD: line B's integer solution passes I1, the parity and the mod-5 total; two of the three rows were already in that session's identities",
+   "by": "round5/structure-tests/item3",
+   "class": "dead"
+  },
+  {
+   "id": "N16",
+   "family": "\"regular is the whole problem\"",
+   "path": "in every complete catalogue ex(n, s) = ⌊ns/2⌋ is attained (scout's run, single-source); if true at (40, 9), a (3,10;40)-graph exists iff a 9-regular one does. No proof in print; this lane's dead end B5 was an attempt",
+   "status": "RUNNING (M1): the switching monovariant measured exactly on the complete catalogues — plateau reachability + local maxima of 4 potentials x 4 move families; round 1 B5 (edge count + one-vertex switch) is its dead special case. USE NOW: the 357 regular graphs with alpha = degree on disk (n = 8..35) are the control set for every regular-case lemma",
+   "by": "all agents",
+   "class": "dead",
+   "later": "the monovariant M1 (gate M1) FAILED at 02:50 UTC on 25 Nov: as a bounded-move monovariant this path is dead through moves of size 4"
+  },
+  {
+   "id": "N17",
+   "family": "small phantoms",
+   "path": "a triangle-free 18-regular graph on 80 vertices with α = 18 (or 27-regular on 120) — the nearest real controls for scaled regular-case lemmas",
+   "status": "DONE, the Z_80 graph CONFIRMED by a second program (18-regular, triangle-free, α = 18, 5,720 maximum independent sets); the other eight Cayley controls checked for regularity and triangle-freeness only",
+   "by": "round5/astra-reach/work/g10/cayley-controls.g6; round5/audit-g10",
+   "class": "stands"
+  },
+  {
+   "id": "N18",
+   "family": "coverage price",
+   "path": "in a regular candidate the nine neighbours of a root supply nine independent 8-sets of its outside graph H covering each x exactly 9 − d_H(x) times; an exact dual price can show no such cover exists (it does on the phantom H)",
+   "status": "EVIDENCE, NOT A ROUTE: no feasible card in about 17,000 (two programs; every one of 4,160 fresh hosts exactly infeasible), but G20 FAIL — fixed obstructions transfer poorly (200 cover 44.7% of fresh hosts; the typical one covers one host); the containment statement is false. Not continued in this form",
+   "by": "round5/astra-reach/REPORT-4.md, REPORT-5.md; round5/reach-claude (LEDGER.md)",
+   "class": "open"
+  },
+  {
+   "id": "N19",
+   "family": "no blow-ups",
+   "path": "every homomorphism from a (3,10;40)-graph to a triangle-free graph is injective (n ≤ 10 + R(3,8) = 38 otherwise)",
+   "status": "PROVED and CONFIRMED by a second reader and program: n ≤ k + R(3,k−2) = 38 at k = 10 for any graph that folds; 0 violations in the catalogues, tight at (7,21)",
+   "by": "round5/astra-reach/work/g10/HOM.md; round5/audit-g10",
+   "class": "stands"
+  },
+  {
+   "id": "N20",
+   "family": "case-level counting across roots (c* = 4)",
+   "path": "exact identities tying the 60 cases over all codegree-4 pairs, integer program",
+   "status": "DEAD at case level: G12 FAIL — feasible in integers, forces nothing; the points are pair-level phantoms (pairs never asked to agree on triples)",
+   "by": "round5/c4-claude/REPORT-2.md",
+   "class": "dead"
+  },
+  {
+   "id": "N21",
+   "family": "the separator bench",
+   "path": "an ingredient counts only if it keeps the real regular graphs at 22 (and 16) feasible AND makes the regular case at 23 (and 18) infeasible, with no catalogue below as input; then it goes to 40",
+   "status": "G13 FAIL: only a parity row closes (23,6) at cap 2; caps 3, 4 and (18,5) survive Ramsey-at-the-root, second-level edge counts and equality cases. (18,5) is forced to ONE count vector made of real extremal pieces. RUNNING G14: two crossing roots must agree at (18,5); then three",
+   "by": "Claude agent round5/c4-claude (REPORT-3.md, REPORT-4.md)",
+   "class": "open",
+   "later": "G14 then passed at 0 roots (the twin (18,5) excluded without the independence clause) and G15 showed both local windows at 40 non-empty"
+  },
+  {
+   "id": "N22",
+   "family": "local or global: the window W(n, d, cap)",
+   "path": "does a d-regular triangle-free graph with every non-adjacent codegree in 1..cap exist at all, with NO independence condition?",
+   "status": "ANSWERED: G15 PASS — both windows at 40 are non-empty. A circulant on Z_40 (cap 4, α = 11; also checked by the control room) and a graph with four 10-cycles (cap 3, α = 10, 281 independent 10-sets). First 40-vertex controls at the exact parameters; degrees, triangles and codegrees alone cannot close c* = 3 or 4. FALSE at (18,5,2); at (23,6) a window graph survives 6 and 15 roots",
+   "by": "round5/c4-claude (REPORT-4.md, REPORT-5.md; LEDGER.md)",
+   "class": "stands"
+  },
+  {
+   "id": "N23",
+   "family": "maximum independent sets as roots",
+   "path": "every vertex has at most d non-neighbours of codegree 1; at most three vertices have their trace inside a pair of neighbours (three-line proofs). The G13 points at (23,6) violate the first",
+   "status": "DEAD as a separator: the two rows hold exactly on all 357 analogues and remove the old points at (23,6), but new ones take their place; (40,9) stays feasible (G13b FAIL)",
+   "by": "round5/c4-claude/REPORT-5.md",
+   "class": "dead"
+  },
+  {
+   "id": "N24",
+   "family": "the edge charge (two roots)",
+   "path": "s = D(v,u) + D(u,v) averages zero over edges; on the twins every admissible chart has negative charge",
+   "status": "DEAD for 40 (AUDITED): confirmed as arithmetic, but the one-root enumeration alone excludes the twins; the sign depends on the weight (6 of 8 weights give mixed signs at 23); at 40 genuine two-root charts with charges +110, −10, −130 exist, so no sign argument and no enumeration can help",
+   "by": "round5/astra-reach/REPORT-3.md; round5/audit-g10 (LEDGER.md)",
+   "class": "dead"
+  },
+  {
+   "id": "N25",
+   "family": "good vertices",
+   "path": "g(G) = the number of vertices in no independent 10-set, for a 9-regular triangle-free graph on 40 vertices. A (3,10;40)-graph has g = 40; graphs with g = 2 and g = 4 are in hand. How large can g be, and is there an upper bound below 40 by an argument? Calibrate on the twins: the maximum at (23,6) against 23",
+   "status": "MEASURED, NOT A ROUTE: exact maxima 2 of 18 and 5 of 23 (two programs); but 11 of 28 exist, so the cliff is not general; at 40 by search g ≥ 9 regular (one vertex in every 10-set) and ≥ 21 with degrees ≤ 9; no argument caps g",
+   "by": "round5/good-vertices (LEDGER.md)",
+   "class": "open"
+  },
+  {
+   "id": "N26",
+   "family": "the one-below filter",
+   "path": "restrict any counting LP at 40 to the statistics that occur on the 39-vertex graphs; if it stays feasible, every certificate needs a row false at 39 and the LP is dead before any SAT",
+   "status": "DEAD on both systems tried: the simple pair LP (row N10) and the c* = 4 pair system stay feasible when restricted to what occurs one vertex below",
+   "by": "round5/rows-sat; round5/c4-claude/REPORT-5.md",
+   "class": "dead"
+  },
+  {
+   "id": "N27",
+   "family": "inside the window",
+   "path": "minimise the number of independent 10-sets over 9-regular triangle-free graphs with every non-adjacent codegree in 1..3 (a graph with none is a (3,10;40)-graph); the root-by-root curve at (40,9,3)",
+   "status": "W1 PASS and W1b CONFIRMED 4 of 4 (a second program, Astra's own encoding): no 9-regular (3,10;40)-graph with c* = 3 has an automorphism of cycle type 10^4, 5^8, 8^5 or 4^10 — CITED in the lane. W1c FAIL 8 of 12 (5^8 = {G}); W1d FAIL 6 of 11 branches of 2^20 (13:17: empty at 0, 12–20 internal fibres; open 2–10); W1e FAIL 8 of 11 (17:21: 2 and 4 fibres empty; open 6, 8, 10). W1f PASS 20:45: 2^20 = {G} (the involution type decided). RUNNING W1g (Astra E: 2^19 1^2). W1 details: (LRAT through both checkers, two-way completeness, calibration exact). RUNNING W2: 2^20, prime-order types, then the asymmetric case by a 2-neighbourhood split — PASS would exclude c* = 3 W2 FAIL (battery-cut): no automorphism of prime order >= 11 or of order 7; order 5 forces G; so any other member has |Aut| = 2^i 3^j; 2^20 down to ONE sub-part (undecided); asymmetric split calibrated exactly at (20,5,2), 18,400 of 32,426 at (22,6,3) = the 25 known so far",
+   "by": "round5/window3 (LEDGER.md)",
+   "class": "open"
+  },
+  {
+   "id": "N28",
+   "family": "the 2K_2 root at c* = 4",
+   "path": "Astra's theorem: at every maximum-codegree pair an independent 7-set whose antineighbourhood is two disjoint edges; then place the other 15 vertices with all one- and two-point deletion constraints at once",
+   "status": "PARTIAL (P4): the 2K_2 theorem CONFIRMED by a second derivation (premise e(3,K9-2K2,24) = 72); 10 of 120 decks refuted (LRAT, in a relaxation); a REAL 40-vertex graph (alpha 11) satisfies every 1- and 2-point card of its root, so the placement as stated cannot close c* = 4. 3-/4-point cards QUEUED",
+   "by": "round5/c4-2k2",
+   "class": "open"
+  },
+  {
+   "id": "N29",
+   "family": "the probabilistic method",
+   "path": "Shearer-type lower bounds on alpha for triangle-free graphs",
+   "status": "DEAD by arithmetic: 40 f(9) = 7.85 (recursion), 7.36 (closed form); need 10",
+   "by": "LEDGER.md 2026-11-25 02:21",
+   "class": "dead"
+  }
+ ],
+ "tally": {
+  "dead": 20,
+  "open": 9,
+  "stands": 8
+ },
+ "side41": {
+  "src": "lane41/LANE.md",
+  "rows": [
+   {
+    "id": "A1",
+    "path": "Scout: who searched for a (3,10;40)-graph, how, what near misses are published, which classes are already excluded",
+    "status": "DONE 02:23 UTC: extending known 39s published and negative (37M+ in 2012, >= 43M in 2025, 18.4M in a 2026 repo); circulants settled; Cayley excluded unrefereed; OPEN: fixed-point-free 2^20 and 5^8; nearest published misses: 810 graphs with ONE triangle (Exoo 2013), 23-24 ten-sets",
+    "by": "lane41/SCOUT.md",
+    "class": "stands"
+   },
+   {
+    "id": "A2",
+    "path": "DONE 08:25 UTC: no witness; 258-graph pool and all 14 Cayley groups of order 40 EXCLUDED with LRAT; 5^8, 2^20 (9-regular) undecided at 60 min, engine too slow (K1 failed); NEXT A2b. Was: One-vertex extension of every (3,10;39)-graph on disk and of a grown pool; all circulants and Cayley graphs of order 40; SAT for witnesses invariant under each fixed-point-free permutation type",
+    "status": "RUNNING, REDIRECTED 02:28 UTC after A1: duplicates dropped (mass extension, pool growth; circulants and Cayley only as cheap calibration); the open classes 2^20 and 5^8 restricted to 9-REGULAR witnesses (new)",
+    "by": "lane41/a2/",
+    "class": "open",
+    "later": "gate A2 FAILED at 08:25 UTC on 25 Nov (no witness); its exclusions stand: none of the 258 known 39-vertex graphs extends, and no Cayley graph of order 40 is a (3,10;40)-graph"
+   },
+   {
+    "id": "A3",
+    "path": "Minimise the number of independent 10-sets inside the windows W(40,9,4), W(40,9,5), W(40,9,6) (N27 did cap 3: the minimum found is 281, one rigid graph)",
+    "status": "QUEUED",
+    "by": "—",
+    "class": "queued"
+   },
+   {
+    "id": "A4",
+    "path": "Search inside the 246 non-regular patterns: local search with the degree pattern fixed, energy = number of independent 10-sets",
+    "status": "QUEUED",
+    "by": "—",
+    "class": "queued"
+   },
+   {
+    "id": "A5",
+    "path": "A learned proposer (Astra writes and tunes search heuristics; the exact α check is the only judge; FunSearch / PatternBoost style)",
+    "status": "QUEUED, after A1",
+    "by": "—",
+    "class": "queued"
+   },
+   {
+    "id": "A6",
+    "path": "Start from 40-vertex graphs with exactly ONE triangle and no independent 10-set (Exoo 2013 found 810; data not public) and search for a move that removes the triangle without creating a 10-set",
+    "status": "QUEUED (an outside suggestion, 25 Nov)",
+    "by": "—",
+    "class": "queued"
+   },
+   {
+    "id": "A2b",
+    "path": "9-regular 5^8 / 2^20 at 40 with a C++ propagator",
+    "status": "FAIL 09:14 UTC: calibration K1 not found in 10 min; PARKED with the next experiment (deeper cube-and-conquer) named",
+    "by": "lane41/a2/b/",
+    "class": "dead"
+   }
+  ]
+ }
+}

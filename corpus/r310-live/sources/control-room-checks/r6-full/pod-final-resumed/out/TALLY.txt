@@ -1,0 +1,21 @@
+R(6) full run: tally, 2026-11-24T00:45:09Z
+lines read 23409, unreadable 0
+catalogue lines 0..23408: present 23409, missing 0, repeated 0, outside the range 0
+missing (first 20): []
+repeated: []
+baseline configurations, sum: 101564232221
+Hall survivors, sum: 92080292598
+refuted by the tests, sum: 92080264258
+open by the tests, sum: 28340; of them infeasible by direct_own 28340, completions 0, at the node cap 0
+cross-check sample, sums: sampled 5992486, infeasible 5992486, undecided (node cap) 0, completions 0; cores with a contradiction: 0 []; cores with Hall survivors and no sample: 0
+verdicts: {"EXCLUDED": 23409}
+EXCLUDED 23409, OPEN 0, WITNESS 0
+OPEN lines: []
+WITNESS lines: []
+completions: 0, of them passing the separate verification: 0
+cores with a self-symmetric configuration in the baseline: 0
+EXCLUDED cores with no Hall survivor at all (the exclusion is the enumeration's alone): 0 []
+records whose graph sha256 is not that of their catalogue line: 0 []
+seconds per core (wall): median 138.296, max 914.168; CPU seconds, sum: enum 1669011, tests 1764836, direct 403, cross-check 26179.0
+largest work folder: 698979385 bytes
+ALL-EXCLUDED

@@ -1,6 +1,6 @@
 {
- "what": "The (3,10;40) question as a tree of cases, as read from the sources between 2026-11-21 and 2026-11-23: each case with its state and who decided it. A map of the known reduction, not a proof that the cases are exhaustive. States: decided, sealed (running under seal), open, refused.",
- "read": "2026-11-23",
+ "what": "The (3,10;40) question as a tree of cases, as read from the sources between 2026-11-21 and 2026-11-25: each case with its state and who decided it. A map of the known reduction, not a proof that the cases are exhaustive. States: decided, open, refused (sealed is no longer used: the seal was opened on 25 Nov 2026).",
+ "read": "2026-11-25",
  "states": [
   "decided",
   "sealed",
@@ -310,6 +310,16 @@
      "refereed": false,
      "kind": "literature",
      "src": "prior-art-2026-11-21.md"
+    },
+    {
+     "who": "this lane",
+     "what": "283 of the 519 distributions left after five integer rays are excluded at published edge floors, every one by two programs; 236 survive",
+     "where": "the process below",
+     "when": "2026-11-24 to 2026-11-25",
+     "refereed": false,
+     "kind": "ours",
+     "box": null,
+     "src": "round1/LEDGER.md"
     }
    ],
    "map": [
@@ -387,10 +397,10 @@
    "id": "c6",
    "parent": "caseR",
    "label": "Case R(6): codegree six",
-   "sub": "running, sealed",
-   "state": "sealed",
+   "sub": "one branch computed; open",
+   "state": "open",
    "box": 3,
-   "note": "Worked on now, under seal: only its name, its Bitcoin anchors and its progress are shown (box 3).",
+   "note": "Split by the number of cross-edges of a marked pair, three to nine (Chen’s Lemma F). The three-edge branch is computed here under six premises (box 3). Of the four-edge branch only a 20-core cost pilot ran; five to nine cross-edges were not run. The case is not closed.",
    "credits": [
     {
      "who": "Zhiyang Chen",
@@ -403,27 +413,27 @@
     },
     {
      "who": "Zhiyang Chen’s AI run r310_ralph",
-     "what": "partial results; not closed",
+     "what": "partial results; not closed; in its final commit, an idea-scout note on the three-edge branch with 16 pilot inputs and “no production certificate”",
      "where": "github.com/jeffchen006/Ramsey-R3-10",
      "when": "2026-11-21 to 2026-11-22",
      "refereed": false,
      "kind": "chen-run",
-     "src": "audit/chen-ralph-2026-11-23/repo/ralph/FINAL_REPORT.md"
+     "src": "reveal-draft/r6-2026-11-24/REVEAL-R6.md"
     },
     {
      "who": "this lane",
-     "what": "a sealed box, running (box 3)",
+     "what": "the three-edge branch: all 23,409 cores excluded under six premises, with a second program for the counting only (box 3); the case is not closed",
      "where": "box 3 below",
      "when": "2026-11-21 to 2026-11-23",
      "refereed": false,
      "kind": "ours",
      "box": 3,
-     "src": "control-room-2026-11-22.md"
+     "src": "reveal-draft/r6-2026-11-24/REVEAL-R6.md"
     }
    ],
    "map": [
     "Case R(6): codegree six",
-    "running, sealed"
+    "one branch computed; open"
    ]
   },
   {
@@ -451,6 +461,26 @@
      "refereed": false,
      "kind": "chen-run",
      "src": "audit/chen-ralph-2026-11-23/repo/ralph/FINAL_REPORT.md"
+    },
+    {
+     "who": "this lane",
+     "what": "codegree 3: covered by seven rooted configurations (two programs), none closed; every graph of its local window found with a symmetry of order 5 or a fixed-point-free involution is one graph, which has an independent 10-set",
+     "where": "the process below",
+     "when": "2026-11-24 to 2026-11-25",
+     "refereed": false,
+     "kind": "ours",
+     "box": null,
+     "src": "round1/LEDGER.md"
+    },
+    {
+     "who": "this lane",
+     "what": "codegree 4: 69 six-row profiles, 9 closed by short arguments (two derivations), 60 open",
+     "where": "the process below",
+     "when": "2026-11-24 to 2026-11-25",
+     "refereed": false,
+     "kind": "ours",
+     "box": null,
+     "src": "round1/LEDGER.md"
     }
    ],
    "map": [
@@ -484,6 +514,16 @@
      "refereed": false,
      "kind": "chen-run",
      "src": "audit/chen-ralph-2026-11-23/repo/ralph/FINAL_REPORT.md"
+    },
+    {
+     "who": "this lane",
+     "what": "lane 41: no Cayley graph on any of the 14 groups of order 40 is a (3,10;40)-graph (LRAT, two checkers; Chen’s repository had it first, unrefereed)",
+     "where": "the process below",
+     "when": "2026-11-24 to 2026-11-25",
+     "refereed": false,
+     "kind": "ours",
+     "box": null,
+     "src": "round1/LEDGER.md"
     }
    ],
    "map": [
@@ -517,6 +557,16 @@
      "refereed": false,
      "kind": "literature",
      "src": "prior-art-2026-11-21.md"
+    },
+    {
+     "who": "this lane",
+     "what": "lane 41: none found; none of the 258 distinct 39-vertex graphs on disk extends by one vertex (LRAT, two checkers)",
+     "where": "the process below",
+     "when": "2026-11-24 to 2026-11-25",
+     "refereed": false,
+     "kind": "ours",
+     "box": null,
+     "src": "round1/LEDGER.md"
     }
    ],
    "map": [
@@ -556,7 +606,7 @@
   },
   {
    "file": "control-room-2026-11-22.md",
-   "sha256_12": "fb363c2abf28"
+   "sha256_12": "4034867734aa"
   },
   {
    "file": "control-room-checks/C35-REVIEW-CHECK.md",
@@ -595,12 +645,32 @@
    "sha256_12": "c72cc8be3134"
   },
   {
+   "file": "control-room-checks/emit-join-final/WORKLOG.md",
+   "sha256_12": "ee0fbac21a18"
+  },
+  {
    "file": "control-room-checks/p3-pod/P3-RESULT.md",
    "sha256_12": "27af1614ba62"
   },
   {
+   "file": "control-room-checks/r6-full/pod-final-resumed/out/TALLY.txt",
+   "sha256_12": "2f85c5a29d16"
+  },
+  {
    "file": "control-room-checks/t2-pod/T2-RESULT.md",
    "sha256_12": "08dacaff7d7f"
+  },
+  {
+   "file": "lane41/A2-BRIEF.md",
+   "sha256_12": "bcca15790c49"
+  },
+  {
+   "file": "lane41/A2b-BRIEF.md",
+   "sha256_12": "f6a0f03a3d77"
+  },
+  {
+   "file": "lane41/LANE.md",
+   "sha256_12": "f72a123ed8b9"
   },
   {
    "file": "prior-art-2026-11-21.md",
@@ -621,6 +691,206 @@
   {
    "file": "reveal-draft/REVEAL-v2-2026-11-23.md",
    "sha256_12": "a0f837555d31"
+  },
+  {
+   "file": "reveal-draft/r6-2026-11-24/PAGE-SPEC-R6.md",
+   "sha256_12": "71acc128aab5"
+  },
+  {
+   "file": "reveal-draft/r6-2026-11-24/REVEAL-R6.md",
+   "sha256_12": "cf25ff78eb79"
+  },
+  {
+   "file": "round1/BRIEF.md",
+   "sha256_12": "3199886661f4"
+  },
+  {
+   "file": "round1/DIGEST.md",
+   "sha256_12": "d25f5c7d49b5"
+  },
+  {
+   "file": "round1/LEDGER.md",
+   "sha256_12": "eb6306e1cbea"
+  },
+  {
+   "file": "round3/GATE.md",
+   "sha256_12": "e99c8831d43b"
+  },
+  {
+   "file": "round4/FOLLOWUP-B2.md",
+   "sha256_12": "99f6bd71a0ab"
+  },
+  {
+   "file": "round4/FOLLOWUP-B3.md",
+   "sha256_12": "a4d7e51c86fd"
+  },
+  {
+   "file": "round4/GATE.md",
+   "sha256_12": "c8e481b4c3f2"
+  },
+  {
+   "file": "round4/astra-c4/TASK.md",
+   "sha256_12": "a79f857ff95a"
+  },
+  {
+   "file": "round4/astra-nonregular/FOLLOWUP-11.md",
+   "sha256_12": "88e5dabf7d32"
+  },
+  {
+   "file": "round4/astra-nonregular/TASK.md",
+   "sha256_12": "d06ef4b0d767"
+  },
+  {
+   "file": "round4/astra-nonregular/work/g31/CHECKPOINT-2320.md",
+   "sha256_12": "0080668b7b63"
+  },
+  {
+   "file": "round4/audit-cover7/predictions.txt",
+   "sha256_12": "cb78a018c8a7"
+  },
+  {
+   "file": "round5/G23-BRIEF.md",
+   "sha256_12": "1b92a59095a5"
+  },
+  {
+   "file": "round5/G25-BRIEF.md",
+   "sha256_12": "5c56d5a11522"
+  },
+  {
+   "file": "round5/G26-BRIEF.md",
+   "sha256_12": "e3e55c0d9cdf"
+  },
+  {
+   "file": "round5/M1-BRIEF.md",
+   "sha256_12": "ffe3aa53982a"
+  },
+  {
+   "file": "round5/PATHS.md",
+   "sha256_12": "532d0f10a2ae"
+  },
+  {
+   "file": "round5/RESUME-C2.md",
+   "sha256_12": "c1ea94e50acc"
+  },
+  {
+   "file": "round5/RESUME-D2.md",
+   "sha256_12": "ad809ae51378"
+  },
+  {
+   "file": "round5/RESUME-D3.md",
+   "sha256_12": "a2da24d515cf"
+  },
+  {
+   "file": "round5/RESUME-D4.md",
+   "sha256_12": "85223ac77059"
+  },
+  {
+   "file": "round5/RESUME-D5.md",
+   "sha256_12": "0577a2be6296"
+  },
+  {
+   "file": "round5/RESUME-D6.md",
+   "sha256_12": "d058145ac4f8"
+  },
+  {
+   "file": "round5/RESUME-D7.md",
+   "sha256_12": "5db0012d6e97"
+  },
+  {
+   "file": "round5/RESUME-D8.md",
+   "sha256_12": "16e44ca41098"
+  },
+  {
+   "file": "round5/RESUME-E2.md",
+   "sha256_12": "c5c2b7a13979"
+  },
+  {
+   "file": "round5/RESUME-E3.md",
+   "sha256_12": "b0d4423f7b12"
+  },
+  {
+   "file": "round5/RESUME-E4.md",
+   "sha256_12": "f4094c1ebf28"
+  },
+  {
+   "file": "round5/RESUME-E5.md",
+   "sha256_12": "5827efe5b69d"
+  },
+  {
+   "file": "round5/RESUME-E6.md",
+   "sha256_12": "9f00e73bbb40"
+  },
+  {
+   "file": "round5/RESUME-E7.md",
+   "sha256_12": "85e5e1f0cfc4"
+  },
+  {
+   "file": "round5/RESUME-E8.md",
+   "sha256_12": "353f12e76ad9"
+  },
+  {
+   "file": "round5/RESUME-E9.md",
+   "sha256_12": "c629ebb226c5"
+  },
+  {
+   "file": "round5/W2b-BRIEF.md",
+   "sha256_12": "2b99b193ac52"
+  },
+  {
+   "file": "round5/astra-reach/FOLLOWUP-13.md",
+   "sha256_12": "dde21e54eceb"
+  },
+  {
+   "file": "round5/astra-reach/FOLLOWUP-14.md",
+   "sha256_12": "b465956a123b"
+  },
+  {
+   "file": "round5/astra-reach/TASK.md",
+   "sha256_12": "26ca00802f6a"
+  },
+  {
+   "file": "round5/astra-reach/work/w1h/CHECKPOINT-0041.md",
+   "sha256_12": "c7f1c3a648ac"
+  },
+  {
+   "file": "round5/audit-aud2/AUD2b-WORKLOG.md",
+   "sha256_12": "cc084c686e4f"
+  },
+  {
+   "file": "round5/audit-aud2/AUD2c-WORKLOG.md",
+   "sha256_12": "0424ec45b3e3"
+  },
+  {
+   "file": "round5/audit-aud2/CLAIMS-AUD2.md",
+   "sha256_12": "b98f989e8ab9"
+  },
+  {
+   "file": "round5/audit-g16/CLAIMS.md",
+   "sha256_12": "3702d1c9b0fc"
+  },
+  {
+   "file": "round5/c4-2k2/GATE-P4.md",
+   "sha256_12": "ef74c9f54325"
+  },
+  {
+   "file": "round5/dashboard/r310-field-map.html",
+   "sha256_12": "daa86d2b2241"
+  },
+  {
+   "file": "round5/monovariant/FROZEN-M1-2026-11-25.md",
+   "sha256_12": "06c1d2eb2be9"
+  },
+  {
+   "file": "round5/sos-finite/WORKLOG.md",
+   "sha256_12": "b55cf383efac"
+  },
+  {
+   "file": "round5/structure-tests/WORKLOG.md",
+   "sha256_12": "36644ce58614"
+  },
+  {
+   "file": "round5/window3/WORKLOG.md",
+   "sha256_12": "83456209ae14"
   }
  ]
 }
