@@ -48,3 +48,13 @@
   outside_modules=753" — 14,173 lines, one per release constant outside the closure of the five. Not yet read: how
   many of the 1,394 'decl' rows are compiler-generated (e.g. `.congr_simp`) rather than written declarations; the
   authors' README says "several hundred". B2 (the compact edition) running.
+- 2026-11-26 02:17 — the compact edition: B2 (lake build from source) exit 0 after 1,539 s; A1-compact: each of the five
+  theorems depends on [propext, Classical.choice, Quot.sound]; E1 (Comparator against cert-machine's challenge) "Lean
+  default kernel accepts the solution" / "Your solution is okay!", exit 0 after 2,598 s; D1-compact exit 0 after 185 s
+  ("release_constants=51804 release_in_closure=37778 release_outside=14026 outside_decl=618 outside_aux=13408").
+- 2026-11-26 02:18 — THE RECORDER (tools/check-grh-lean.py): claim CERTIFIED — "Lean accepts proofs of the five stated
+  theorems from propext, Classical.choice and Quot.sound: B1, A1, S1, K1, K2 and KR pass and C1–C3 are refused". Every
+  registered row CERTIFIED except D1 (COMPUTED, a list: 1,394 readable / 618 compact declarations outside the closure,
+  by the census's rule, beside generated ones) and S2 (the release's own challenge; running since 02:17:41, dropped
+  first under the ceiling). What this does not say: anything about the mathematics beyond what the kernels check; no
+  person read the proof.
