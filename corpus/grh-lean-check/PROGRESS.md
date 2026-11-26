@@ -34,3 +34,5 @@
   ("Illegal axiom detected: 'sorryAx'"). Landlock on this host is ABI v4: landrun warns that device ioctl, pathname
   UNIX socket connections and UDP restrictions are not enforced (P1's disclosure).
 - 2026-11-26 00:19 — S1 (Comparator v4.35.0 against cert-machine's challenge) running; KR running since 00:08.
+- 2026-11-26 00:51 — KR passed: `leanchecker --fresh Main` (readable edition) exit 0 after 2,546 s (42 min 26 s wall,
+  peak RSS 11.1 GB, KR.err). S1 still running (since 00:19:29).
