@@ -12,3 +12,9 @@
   EU-RO-1, created 23:33:13 UTC, amendment A4). First start (audit 8d96a4ff) ended at setup, exit 127: the image has no
   /usr/bin/time; nothing ran; that /results is kept on the pod as /results-attempt0. Restarted 23:34:49 UTC with the fix
   (audit 083bbf00), DEADLINE 1795707000 (2026-11-26 15:30 UTC).
+- 2026-11-26 00:05 — setup, the Landlock probes (LL2's write refused, as required), DERISK (con-leche reads a v4.35.0
+  export; both checkers refuse the bad sample), I1, the challenge builds and their seals for both editions: all done
+  before any release module was compiled. B1 (the readable edition, `lake build` from source) exit 0 after 1,268 s.
+  A1 (readable): each of the five theorems depends on axioms [propext, Classical.choice, Quot.sound].
+- 2026-11-26 00:08 — EXP running (since 00:05:56); KR (leanchecker --fresh Main) started beside it in a second
+  invocation (amendment A3, P6).
