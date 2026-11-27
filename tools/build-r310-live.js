@@ -539,7 +539,7 @@ function glyphOut(o, x0, y0) {   const x = Number(x0), y = Number(y0);   /* an o
   if (o === 'PARTIAL') return '<circle cx="' + x + '" cy="' + y + '" r="5" fill="none" ' + st + '/><path d="M' + x + ' ' + (y - 5) + ' A5 5 0 0 1 ' + x + ' ' + (y + 5) + 'Z" fill="var(--ink)"/>';
   return '<circle cx="' + x + '" cy="' + y + '" r="5" fill="none" ' + st + '/>';
 }
-const GT0 = Date.parse('2026-11-24T00:00:00Z'), GT1 = Date.parse('2026-11-26T02:00:00Z');
+const GT0 = Date.parse('2026-11-24T00:00:00Z'), GT1 = Date.parse('2026-11-26T10:00:00Z');
 function gatesSvg(narrow) {
   const w = narrow ? 360 : 1000, L = narrow ? 10 : 20, R = 12, top = 24, lane = narrow ? 13 : 15;
   const X = (iso) => L + (Date.parse(iso) - GT0) / (GT1 - GT0) * (w - L - R);
@@ -549,7 +549,7 @@ function gatesSvg(narrow) {
   for (const g of PR.gates) { const b = Math.round((Date.parse(g.ruled) - GT0) / (narrow ? 5400000 : 2400000)); const k = bins[b] = (bins[b] || 0) + 1; const y = top + 10 + (k - 1) * lane; maxY = Math.max(maxY, y); marks.push([g, X(g.ruled), y]); }
   const h = maxY + 46;
   const o = ['<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + ea(PR.gates.length + ' gates ruled between 24 and 26 November on a time axis, each drawn by its outcome: ' + Object.entries(PR.tally).map(([k, v]) => v + ' ' + OUTWORD[k]).join(', ')) + '">'];
-  const ticks = narrow ? ['2026-11-24T12:00:00Z', '2026-11-25T00:00:00Z', '2026-11-25T12:00:00Z'] : ['2026-11-24T06:00:00Z', '2026-11-24T12:00:00Z', '2026-11-24T18:00:00Z', '2026-11-25T00:00:00Z', '2026-11-25T06:00:00Z', '2026-11-25T12:00:00Z', '2026-11-25T18:00:00Z', '2026-11-26T00:00:00Z'];
+  const ticks = narrow ? ['2026-11-24T12:00:00Z', '2026-11-25T00:00:00Z', '2026-11-25T12:00:00Z', '2026-11-26T00:00:00Z'] : ['2026-11-24T06:00:00Z', '2026-11-24T12:00:00Z', '2026-11-24T18:00:00Z', '2026-11-25T00:00:00Z', '2026-11-25T06:00:00Z', '2026-11-25T12:00:00Z', '2026-11-25T18:00:00Z', '2026-11-26T00:00:00Z', '2026-11-26T06:00:00Z'];
   for (const t of ticks) { const x = X(t), d = new Date(t), lab = d.getUTCHours() === 0 ? d.getUTCDate() + ' Nov' : String(d.getUTCHours()).padStart(2, '0') + ':00';
     o.push('<line x1="' + x.toFixed(1) + '" y1="' + (top - 4) + '" x2="' + x.toFixed(1) + '" y2="' + (h - 30) + '" stroke="var(--rule)" stroke-width="1"/><text x="' + x.toFixed(1) + '" y="' + (h - 14) + '" text-anchor="middle" class="t-ax">' + esc(lab) + '</text>'); }
   for (const [g, x, y] of marks) o.push('<g class="lg-m" tabindex="0" data-cm="' + ea(g.id + ' · ' + utc(g.ruled) + ' · ' + OUTWORD[g.outcome]) + '" data-cmv="' + ea(g.count) + '">' + glyphOut(g.outcome, x.toFixed(1), y) + '</g>');
@@ -561,13 +561,24 @@ const gateKey = '<div class="lg-key">' + ['PASS', 'CONFIRMED', 'PARTIAL', 'OPEN'
 const gateCard = (g) => '<li class="gt"><div class="gt-h">' + ICON(glyphOut(g.outcome, 11, 9), 22, 18) + '<b class="m">' + esc(g.id) + '</b><span class="gt-o">' + esc(OUTWORD[g.outcome]) + '</span><span class="gt-t">' + esc(utc(g.ruled)) + '</span></div>'
   + '<p class="gt-c">' + esc(g.count) + '</p><p class="gt-l"><b>Passes when</b> ' + esc(g.condition) + (g.condition_written_first ? '' : ' <em>(sent in a message, never written to disk: the ledger’s words)</em>') + '</p>'
   + '<p class="gt-l"><b>What it ruled</b> ' + esc(g.ruled_out) + '</p><p class="gt-s">' + esc(g.line) + ' · condition: ' + C.breakable(g.condition_src || 'the ledger') + (g.report ? ' · report: ' + C.breakable(g.report) : '') + ' · ruling: ' + C.breakable(g.src) + '</p></li>';
+/* round 6's source, credited as the operator asked: what was kept and what was parked */
+const XN = PR.external_note;
+const XNOTE = '<p class="gt-l"><b>Its source</b> ' + esc(XN.credit.charAt(0).toUpperCase() + XN.credit.slice(1)) + ' (' + esc(XN.language) + ', ' + esc(XN.written) + '). ' + esc(XN.label) + '</p>'
+  + '<p class="gt-l"><b>Kept</b> ' + XN.kept.map((k) => esc(k.route) + ': ' + esc(k.text)).join(' ') + '</p>'
+  + '<p class="gt-l"><b>Parked</b> ' + XN.parked.map((k) => esc(k.route) + ': ' + esc(k.text)).join(' ') + '</p>'
+  + '<p class="gt-s">note: ' + C.breakable(XN.src) + ' · triage: ' + C.breakable(XN.triage) + '</p>';
 const roundsHtml = PR.rounds.map((r) => { const gs = PR.gates.filter((g) => g.round === r.round);
   const t = {}; for (const g of gs) t[g.outcome] = (t[g.outcome] || 0) + 1;
   return '<details class="more rd"><summary>' + (r.round === '41' ? 'The 41 side' : 'Round ' + esc(r.round)) + ', from ' + esc(r.opened.length > 10 ? utc(r.opened) : r.opened.slice(8, 10).replace(/^0/, '') + ' Nov') + ': ' + esc(r.plain) + (gs.length ? ' <span class="rd-n">' + N(gs.length) + ' gate' + (gs.length === 1 ? '' : 's') + ': ' + Object.entries(t).map(([k, v]) => v + ' ' + OUTWORD[k]).join(', ') + '</span>' : '') + '</summary>'
-    + (gs.length ? '<ol class="gts">' + gs.map(gateCard).join('') + '</ol>' : '<p class="gt-l">No gate is ruled in this round’s rows; its ideas and checks are in the ledger’s first table.</p>') + '</details>'; }).join('');
-const RUNNOW = '<div class="cardgrid g3">' + PR.running.map((r, i) => '<article class="card run"><span class="card-k">' + ICON(glyphOut('OPEN', 11, 9), 22, 18) + (r.running ? 'running now' : 'idle') + '</span><h3>' + esc(r.line) + (r.running ? ', gate ' + esc(r.gate) : '') + '</h3>'
+    + (r.round === '6' ? XNOTE : '') + (gs.length ? '<ol class="gts">' + gs.map(gateCard).join('') + '</ol>' : '<p class="gt-l">No gate is ruled in this round’s rows; its ideas and checks are in the ledger’s first table.</p>') + '</details>'; }).join('');
+const RUNNOW = '<div class="cardgrid g3">' + PR.running.map((r, i) => '<article class="card run"><span class="card-k">' + ICON(glyphOut('OPEN', 11, 9), 22, 18) + (r.running ? 'running now' : r.stopped ? 'stopped, no verdict' : 'idle') + '</span><h3>' + esc(r.line) + (r.running || r.stopped ? ', gate ' + esc(r.gate) : '') + '</h3>'
   + (r.running ? '<p><b>Passes when</b> ' + esc(r.condition.replace(/^PASS when /, '')) + '.</p><p class="card-d">Task ' + V('process.json', '/running/' + i + '/task') + ' of this session, started ' + esc(utc(r.resumed)) + '; budget ' + esc(r.budget || 'as briefed') + '.</p>'
-    + (r.checkpoint ? '<p class="card-d">Its own newest checkpoint (' + esc(r.checkpoint.hhmm_utc) + ' UTC), not a ruling: <span class="m">' + esc(r.checkpoint.line) + '</span></p>' : '<p class="card-d">No checkpoint written yet for this gate.</p>') : '<p>' + esc(r.last) + '</p>') + '</article>').join('') + '</div>';
+    + (r.checkpoint ? '<p class="card-d">Its own newest checkpoint (' + esc(r.checkpoint.hhmm_utc) + ' UTC), not a ruling: <span class="m">' + esc(r.checkpoint.line) + '</span></p>' : '<p class="card-d">No checkpoint written yet for this gate.</p>')
+    : r.stopped ? '<p><b>Would pass when</b> ' + esc(r.condition.replace(/^PASS when /, '')) + '.</p><p class="card-d">Task ' + V('process.json', '/running/' + i + '/task') + ' of this session, started ' + esc(utc(r.resumed)) + '; its run file ends ' + esc(utc(r.ended)) + ' with exit ' + V('process.json', '/running/' + i + '/exit') + ': ' + esc(r.why) + '. Its partial work stays in ' + C.breakable(r.work) + ', not accepted.</p>'
+    : '<p>' + esc(r.last) + '</p>') + '</article>').join('') + '</div>';
+const NRUN = PR.running.filter((r) => r.running).length;
+const RUNHEAD = NRUN ? 'Running now' : 'Running now: nothing';
+const RUNINTRO = (PR.stopped ? esc(PR.stopped.text) + ' ' : '') + 'Read from the ' + N(PR.running.length) + ' sessions’ own run files at the records’ minute' + (PR.stopped ? ' and from the ledger (' + esc(PR.stopped.src) + ')' : '') + '. A checkpoint is the session’s own words; a gate counts only when the control room rules it.';
 const FUNNEL = '<ol class="pl">' + FM.funnel.map(([t, d], i) => '<li class="pl-s"><span class="pl-n">' + (i + 1) + '</span><span class="pl-t">' + esc(t) + '</span><span class="pl-d">' + esc(d) + '</span></li>').join('') + '</ol>';
 const EARLY = '<details class="more rd"><summary>Before the attack on 40: the control room’s ' + N(PR.early.rounds.length) + ' rounds of 22 and 23 November (Theorem C35, Case R(7), Case R(6)), as its log heads them</summary><ol class="early">'
   + PR.early.rounds.map((e) => '<li><b class="m">' + e.n + '</b> ' + esc(e.heading) + '</li>').join('') + '</ol><p class="gt-s">Source: ' + esc(PR.early.src) + ', published in the record below.</p></details>';
@@ -577,7 +588,7 @@ const PROCESS = C.section({ lab: 'the whole process', title: 'Every gate, the de
     + '<div class="col">' + C.pRaw(esc(FM.bench)) + '</div>'
     + '<div class="col">' + C.pRaw(N(PR.gates.length) + ' gates and measured rows ruled from 24 to 26 November: ' + Object.entries(PR.tally).sort((a, b) => b[1] - a[1]).map(([k, v]) => N(v) + ' ' + esc(OUTWORD[k])).join(', ') + '. Each is shown with its pass condition, its count and what it ruled out; a failure gets the same space as a pass.') + '</div>'
     + '<div class="wide"><figure><div class="figbox dual"><div class="hv-w">' + gatesSvg(false) + '</div><div class="hv-n">' + gatesSvg(true) + '</div></div>' + figRec('process.json', gateKey + 'Each mark is one gate at the time the control room ruled it; hover or focus one to read its count.') + '</figure></div>'
-    + '<div class="col"><h3 class="lg-h">Running now</h3>' + C.pRaw('Read from the two sessions’ own run files at the records’ minute. A checkpoint is the session’s own words; a gate counts only when the control room rules it.') + '</div>'
+    + '<div class="col"><h3 class="lg-h">' + esc(RUNHEAD) + '</h3>' + C.pRaw(RUNINTRO) + '</div>'
     + '<div class="wide">' + RUNNOW + '</div>'
     + '<div class="col"><h3 class="lg-h">Round by round</h3></div><div class="wide rds">' + EARLY + roundsHtml + '</div>'
     + '<div class="col"><h3 class="lg-h">The tools of the funnel</h3>' + C.plainList(FM.tools.map(({ b, t }) => ({ b: b + '.', text: t }))) + '</div>' });
@@ -609,6 +620,7 @@ const CREDITS = C.section({ lab: 'credits', title: 'Whose work this is', id: 'cr
     + C.table({ cols: [{ h: 'who' }, { h: 'model' }, { h: 'what' }], rows: BX.credits.map((c) => [{ raw: '<b>' + esc(c.who) + '</b>' }, c.model, c.what]) })
     + '<div class="col">' + C.plainList([
       { b: 'Cited first.', text: 'Exoo: the 39-vertex graph and R(3,10) ≥ 40. Kalbfleisch: the circulant C35(1,7,11,16), in his 1966 thesis, as Goedgebeur and Radziszowski credit it. Goedgebeur and Radziszowski: R(3,10) ≤ 42, the uniqueness of the (3,9;35)-graph, e(3,8,27) = 85 and the tables. Brinkmann and Goedgebeur: the complete list of (3,8;27)-graphs (2012). McKay: the graph lists. Angeltveit: R(3,10) ≤ 41. Zhiyang Chen: the case R(7), its Lemma R7, the report, the run and C-004. Unsolved Lab and andrey-kokoev/marici: the induced-C35 question posed. Daugherty, Ward and Ryan, McCrea, Pandey and Ravi, algal-lab: the earlier results on the map.' },
+      { b: 'An external note.', text: 'Round 6 began from ' + XN.credit + ', written on 25 November. Kept: ' + XN.kept.map((k) => k.route).join(' and ') + ', each re-derived by a fresh agent before use (X1). Parked: ' + XN.parked.map((k) => k.route).join(' and ') + ', each with the measured trigger that would reopen it.' },
       { b: 'Tools.', text: 'CaDiCaL 3.0.1 (Biere); lrat-check from drat-trim (Heule); cake_lpr, the formally verified checker (Heule, Myreen, Tan); Lean 4.35.0 and Mathlib; nanoda; con-leche; kissat; nauty; OpenTimestamps.' }]) + '</div>'
   });
 

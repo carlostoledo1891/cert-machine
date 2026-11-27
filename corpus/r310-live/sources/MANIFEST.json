@@ -1,6 +1,7 @@
 {
  "what": "The lane files the records of /r310/ cite, as published here: each with the sha256 of the original; a public copy (corpus/r310-live/sources/<path>) when it may be published, with every line withheld from it named with its reason (the original keeps every line; the published copy’s sha256 is given); or the reason it is not republished. Third-party texts are linked, not copied; big data is named by its sha256.",
  "published_on": "2026-11-25",
+ "updated_on": "2026-11-27",
  "files": [
   {
    "file": "audit/AUDIT-PREREG-P2.md",
@@ -301,11 +302,11 @@
   },
   {
    "file": "round1/LEDGER.md",
-   "sha256": "eb6306e1cbead66f42bee9552684cfc3f4d6dc4a1e73adc767a3676667b91818",
-   "bytes": 128990,
+   "sha256": "6932c6babfd5ada4717d2ddd0de888d7f7376511f87fc4335202ae00534dc9f0",
+   "bytes": 142604,
    "published": true,
    "path": "corpus/r310-live/sources/round1/LEDGER.md",
-   "published_sha256": "7f2507ed90e1b082a79624d566b46e14a9fe92e6a11dc9924a4b7fc9545fa1ac",
+   "published_sha256": "3feff351a19beeef3e054a2ecfcb439523b91d42e3f8c9d1b9f8b33f04b85d1a",
    "withheld": [
     {
      "line": 698,
@@ -376,21 +377,48 @@
    "withheld": []
   },
   {
+   "file": "round4/astra-nonregular/FOLLOWUP-12.md",
+   "sha256": "9a70d92f978f7a991239bfb802a947a74c8fa6160ff2ee7b6c2cf847c283783e",
+   "bytes": 1435,
+   "published": true,
+   "path": "corpus/r310-live/sources/round4/astra-nonregular/FOLLOWUP-12.md",
+   "published_sha256": "9a70d92f978f7a991239bfb802a947a74c8fa6160ff2ee7b6c2cf847c283783e",
+   "withheld": []
+  },
+  {
+   "file": "round4/astra-nonregular/FOLLOWUP-13.md",
+   "sha256": "bab6aea74232ada4bd664c8eb36f3b1bb6f177077c051fb7f26ef8200436d7c8",
+   "bytes": 1963,
+   "published": true,
+   "path": "corpus/r310-live/sources/round4/astra-nonregular/FOLLOWUP-13.md",
+   "published_sha256": "bab6aea74232ada4bd664c8eb36f3b1bb6f177077c051fb7f26ef8200436d7c8",
+   "withheld": []
+  },
+  {
+   "file": "round4/astra-nonregular/REPORT-11.md",
+   "sha256": "dc2a10ebb0e487defddc2f903d9ef7b36a20ddbce7ccad257bf0562f420fa432",
+   "bytes": 6264,
+   "published": true,
+   "path": "corpus/r310-live/sources/round4/astra-nonregular/REPORT-11.md",
+   "published_sha256": "dc2a10ebb0e487defddc2f903d9ef7b36a20ddbce7ccad257bf0562f420fa432",
+   "withheld": []
+  },
+  {
+   "file": "round4/astra-nonregular/REPORT-12.md",
+   "sha256": "9157394a51445c98ffbf46c00cdae20ab8624363b065dad980e86cfdbe0d01b3",
+   "bytes": 5238,
+   "published": true,
+   "path": "corpus/r310-live/sources/round4/astra-nonregular/REPORT-12.md",
+   "published_sha256": "9157394a51445c98ffbf46c00cdae20ab8624363b065dad980e86cfdbe0d01b3",
+   "withheld": []
+  },
+  {
    "file": "round4/astra-nonregular/TASK.md",
    "sha256": "d06ef4b0d7671fe162b51b1c0dfab95bcfb616b2d68f54d49c74ef444b567d05",
    "bytes": 8986,
    "published": true,
    "path": "corpus/r310-live/sources/round4/astra-nonregular/TASK.md",
    "published_sha256": "d06ef4b0d7671fe162b51b1c0dfab95bcfb616b2d68f54d49c74ef444b567d05",
-   "withheld": []
-  },
-  {
-   "file": "round4/astra-nonregular/work/g31/CHECKPOINT-2320.md",
-   "sha256": "0080668b7b63fc5b93f9e3205428411f5c32543b9d9955c1101cae87564692e2",
-   "bytes": 2017,
-   "published": true,
-   "path": "corpus/r310-live/sources/round4/astra-nonregular/work/g31/CHECKPOINT-2320.md",
-   "published_sha256": "0080668b7b63fc5b93f9e3205428411f5c32543b9d9955c1101cae87564692e2",
    "withheld": []
   },
   {
@@ -619,21 +647,48 @@
    "withheld": []
   },
   {
+   "file": "round5/astra-reach/FOLLOWUP-15.md",
+   "sha256": "e2f9722894fce2f4165c67c7760147b6712a9ce527c8c9321c99af4ef4939189",
+   "bytes": 1502,
+   "published": true,
+   "path": "corpus/r310-live/sources/round5/astra-reach/FOLLOWUP-15.md",
+   "published_sha256": "e2f9722894fce2f4165c67c7760147b6712a9ce527c8c9321c99af4ef4939189",
+   "withheld": []
+  },
+  {
+   "file": "round5/astra-reach/FOLLOWUP-16.md",
+   "sha256": "c8a4470bb35a99a5f7be05c60b10788c3a2218bc1640ad9100d54adfc8935348",
+   "bytes": 1748,
+   "published": true,
+   "path": "corpus/r310-live/sources/round5/astra-reach/FOLLOWUP-16.md",
+   "published_sha256": "c8a4470bb35a99a5f7be05c60b10788c3a2218bc1640ad9100d54adfc8935348",
+   "withheld": []
+  },
+  {
+   "file": "round5/astra-reach/REPORT-14.md",
+   "sha256": "f3b53ff2332834b5cb0d342939dc52bf2c41dfd4641debb5af922a861917727e",
+   "bytes": 5325,
+   "published": true,
+   "path": "corpus/r310-live/sources/round5/astra-reach/REPORT-14.md",
+   "published_sha256": "f3b53ff2332834b5cb0d342939dc52bf2c41dfd4641debb5af922a861917727e",
+   "withheld": []
+  },
+  {
+   "file": "round5/astra-reach/REPORT-15.md",
+   "sha256": "2db16cca503967faf54269d4b2ed2cca2d930b250b4f475e06c1137bb304eaa4",
+   "bytes": 5665,
+   "published": true,
+   "path": "corpus/r310-live/sources/round5/astra-reach/REPORT-15.md",
+   "published_sha256": "2db16cca503967faf54269d4b2ed2cca2d930b250b4f475e06c1137bb304eaa4",
+   "withheld": []
+  },
+  {
    "file": "round5/astra-reach/TASK.md",
    "sha256": "26ca00802f6a0e0df6256e29d8b2fa218c59504badfc9a7d5bbd29653e7656c3",
    "bytes": 9015,
    "published": true,
    "path": "corpus/r310-live/sources/round5/astra-reach/TASK.md",
    "published_sha256": "26ca00802f6a0e0df6256e29d8b2fa218c59504badfc9a7d5bbd29653e7656c3",
-   "withheld": []
-  },
-  {
-   "file": "round5/astra-reach/work/w1h/CHECKPOINT-0041.md",
-   "sha256": "c7f1c3a648ace6bcb82c73e940e7eecc03e164cdb57c431d955a20c37849927b",
-   "bytes": 664,
-   "published": true,
-   "path": "corpus/r310-live/sources/round5/astra-reach/work/w1h/CHECKPOINT-0041.md",
-   "published_sha256": "c7f1c3a648ace6bcb82c73e940e7eecc03e164cdb57c431d955a20c37849927b",
    "withheld": []
   },
   {
@@ -724,6 +779,105 @@
    "published": true,
    "path": "corpus/r310-live/sources/round5/window3/WORKLOG.md",
    "published_sha256": "83456209ae145f4b1a0c2bfe382d04ffacaa678eec1a2d0189ae3d24d53ae867",
+   "withheld": []
+  },
+  {
+   "file": "round6/TRIAGE-2026-11-26.md",
+   "sha256": "2049b577be5b9e4c648ac416719358a187beaaf3fbabfaff04de8be8516c2f12",
+   "bytes": 2646,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/TRIAGE-2026-11-26.md",
+   "published_sha256": "2049b577be5b9e4c648ac416719358a187beaaf3fbabfaff04de8be8516c2f12",
+   "withheld": []
+  },
+  {
+   "file": "round6/astra-h5k5/FOLLOWUP-2.md",
+   "sha256": "f735886c08115e2049eb556e31646952088388f26c75e48bf1a511fb048c88e8",
+   "bytes": 1636,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/astra-h5k5/FOLLOWUP-2.md",
+   "published_sha256": "f735886c08115e2049eb556e31646952088388f26c75e48bf1a511fb048c88e8",
+   "withheld": []
+  },
+  {
+   "file": "round6/astra-h5k5/FOLLOWUP-3.md",
+   "sha256": "0c83cfe5590102abf460eadcdb3434e1bbd6ea1c812c2f4bf5b501a80cadec80",
+   "bytes": 1635,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/astra-h5k5/FOLLOWUP-3.md",
+   "published_sha256": "0c83cfe5590102abf460eadcdb3434e1bbd6ea1c812c2f4bf5b501a80cadec80",
+   "withheld": []
+  },
+  {
+   "file": "round6/astra-h5k5/FOLLOWUP-4.md",
+   "sha256": "bac3946b9ae1e234c753156a06335da119880f330ddf6b4d0e1bbebcb18be7a2",
+   "bytes": 1439,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/astra-h5k5/FOLLOWUP-4.md",
+   "published_sha256": "bac3946b9ae1e234c753156a06335da119880f330ddf6b4d0e1bbebcb18be7a2",
+   "withheld": []
+  },
+  {
+   "file": "round6/astra-h5k5/REPORT-2.md",
+   "sha256": "cc2c79622ebd0f02744329c6759a302685286105b8e177b62183802fee6a286d",
+   "bytes": 3817,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/astra-h5k5/REPORT-2.md",
+   "published_sha256": "cc2c79622ebd0f02744329c6759a302685286105b8e177b62183802fee6a286d",
+   "withheld": []
+  },
+  {
+   "file": "round6/astra-h5k5/REPORT-3.md",
+   "sha256": "535a0dab7fdc015c5e7fe66e8530593a49250c89b6182724b329a66812a37f5e",
+   "bytes": 5519,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/astra-h5k5/REPORT-3.md",
+   "published_sha256": "535a0dab7fdc015c5e7fe66e8530593a49250c89b6182724b329a66812a37f5e",
+   "withheld": []
+  },
+  {
+   "file": "round6/astra-h5k5/REPORT.md",
+   "sha256": "2bb78d3c8935135074e92605088259f8951c7e5e6f7292f2dfb24f266e1841ae",
+   "bytes": 4089,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/astra-h5k5/REPORT.md",
+   "published_sha256": "2bb78d3c8935135074e92605088259f8951c7e5e6f7292f2dfb24f266e1841ae",
+   "withheld": []
+  },
+  {
+   "file": "round6/astra-h5k5/TASK.md",
+   "sha256": "436d941f3f6999c60cf93fad3553cf0cf6bf99ceae5eb23c980297078051b763",
+   "bytes": 4412,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/astra-h5k5/TASK.md",
+   "published_sha256": "436d941f3f6999c60cf93fad3553cf0cf6bf99ceae5eb23c980297078051b763",
+   "withheld": []
+  },
+  {
+   "file": "round6/claude-recheck/BRIEF.md",
+   "sha256": "857a68a299363f2cdca9ed8b00f22ce2bf26f0c0c9d0af9f4bf54452056da030",
+   "bytes": 381,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/claude-recheck/BRIEF.md",
+   "published_sha256": "857a68a299363f2cdca9ed8b00f22ce2bf26f0c0c9d0af9f4bf54452056da030",
+   "withheld": []
+  },
+  {
+   "file": "round6/claude-recheck/X1.md",
+   "sha256": "1fb03e030cdd795eb7f499e7a81dd0d220e11457198b01049260921fced8be66",
+   "bytes": 13505,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/claude-recheck/X1.md",
+   "published_sha256": "1fb03e030cdd795eb7f499e7a81dd0d220e11457198b01049260921fced8be66",
+   "withheld": []
+  },
+  {
+   "file": "round6/external-note-2026-11-25/r310-novas-rotas-calculos.md",
+   "sha256": "ec2abefb56efb9a7f7340ae0df0eda0702f69ccfb0f418ed06b87376286b4eca",
+   "bytes": 103521,
+   "published": true,
+   "path": "corpus/r310-live/sources/round6/external-note-2026-11-25/r310-novas-rotas-calculos.md",
+   "published_sha256": "ec2abefb56efb9a7f7340ae0df0eda0702f69ccfb0f418ed06b87376286b4eca",
    "withheld": []
   }
  ]

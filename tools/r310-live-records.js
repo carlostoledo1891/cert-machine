@@ -94,6 +94,7 @@ function cases() {
   const chenReport = (what, needle) => ({ who: 'Zhiyang Chen', what, where: 'progress report, version 2 (Zenodo 10.5281/zenodo.23678020)', when: '2026-10-26', refereed: false, kind: 'chen-report', src: cite(CHEN2, needle) });
   const chenRun = (what, rel, needle) => ({ who: 'Zhiyang Chen’s AI run r310_ralph', what, where: 'github.com/jeffchen006/Ramsey-R3-10', when: '2026-11-21 to 2026-11-22', refereed: false, kind: 'chen-run', src: cite(rel, needle) });
   const late = (c) => Object.assign(c, { when: '2026-11-24 to 2026-11-25', where: 'the process below' });
+  const late26 = (c) => Object.assign(c, { when: '2026-11-26', where: 'the process below' });
   const ours = (what, rel, needle, box) => ({ who: 'this lane', what, where: box ? 'box ' + box + ' below' : 'this page', when: '2026-11-21 to 2026-11-23', refereed: false, kind: 'ours', box: box || null, src: cite(rel, needle) });
   cite(CHEN2, 'Version 2, 26 October 2026');
   const N = [
@@ -160,7 +161,9 @@ function cases() {
         chenReport('open', 'Sub-cases R(c∗ ), c∗ = 3..7'),
         chenRun('many marked sub-cases excluded; not closed', RALPH, '| Case R, R(3)..R(5) | open | many marked sub-cases excluded; not closed |'),
         late(ours('codegree 3: covered by seven rooted configurations (two programs), none closed; every graph of its local window found with a symmetry of order 5 or a fixed-point-free involution is one graph, which has an independent 10-set', LEDG, 'Two checks now stand behind the cover (Astra; a Claude agent). All seven profiles are open.')),
-        late(ours('codegree 4: 69 six-row profiles, 9 closed by short arguments (two derivations), 60 open', LEDG, 'contains one of 60 six-row cases with one of 493 words'))] },
+        late26(ours('codegree 3: no graph of its local window has an involution fixing exactly two, four or six vertices; the open involution types fix twelve or fourteen (the loopless case)', LEDG, 'Decided now: 2^20 = {G} (with 5^8 = {G}), 2^19 1^2, 2^18 1^4, 2^17 1^6 empty.')),
+        late(ours('codegree 4: 69 six-row profiles, 9 closed by short arguments (two derivations), 60 open', LEDG, 'contains one of 60 six-row cases with one of 493 words')),
+        late26(ours('codegree 5, from an external note: in any 9-regular candidate no four vertices are pairwise unjoined with exactly 5 common neighbours in every pair (one session’s proofs, two checkers, accepted as reported); whether three can be is open', LEDG, 'With H1: H5 has no K4 and so no K5. Open: triangles in H5.'))] },
     { id: 'sym', parent: 'root', label: 'Graphs with a symmetry', sub: 'partly closed', state: 'open', route: true,
       note: 'Another route, beside the cover: graphs with a given automorphism.',
       credits: [
@@ -198,8 +201,8 @@ function cases() {
   const confAt = new Date(conf[1]).toISOString().replace('.000', '');
   need(confAt === '2026-11-21T17:49:01Z', 'C-004’s confirmation time is ' + confAt);
   return {
-    what: 'The (3,10;40) question as a tree of cases, as read from the sources between 2026-11-21 and 2026-11-25: each case with its state and who decided it. A map of the known reduction, not a proof that the cases are exhaustive. States: decided, open, refused (sealed is no longer used: the seal was opened on 25 Nov 2026).',
-    read: '2026-11-25',
+    what: 'The (3,10;40) question as a tree of cases, as read from the sources between 2026-11-21 and 2026-11-26: each case with its state and who decided it. A map of the known reduction, not a proof that the cases are exhaustive. States: decided, open, refused (sealed is no longer used: the seal was opened on 25 Nov 2026).',
+    read: '2026-11-26',
     states: STATES,
     chen_c004: { claim: 'C-004', round: 1, commit: c004[0], at, confirmed: { round: 2, commit: conf[0], at: confAt }, pairs: 977008, method: 'custom trace; hand reduction, not Lean' },
     nodes: N
@@ -521,7 +524,8 @@ function corrections() {
     ['2026-11-24T20:40Z', 'lane', AG, AG, 'its own next report', 'An agent’s report gave 7 and 10 roots at (23,6); the numbers were 6 and 9.', 'corrected by the agent', LEDG, '(A correction by the agent to its G14 report: 6 and 9 roots there, not 7 and 10.)'],
     ['2026-11-24T21:09Z', 'lane', AS, CM, 'ruling the gate by its own words', 'A report’s verdict line said “PASS UNIFORM” for an inequality whose weights can differ by host: that is the LP’s dual in one form, not one inequality. Part 3 of the gate was not met.', 'ruled: part 1 met, part 3 not', LEDG, 'that is the LP\'s dual in one form, not ONE'],
     ['2026-11-24T21:09Z', 'lane', AS, AS, 'its own control', 'A control file called control167.g6 has 168 edges; the audited 167-edge graph was used for the reported control.', 'corrected by the track', LEDG, 'the file it had called control167.g6 has 168 edges'],
-    ['2026-11-25T01:50Z', 'lane', AG, AG, 'brute force on sample cards', 'Two bugs in an auditor’s own search were caught by its completeness checks against a brute force, before the full run.', 'fixed before the run', LEDG, 'Two bugs in the audit\'s own search were caught by these']
+    ['2026-11-25T01:50Z', 'lane', AG, AG, 'brute force on sample cards', 'Two bugs in an auditor’s own search were caught by its completeness checks against a brute force, before the full run.', 'fixed before the run', LEDG, 'Two bugs in the audit\'s own search were caught by these'],
+    ['2026-11-26T07:12Z', 'lane', CM, AS, 'reading the gate against the W1c table', 'The W1i gate text said a pass would mean every involution type of the cap-3 window is decided. Wrong: the W1c table leaves 2^14 1^12 and the loopless case of 2^13 1^14 open, and no later certificate closes them.', 'corrected in the ledger; the open types listed; the next gate (W1j) asks for those two', LEDG, 'CORRECTION (ours, caught by Astra): the W1i gate text said a PASS would mean "every involution type of W(40,9,3) is decided". That was wrong']
   ];
   /* a resolved entry's full resolution, in words that reveal no method (the control room's, 2026-11-23) */
   const RESOLVED = { '2026-11-23T07:31Z r6': 'Resolved at 08:01 UTC: the second program was the one in error. It applied only the first of the Hall screen’s three side conditions, an omission inherited from its pilot version; ours applies all three. Across the catalogue: 32 cores, 14,895 extra records, every one refuted by our tests and found infeasible by our direct decider, so no verdict would change even if they were counted. The corrected version agrees with ours on 129 cores (a laptop) and on 6,512 (a rented run stopped on cost); it was never run on all 23,409.' };
@@ -568,10 +572,10 @@ function machine() {
   const SECOND = { what: 'a machine for box 3’s second counting program', vcpu: 32, usd_per_hour: '0.96', from: '2026-11-23T05:10Z', to: 'shortly after 07:40 UTC', state: 'deleted',
     earlier: 'one created at 04:54 UTC that never started, deleted at 05:10 UTC', usd_both: '2.6' };
   /* the model sessions run from this Mac (GPT-6.2 Astra by command line), read from their own run files */
-  /* every folder with a RUN.txt: astra-runs/* (the side tasks of 23 Nov) and the attack's lines B–E (round4/astra-*,
-     round5/astra-*); rounds 1–3 are archived and not counted */
+  /* every folder with a RUN.txt: astra-runs/* (the side tasks of 23 Nov) and the attack's lines B–F (round4/astra-*,
+     round5/astra-*, round6/astra-*); rounds 1–3 are archived and not counted */
   const runDirs = [];
-  for (const [par, rx] of [['astra-runs', /./], ['round4', /^astra-/], ['round5', /^astra-/]])
+  for (const [par, rx] of [['astra-runs', /./], ['round4', /^astra-/], ['round5', /^astra-/], ['round6', /^astra-/]])
     for (const d of fs.readdirSync(path.join(LANE, par), { withFileTypes: true })) if (d.isDirectory() && rx.test(d.name)) runDirs.push(path.join(LANE, par, d.name));
   let started = 0, finished = 0, tasks = 0, firstAt = null, lastAt = null;
   for (const dir of runDirs) {
@@ -714,23 +718,43 @@ function processRec() {
     need(rounds.some((r) => r.round === g.round), 'gate ' + g.id + ' names an unknown round');
     if (g.condition_file) cite(g.condition_file, g.condition_needle);
     cite(LEDG, g.ledger_needle);
-    if (g.report) read(g.report);
+    if (g.report) { read(g.report); if (g.report_needle) cite(g.report, g.report_needle); }
     return { id: g.id, round: g.round, line: g.line, ruled: g.ruled, outcome: g.outcome, condition: g.condition, condition_written_first: !!g.condition_file,
       condition_src: g.condition_file, count: g.count, ruled_out: g.ruled_out, report: g.report, src: LEDG };
   });
   for (let i = 1; i < gates.length; i++) need(gates[i].ruled >= gates[i - 1].ruled, 'the gates are not in the ledger’s order at ' + gates[i].id);
-  /* what runs now: the two Astra sessions, read from their run files and their own newest checkpoint (not a ruling) */
-  const running = [['D', 'round4/astra-nonregular'], ['E', 'round5/astra-reach']].map(([line, dir]) => {
+  /* what runs now: the three Astra sessions (lines D, E and F), read from their run files. A session whose last line is a
+     resume runs, with its own newest checkpoint (not a ruling); one whose last line is an end with a non-zero exit was
+     stopped mid-gate, and the ledger says why; its checkpoints are not shown, since nothing is accepted from them. */
+  const STOP = { at: '2026-11-26T09:07Z', src: LEDG,
+    text: 'On 26 November every Astra line stopped on the ChatGPT account’s usage limit, mid-gate: lines D and F ended at 09:07 UTC, and line E’s log shows the error from 08:44 UTC. No verdict for G33, H4 or W1j. Their partial work and checkpoints stay in their folders, and nothing is accepted from them until a line reports. Each resumes with its own brief after the limit resets (Codex names 1 December 2026), or its gate moves to a Claude agent on the operator’s word.' };
+  cite(LEDG, 'ALL ASTRA LINES STOPPED: the ChatGPT account\'s usage limit (control room)');
+  cite(LEDG, 'No verdict for G33, H4 or W1j; their partial work stays in work/g33 (round4/astra-nonregular), work/h4 (round6/astra-h5k5) and work/w1j');
+  cite(LEDG, 'Nothing is accepted from them until a line reports.');
+  cite(LEDG, 'Lines D (G33) and F (H4) ended with exit 1 at 09:07 UTC 26 Nov; line E (W1j) shows the same error in its log since 08:44 UTC.');
+  cite(LEDG, 'try again at Dec 1st, 2026 1:59 PM');
+  cite(LEDG, 'or move the gates to Claude agents on the operator\'s word.');
+  let stopped = 0;
+  const running = [['D', 'round4/astra-nonregular'], ['E', 'round5/astra-reach'], ['F', 'round6/astra-h5k5']].map(([line, dir]) => {
     const runL = read(dir + '/RUN.txt').trim().split('\n');
     const last = runL[runL.length - 1];
-    const m = /^resume (\d+) (\S+Z) /.exec(last);
-    if (!m) return { line: 'Astra ' + line, folder: dir, running: false, last };
-    const fu = dir + '/FOLLOWUP-' + m[1] + '.md';
+    const m = /^resume (\d+) (\S+Z) /.exec(last), x = /^end (\d+) (\S+Z) exit ([1-9]\d*)$/.exec(last);
+    if (!m && !x) return { line: 'Astra ' + line, folder: dir, running: false, last };
+    const task = Number((m || x)[1]);
+    const resumed = m ? m[2] : (/^resume \d+ (\S+Z) /.exec(runL.filter((l) => l.startsWith('resume ' + task + ' ')).pop() || '') || [])[1];
+    need(resumed, dir + ': task ' + task + ' has no resume line');
+    const fu = dir + '/FOLLOWUP-' + task + '.md';
     const g = /Gate (\S+) \(written before you start\): (PASS when [^]*?)(?:;|\.\s|\n\n)/.exec(read(fu));
     need(g, fu + ' states no gate');
     const cond = g[2].replace(/\s+/g, ' ').trim();
     cite(fu, cond);
     const bud = /Budget: ([^\n]+)\./.exec(read(fu));
+    if (x) {
+      need(has(read(LEDG), 'No verdict for G33, H4 or W1j') && ['G33', 'H4', 'W1j'].includes(g[1]), dir + ' stopped on ' + g[1] + ', which the ledger’s stop entry does not name');
+      stopped++;
+      return { line: 'Astra ' + line, folder: dir, running: false, stopped: true, gate: g[1], task, resumed, ended: x[2], exit: Number(x[3]), brief: fu, condition: cond, budget: bud ? bud[1] : null,
+        work: dir + '/work/' + g[1].toLowerCase(), why: 'the ChatGPT account’s usage limit', src: LEDG };
+    }
     /* the session's own newest checkpoint for this gate, if it has written one yet */
     const cdir = path.join(LANE, dir, 'work', g[1].toLowerCase());
     let checkpoint = null;
@@ -742,8 +766,26 @@ function processRec() {
         if (v) { cite(cpRel, v[0]); const hhmm = cps[cps.length - 1].slice(11, 15); checkpoint = { file: cpRel, hhmm_utc: hhmm.slice(0, 2) + ':' + hhmm.slice(2), line: v[0] }; }
       }
     }
-    return { line: 'Astra ' + line, folder: dir, running: true, gate: g[1], task: Number(m[1]), resumed: m[2], brief: fu, condition: cond, budget: bud ? bud[1] : null, checkpoint };
+    return { line: 'Astra ' + line, folder: dir, running: true, gate: g[1], task, resumed: m[2], brief: fu, condition: cond, budget: bud ? bud[1] : null, checkpoint };
   });
+  /* round 6's source: an external note from a ChatGPT chat with the operator, triaged by the control room */
+  const NOTE = 'round6/external-note-2026-11-25/r310-novas-rotas-calculos.md', TRI = 'round6/TRIAGE-2026-11-26.md';
+  cite(NOTE, 'Autor da síntese:** ChatGPT, em colaboração com Carlos Toledo.');
+  cite(NOTE, 'Não contém uma resolução de R(3,10), uma nova exclusão de estrato inteiro ou uma alegação de prioridade bibliográfica.');
+  const ext = { credit: 'an external note from a ChatGPT chat with the operator', written: '2026-11-25', language: 'Portuguese', src: NOTE, triage: TRI,
+    label: 'Its own label: proposals and preliminary computations, not accepted results, its checks re-implemented in the same chat, not independently. It claims no resolution of R(3,10), no new exclusion of a whole stratum and no priority.',
+    kept: [
+      { route: 'Route C', text: 'five vertices pairwise unjoined with exactly 5 common neighbours force a 13-vertex exterior isomorphic to C13(1,5); H5 has no K6; under c* <= 5 the rest falls into 7 orbits. Kept as gate H1, its premises re-derived first in X1.', needle: 'Route C — the K5 of codegree five (§4): five roots pairwise at codegree 5 force p = 2' },
+      { route: 'Route B', text: 'three small trace obstructions with hand proofs, as cheap cuts for line D. Re-derived in X1, then given to line D for gate G33, which stopped without a verdict.', needle: 'Route B — three transportable trace obstructions' }],
+    parked: [
+      { route: 'Route A', text: 'every candidate has a perfect matching, with an exact 2-SAT form of an independent 10-set; by the note’s own account it reduces nothing alone. To reopen after W1i (which has since passed).', needle: 'Route A — every candidate has a perfect matching' },
+      { route: 'Route D', text: 'a uniform independence test for the branches of Case R(6) with four to nine cross-edges; it reproduces the three-edge test. To reopen only as a pilot against the decided three-edge records, if the four-edge branch is ever run.', needle: 'Route D — a uniform independence oracle for R(6) branches with 4–9 cross-edges' }] };
+  for (const r of ext.kept.concat(ext.parked)) { cite(TRI, r.needle); delete r.needle; }
+  cite(TRI, 'Its own label: proposals and');
+  cite(TRI, 'its checks were re-implemented in the same session (not independent)');
+  cite(TRI, 'reopen after W1i decides 2^17 1^6');
+  cite(TRI, 'Reopen only as a comparison pilot against the decided 3-edge records');
+  cite(LEDG, 'NEXT: Route B\'s cuts go to line D as input to G33 (after G32 reports), measured on a fixed batch.');
   /* the earlier rounds (21–23 Nov): the control room's log, one heading per round, verbatim */
   const early = [];
   read(LOG).split('\n').forEach((l) => { const m = /^# Round (\d+), (.+)$/.exec(l); if (m) early.push({ n: Number(m[1]), heading: m[2].trim() }); });
@@ -753,8 +795,8 @@ function processRec() {
   early.unshift({ n: 1, heading: '~00:40 UTC: the log opens; checks by cert-machine with its own code; messages for the two model tracks' });
   const tally = {};
   for (const g of gates) tally[g.outcome] = (tally[g.outcome] || 0) + 1;
-  return { what: 'The whole process of the R(3,10) lane in order: the control room’s rounds of 22 and 23 November (C35, Case R(7), Case R(6)), then the attack on 40 (rounds 1 to 5, 23 to 25 November) and the 41 side, every gate with its pass condition as written before the run (or the ledger’s words when it was sent in a message), its outcome as the control room ruled it, its key count and what it ruled out; and the sessions running at the records’ minute, read from their own run files. A checkpoint is the session’s own words, not a ruling.',
-    rounds, gates, tally, running, early: { src: LOG, rounds: early } };
+  return { what: 'The whole process of the R(3,10) lane in order: the control room’s rounds of 22 and 23 November (C35, Case R(7), Case R(6)), then the attack on 40 (rounds 1 to 6, 23 to 26 November) and the 41 side, every gate with its pass condition as written before the run (or the ledger’s words when it was sent in a message), its outcome as the control room ruled it, its key count and what it ruled out; the sessions running or stopped at the records’ minute, read from their own run files; and round 6’s external note, with what was kept and what was parked. A checkpoint is the session’s own words, not a ruling.',
+    rounds, gates, tally, running, stopped: stopped ? STOP : null, external_note: ext, early: { src: LOG, rounds: early } };
 }
 
 /* ------------------------------------------------------------------ the path ledger, parsed */
@@ -850,6 +892,8 @@ function fieldmapRec() {
   glossary.push({ word: 'largest codegree c*', def: 'The most neighbours two unjoined points have in common; the regular case is split by it, from 3 to 7.', src: F('the most neighbours two unjoined points have in common') });
   glossary.push({ word: 'window W(n, d, cap)', def: 'The d-regular triangle-free graphs on n vertices in which every two non-adjacent vertices have between 1 and cap common neighbours, with no independence condition at all.', src: PATHSF });
   cite(PATHSF, 'does a d-regular triangle-free graph with every non-adjacent codegree in 1..cap exist at all, with NO independence condition?');
+  glossary.push({ word: 'H5', def: 'The graph on the 40 vertices joining two unjoined vertices that have exactly 5 common neighbours.', src: 'round6/astra-h5k5/TASK.md' });
+  cite('round6/astra-h5k5/TASK.md', 'H5 is the graph on V(G) joining u, v when they are non-adjacent with exactly 5 common neighbours.');
   glossary.push({ word: 'the twins', def: 'The regular cases already closed that are built like the case at 40: (6,18), (7,23), (8,28). Every path is asked first to close them without the catalogue of the level below.', src: PATHSF });
   cite(PATHSF, 'Every path is asked first to close those twins without the catalogue of the level below.');
   glossary.push({ word: 'second program', def: 'Code written from the statement alone by another session, without reading the first program; “independent” on this page means that and nothing more.', src: FMAP });
@@ -857,13 +901,13 @@ function fieldmapRec() {
      25 Nov 01:56 UTC, brought up to the ledger's last entries) */
   const strata = [
     { k: 'Not regular', what: 'Some vertex has 6, 7 or 8 neighbours.', state: 'reduced, open', done: 283, of: 519, unit: 'degree distributions excluded',
-      text: '283 of the 519 distributions left after five integer rays are excluded at published edge floors, every one by two programs: at most two vertices of degree 6 (two routes), then (0,16,0,24), (0,4,28,8) and a degree-7 floor of 109 with its 8 keys. 236 survive. The floor 110 is running (G31).', needles: [[LEDG, 'STANDING: 283 of 519 excluded, every one of the ten beyond G16\'s 273 now re-derived by a second program'], [LEDG, 'THEOREM, NOW ON TWO PROGRAMS: a maximal triangle-free graph on 40 vertices with α ≤ 9 has AT MOST TWO VERTICES OF']] },
+      text: '283 of the 519 distributions left after five integer rays are excluded at published edge floors, every one by two programs: at most two vertices of degree 6 (two routes), then (0,16,0,24), (0,4,28,8) and a degree-7 floor of 109 with its 8 keys. 236 survive. The floor 110 is not proved: G31 and G32 closed 30 of its 59 root types, and G33 stopped without a verdict.', needles: [[LEDG, 'STANDING: 283 of 519 excluded, every one of the ten beyond G16\'s 273 now re-derived by a second program'], [LEDG, 'THEOREM, NOW ON TWO PROGRAMS: a maximal triangle-free graph on 40 vertices with α ≤ 9 has AT MOST TWO VERTICES OF'], [LEDG, 'gate G32 (f7 >= 110, the 60-edge exteriors): FAIL, 30 of 59 root types closed'], [LEDG, 'No verdict for G33, H4 or W1j']] },
     { k: 'Codegree 3', what: 'Regular; no two unjoined vertices share more than 3.', state: 'reduced, open', done: null,
-      text: 'Covered by 7 rooted configurations (two programs), none closed. Its local window looks rigid: every symmetric member found is one graph G, which has an independent 10-set. Proved with LRAT: no member other than G has a symmetry of order 5, 7 or a prime ≥ 11, a fixed-point-free involution, or an involution fixing exactly two vertices; involutions fixing four or six vertices remain (the next gate is running); the asymmetric case is priced at 298 core-hours or more and parked.', needles: [[LEDG, 'With W1c (5^8 = {G}): the involution type 2^20 is DECIDED.'], [LEDG, 'No member of W(40,9,3) admits an involution fixing exactly two vertices'], [LEDG, 'at least ~298 core-hours, probably far more']] },
+      text: 'Covered by 7 rooted configurations (two programs), none closed. Its local window looks rigid: every symmetric member found is one graph G, which has an independent 10-set. Proved with LRAT: no member other than G has a symmetry of order 5, 7 or a prime ≥ 11, a fixed-point-free involution, or an involution fixing exactly two, four or six vertices; the involution types 2^14 1^12 and loopless 2^13 1^14 remain (W1j stopped without a verdict); the asymmetric case is priced at 298 core-hours or more and parked.', needles: [[LEDG, 'With W1c (5^8 = {G}): the involution type 2^20 is DECIDED.'], [LEDG, 'No member of W(40,9,3) admits an involution fixing exactly two vertices'], [LEDG, 'No member of W(40,9,3) has an involution fixing exactly four vertices'], [LEDG, 'No member of W(40,9,3) admits an involution fixing exactly six vertices.'], [LEDG, 'Open involution types: 2^14 1^12 and 2^13 1^14 (loopless).'], [LEDG, 'at least ~298 core-hours, probably far more']] },
     { k: 'Codegree 4', what: 'Regular; the largest shared neighbourhood is 4.', state: 'reduced, open', done: 9, of: 69, unit: 'profiles closed',
       text: '69 six-row profiles, 9 closed by short arguments a person can read (two derivations), 60 open. A rigid 2K₂ root is forced at every maximum pair (confirmed), but a real 40-vertex graph satisfies all of its one- and two-point cards.', needles: [[LEDG, 'G7 CONFIRMED by a second derivation'], [LEDG, 'has a 2K_2 root J whose one-point and two-point cards are ALL legal']] },
     { k: 'Codegree 5', what: 'Regular; the largest is 5.', state: 'open', done: 0, of: 1957, unit: 'profiles (single-source count)',
-      text: '1,839 + 118 profiles before any exclusion (one session’s count). Not attacked.', needles: [[LEDG, 'c* = 5: 1,839 + 118 profiles before exclusion']] },
+      text: '1,839 + 118 profiles before any exclusion (one session’s count); none excluded. Round 6 took the graph H5 joining two unjoined vertices with exactly 5 common neighbours: in any 9-regular candidate it has no K4, so no K5 (H1, H2: one session’s proofs, two checkers, accepted as reported); its triangles are open (H3 failed).', needles: [[LEDG, 'c* = 5: 1,839 + 118 profiles before exclusion'], [LEDG, 'With H1: H5 has no K4 and so no K5. Open: triangles in H5.'], [LEDG, 'Accepted as reported. All 14'], [LEDG, 'gate H3 (triangles in H5): FAIL, 0 of 3 patterns decided']] },
     { k: 'Codegree 6', what: 'Regular; the largest is 6.', state: 'one branch computed', done: 1, of: 7, unit: 'cross-edge branches computed',
       text: 'The three-edge branch: all 23,409 cores excluded under six premises (box 3). The four-edge branch: a 20-core cost pilot only. Five to nine cross-edges: not run.', needles: [[R6, 'It does not decide R(3,10), and it does not close Case R(6).']] },
     { k: 'Codegree 7', what: 'Regular; the largest is 7.', state: 'excluded', done: 1, of: 1, unit: 'computed twice',
@@ -917,7 +961,7 @@ async function all() {
   recs['cases.json'].sources = [...SRC.entries()].sort().map(([rel, h]) => ({ file: rel, sha256_12: h }));
   const pub = publishSources();
   recs['sources/MANIFEST.json'] = { what: 'The lane files the records of /r310/ cite, as published here: each with the sha256 of the original; a public copy (corpus/r310-live/sources/<path>) when it may be published, with every line withheld from it named with its reason (the original keeps every line; the published copy’s sha256 is given); or the reason it is not republished. Third-party texts are linked, not copied; big data is named by its sha256.',
-    published_on: '2026-11-25', files: pub.files.map((f) => { const o = Object.assign({}, f); delete o._out; return o; }) };
+    published_on: '2026-11-25', updated_on: '2026-11-27', files: pub.files.map((f) => { const o = Object.assign({}, f); delete o._out; return o; }) };
   recs._sourceBytes = pub.files.filter((f) => f.published).map((f) => [f.path, f._out]);
   return recs;
 }
@@ -951,6 +995,6 @@ async function all() {
   for (const [p, bytes] of recs._sourceBytes) { fs.mkdirSync(path.dirname(path.join(ROOT, p)), { recursive: true }); fs.writeFileSync(path.join(ROOT, p), bytes); }
   const B = recs['boxes.json'].boxes[2], K = recs['corrections.json'].counts, P = recs['process.json'], M = recs['sources/MANIFEST.json'].files;
   console.log('corpus/r310-live written: ' + recs['cases.json'].nodes.length + ' cases, box 3 ' + B.state + ' (' + B.tally.excluded + ' of ' + B.tally.cores + ' cores excluded), '
-    + K.all + ' corrections (' + K.r6 + ' in box 3), ' + P.gates.length + ' gates, ' + P.running.length + ' sessions running, ' + recs['paths.json'].rows.length + ' paths, '
+    + K.all + ' corrections (' + K.r6 + ' in box 3), ' + P.gates.length + ' gates, ' + P.running.filter((r) => r.running).length + ' sessions running (' + P.running.filter((r) => r.stopped).length + ' stopped), ' + recs['paths.json'].rows.length + ' paths, '
     + recs['machine.json'].verdicts.rows.length + ' verdict rows, ' + SRC.size + ' sources (' + M.filter((f) => f.published).length + ' published, ' + M.reduce((t, f) => t + (f.withheld ? f.withheld.length : 0), 0) + ' lines withheld)');
 })().catch((e) => die(e.stack || e.message));

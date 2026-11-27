@@ -4,7 +4,9 @@
    BEFORE the run (a needle in the brief, or null when the gate was sent in a message and never written to disk), a
    needle in the control room ledger (round1/LEDGER.md) that states the outcome and its count, and two plain sentences:
    the condition and what the outcome ruled out. Every needle is checked by the records tool, which refuses when a source
-   no longer says it. Drafted 2026-11-25 by an agent of the control room from the ledger and the briefs.          MIT */
+   no longer says it. A row may also carry report_needle, the verdict line of its report: the report is then cited and
+   published with the other sources. Drafted 2026-11-25 by an agent of the control room from the ledger and the briefs;
+   round 6 and the rows from G31 on added 2026-11-27 (UTC) the same way.                                          MIT */
 'use strict';
 const ROUNDS = [
   { round: "1", opened: "2026-11-23", file: "round1/BRIEF.md", needle: "asked for ideas that could settle, or cheaply shrink, the open question below.",
@@ -19,6 +21,8 @@ const ROUNDS = [
     plain: "Test many paths, first where the truth is known; a path is dead only with its number and survives only after a second program reproduces it." },
   { round: "41", opened: "2026-11-25T02:08Z", file: "lane41/LANE.md", needle: "Every gate in this lane is a SEARCH whose PASS is a witness",
     plain: "A side lane that searches for one (3,10;40)-graph, which would make R(3,10) = 41; every failed search still returns its nearest miss and certified exclusions." },
+  { round: "6", opened: "2026-11-26T02:22Z", file: "round6/TRIAGE-2026-11-26.md", needle: "The operator's word (26 Nov): \"on the suggestions decide what is valuable for the research and keep.\"",
+    plain: "An external note from a ChatGPT chat with the operator offered four routes; two were kept as gates and re-derived first by a fresh agent, two were parked." },
 ];
 const GATES = [
   { id: "P66-stage2", round: "2", line: "the control room (Claude A's glue, two encodings)", ruled: "2026-11-24T02:53Z", outcome: "PARTIAL",
@@ -360,6 +364,46 @@ const GATES = [
     condition_file: "round5/astra-reach/FOLLOWUP-13.md", condition_needle: "Gate W1g (written before you start): PASS when 2^19 1^2 is decided in full",
     condition: "Decide the involution type 2^19 1^2 of the cap-3 window in full: every member with such an automorphism identified, or none exists, with LRAT through both checkers.",
     ledger_needle: "No member of W(40,9,3) admits an involution fixing exactly two vertices",
-    count: "32 of 32 branches; 2^19 1^2 is empty", ruled_out: "No member of the cap-3 window has an involution fixing exactly two vertices; open involution types: 2^18 1^4 and 2^17 1^6.", report: "round5/astra-reach/REPORT-13.md" },
+    count: "32 of 32 branches; 2^19 1^2 is empty", ruled_out: "No member of the cap-3 window has an involution fixing exactly two vertices; the types fixing four and six vertices came next (W1h, W1i).", report: "round5/astra-reach/REPORT-13.md" },
+  { id: "G31", round: "5", line: "Astra D (round4/astra-nonregular)", ruled: "2026-11-26T01:12Z", outcome: "FAIL",
+    condition_file: "round4/astra-nonregular/FOLLOWUP-11.md", condition_needle: "Gate G31 (written before you start): PASS when f7 >= 110 is proved (every open root type excluded) with certificates a second program written differently re-checks, premises listed, controls intact",
+    condition: "f7 >= 110 proved, every open root type excluded, with certificates a differently written second program re-checks, premises listed, controls intact.",
+    ledger_needle: "30 of 59 closed, 29 open; 1,510,189 more kernel-class/type pairs excluded, 624,089,747 remain (two tallies).",
+    count: "30 of 59 root types closed; 29 open", ruled_out: "Fifteen more root types fall (type 58 by the repair criterion), but no key: 283 of 519 stand, 236 survive.", report: "round4/astra-nonregular/REPORT-11.md", report_needle: "G31: FAIL 30 of 59 types closed" },
+  { id: "W1h", round: "5", line: "Astra E (round5/astra-reach)", ruled: "2026-11-26T02:07Z", outcome: "PASS",
+    condition_file: "round5/astra-reach/FOLLOWUP-14.md", condition_needle: "Gate W1h (written before you start): PASS when 2^18 1^4 is decided in full, both cases (every member with such an automorphism identified, or none exists) with the certification above",
+    condition: "Decide the involution type 2^18 1^4 of the cap-3 window in full, both cases: every member with such an automorphism identified, or none exists, with LRAT through both checkers.",
+    ledger_needle: "No member of W(40,9,3) has an involution fixing exactly four vertices (no independence-number assumption).",
+    count: "4,536 of 4,536 skeletons excluded; 2^18 1^4 is empty", ruled_out: "No member of the cap-3 window has an involution fixing exactly four vertices, without using the independence number.", report: "round5/astra-reach/REPORT-14.md", report_needle: "W1h: PASS — 2^18 1^4 = ∅" },
+  { id: "X1", round: "6", line: "a fresh Claude agent (round6/claude-recheck)", ruled: "2026-11-26T02:31Z", outcome: "PASS",
+    condition_file: "round6/claude-recheck/BRIEF.md", condition_needle: "PASS for each item when an own argument and an own exhaustive check agree with the note's statement; FALSE when a counterexample is found; OPEN otherwise.",
+    condition: "Re-derive the external note's Routes B and C without its code; each item passes when an own argument and an own exhaustive check agree with the note.",
+    ledger_needle: "gate X1 (independent re-derivation of the external note's Routes B and C): PASS, 7 of 7 items",
+    count: "7 of 7 items; every count reproduced", ruled_out: "Routes B and C stand on a second derivation: three small trace obstructions, and five roots pairwise at codegree 5 force a 13-vertex exterior isomorphic to C13(1,5); H5 has no K6.", report: "round6/claude-recheck/X1.md", report_needle: "Every count the note states for these items was reproduced exactly." },
+  { id: "H1", round: "6", line: "Astra F (round6/astra-h5k5)", ruled: "2026-11-26T02:43Z", outcome: "PASS",
+    condition_file: "round6/astra-h5k5/TASK.md", condition_needle: "Gate H1 (written before you start): PASS when all 7 orbits are decided (no completion exists, or the completions are listed) with that certification",
+    condition: "All 7 orbits of the two common vertices' rows decided (no completion, or the completions listed) with LRAT through two checkers; then, under c* <= 5, H5 has no K5.",
+    ledger_needle: "H5 is K5-free in every 9-regular candidate, with no codegree cap",
+    count: "7 of 7 orbits UNSAT; no codegree cap needed", ruled_out: "No five vertices of a 9-regular candidate are pairwise unjoined with exactly 5 common neighbours: the fifth would have degree 3 in a (3,6;17)-graph, whose minimum degree is 4.", report: "round6/astra-h5k5/REPORT.md", report_needle: "H1: PASS — H5 is K5-free in the 9-regular case, without a codegree cap" },
+  { id: "H2", round: "6", line: "Astra F (round6/astra-h5k5)", ruled: "2026-11-26T03:35Z", outcome: "PASS",
+    condition_file: "round6/astra-h5k5/FOLLOWUP-2.md", condition_needle: "Gate H2 (written before you start): PASS when every (type, exterior) pair is decided — then H5 is K4-free in 9-regular candidates",
+    condition: "Every pair of a four-root type and a (3,6;17) exterior decided; then H5 has no K4 in 9-regular candidates.",
+    ledger_needle: "All 14 (four-root type × (3,6;17)-exterior) pairs UNSAT",
+    count: "14 of 14 pairs UNSAT; 66 proofs through two checkers", ruled_out: "H5 has no K4, and so no K5, in any 9-regular candidate (no codegree cap); triangles in H5 stay open.", report: "round6/astra-h5k5/REPORT-2.md", report_needle: "H2: PASS — H5 is K4-free in every 9-regular candidate" },
+  { id: "W1i", round: "5", line: "Astra E (round5/astra-reach)", ruled: "2026-11-26T07:12Z", outcome: "PASS",
+    condition_file: "round5/astra-reach/FOLLOWUP-15.md", condition_needle: "Gate W1i (written before you start): PASS when 2^17 1^6 is decided in full (every member with such an automorphism identified, or none exists) with that certification — then every involution type of W(40,9,3) is decided",
+    condition: "Decide the involution type 2^17 1^6 in full with that certification. The brief added that every involution type would then be decided; that was wrong, our correction.",
+    ledger_needle: "No member of W(40,9,3) admits an involution fixing exactly six vertices.",
+    count: "15,882 skeletons, zero members; 2^17 1^6 is empty", ruled_out: "No member of the cap-3 window has an involution fixing exactly six vertices. Against the gate's own text, the involution types 2^14 1^12 and loopless 2^13 1^14 stay open.", report: "round5/astra-reach/REPORT-15.md", report_needle: "W1i: PASS — 2^17 1^6 = ∅" },
+  { id: "H3", round: "6", line: "Astra F (round6/astra-h5k5)", ruled: "2026-11-26T07:14Z", outcome: "FAIL",
+    condition_file: "round6/astra-h5k5/FOLLOWUP-3.md", condition_needle: "Gate H3 (written before you start): PASS when every pattern is decided — then H5 is triangle-free in 9-regular candidates",
+    condition: "Every intersection pattern of a codegree-5 triangle in H5 decided; then H5 is triangle-free in 9-regular candidates.",
+    ledger_needle: "gate H3 (triangles in H5): FAIL, 0 of 3 patterns decided",
+    count: "0 of 3 patterns decided; 35 refutations verified", ruled_out: "A triangle in H5 has exactly three patterns (t = 3, 4, 5); all three stay open, and the t = 4 split's completeness is provisional.", report: "round6/astra-h5k5/REPORT-3.md", report_needle: "H3: FAIL 0 of 3 patterns decided" },
+  { id: "G32", round: "5", line: "Astra D (round4/astra-nonregular)", ruled: "2026-11-26T07:15Z", outcome: "FAIL",
+    condition_file: "round4/astra-nonregular/FOLLOWUP-12.md", condition_needle: "Gate G32 (written before you start): PASS when f7 >= 110 is proved (every open root type excluded) with certificates a second program written differently re-checks, premises listed, controls intact",
+    condition: "f7 >= 110 proved, every open root type excluded, with certificates a differently written second program re-checks, premises listed, controls intact.",
+    ledger_needle: "gate G32 (f7 >= 110, the 60-edge exteriors): FAIL, 30 of 59 root types closed",
+    count: "30 of 59 root types closed; none new", ruled_out: "The parent intersection closed every 60-edge boundary assignment, but no type or key fell: 283 of 519 stand.", report: "round4/astra-nonregular/REPORT-12.md", report_needle: "G32: FAIL 30 of 59 types closed" },
 ];
 module.exports = { ROUNDS, GATES };

@@ -360,6 +360,11 @@
    "src": "round5/PATHS.md"
   },
   {
+   "word": "H5",
+   "def": "The graph on the 40 vertices joining two unjoined vertices that have exactly 5 common neighbours.",
+   "src": "round6/astra-h5k5/TASK.md"
+  },
+  {
    "word": "the twins",
    "def": "The regular cases already closed that are built like the case at 40: (6,18), (7,23), (8,28). Every path is asked first to close them without the catalogue of the level below.",
    "src": "round5/PATHS.md"
@@ -378,8 +383,10 @@
    "done": 283,
    "of": 519,
    "unit": "degree distributions excluded",
-   "text": "283 of the 519 distributions left after five integer rays are excluded at published edge floors, every one by two programs: at most two vertices of degree 6 (two routes), then (0,16,0,24), (0,4,28,8) and a degree-7 floor of 109 with its 8 keys. 236 survive. The floor 110 is running (G31).",
+   "text": "283 of the 519 distributions left after five integer rays are excluded at published edge floors, every one by two programs: at most two vertices of degree 6 (two routes), then (0,16,0,24), (0,4,28,8) and a degree-7 floor of 109 with its 8 keys. 236 survive. The floor 110 is not proved: G31 and G32 closed 30 of its 59 root types, and G33 stopped without a verdict.",
    "src": [
+    "round1/LEDGER.md",
+    "round1/LEDGER.md",
     "round1/LEDGER.md",
     "round1/LEDGER.md"
    ]
@@ -389,8 +396,11 @@
    "what": "Regular; no two unjoined vertices share more than 3.",
    "state": "reduced, open",
    "done": null,
-   "text": "Covered by 7 rooted configurations (two programs), none closed. Its local window looks rigid: every symmetric member found is one graph G, which has an independent 10-set. Proved with LRAT: no member other than G has a symmetry of order 5, 7 or a prime ≥ 11, a fixed-point-free involution, or an involution fixing exactly two vertices; involutions fixing four or six vertices remain (the next gate is running); the asymmetric case is priced at 298 core-hours or more and parked.",
+   "text": "Covered by 7 rooted configurations (two programs), none closed. Its local window looks rigid: every symmetric member found is one graph G, which has an independent 10-set. Proved with LRAT: no member other than G has a symmetry of order 5, 7 or a prime ≥ 11, a fixed-point-free involution, or an involution fixing exactly two, four or six vertices; the involution types 2^14 1^12 and loopless 2^13 1^14 remain (W1j stopped without a verdict); the asymmetric case is priced at 298 core-hours or more and parked.",
    "src": [
+    "round1/LEDGER.md",
+    "round1/LEDGER.md",
+    "round1/LEDGER.md",
     "round1/LEDGER.md",
     "round1/LEDGER.md",
     "round1/LEDGER.md"
@@ -416,8 +426,11 @@
    "done": 0,
    "of": 1957,
    "unit": "profiles (single-source count)",
-   "text": "1,839 + 118 profiles before any exclusion (one session’s count). Not attacked.",
+   "text": "1,839 + 118 profiles before any exclusion (one session’s count); none excluded. Round 6 took the graph H5 joining two unjoined vertices with exactly 5 common neighbours: in any 9-regular candidate it has no K4, so no K5 (H1, H2: one session’s proofs, two checkers, accepted as reported); its triangles are open (H3 failed).",
    "src": [
+    "round1/LEDGER.md",
+    "round1/LEDGER.md",
+    "round1/LEDGER.md",
     "round1/LEDGER.md"
    ]
   },

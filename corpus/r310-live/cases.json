@@ -1,6 +1,6 @@
 {
- "what": "The (3,10;40) question as a tree of cases, as read from the sources between 2026-11-21 and 2026-11-25: each case with its state and who decided it. A map of the known reduction, not a proof that the cases are exhaustive. States: decided, open, refused (sealed is no longer used: the seal was opened on 25 Nov 2026).",
- "read": "2026-11-25",
+ "what": "The (3,10;40) question as a tree of cases, as read from the sources between 2026-11-21 and 2026-11-26: each case with its state and who decided it. A map of the known reduction, not a proof that the cases are exhaustive. States: decided, open, refused (sealed is no longer used: the seal was opened on 25 Nov 2026).",
+ "read": "2026-11-26",
  "states": [
   "decided",
   "sealed",
@@ -474,9 +474,29 @@
     },
     {
      "who": "this lane",
+     "what": "codegree 3: no graph of its local window has an involution fixing exactly two, four or six vertices; the open involution types fix twelve or fourteen (the loopless case)",
+     "where": "the process below",
+     "when": "2026-11-26",
+     "refereed": false,
+     "kind": "ours",
+     "box": null,
+     "src": "round1/LEDGER.md"
+    },
+    {
+     "who": "this lane",
      "what": "codegree 4: 69 six-row profiles, 9 closed by short arguments (two derivations), 60 open",
      "where": "the process below",
      "when": "2026-11-24 to 2026-11-25",
+     "refereed": false,
+     "kind": "ours",
+     "box": null,
+     "src": "round1/LEDGER.md"
+    },
+    {
+     "who": "this lane",
+     "what": "codegree 5, from an external note: in any 9-regular candidate no four vertices are pairwise unjoined with exactly 5 common neighbours in every pair (one session’s proofs, two checkers, accepted as reported); whether three can be is open",
+     "where": "the process below",
+     "when": "2026-11-26",
      "refereed": false,
      "kind": "ours",
      "box": null,
@@ -710,7 +730,7 @@
   },
   {
    "file": "round1/LEDGER.md",
-   "sha256_12": "eb6306e1cbea"
+   "sha256_12": "6932c6babfd5"
   },
   {
    "file": "round3/GATE.md",
@@ -737,12 +757,24 @@
    "sha256_12": "88e5dabf7d32"
   },
   {
-   "file": "round4/astra-nonregular/TASK.md",
-   "sha256_12": "d06ef4b0d767"
+   "file": "round4/astra-nonregular/FOLLOWUP-12.md",
+   "sha256_12": "9a70d92f978f"
   },
   {
-   "file": "round4/astra-nonregular/work/g31/CHECKPOINT-2320.md",
-   "sha256_12": "0080668b7b63"
+   "file": "round4/astra-nonregular/FOLLOWUP-13.md",
+   "sha256_12": "bab6aea74232"
+  },
+  {
+   "file": "round4/astra-nonregular/REPORT-11.md",
+   "sha256_12": "dc2a10ebb0e4"
+  },
+  {
+   "file": "round4/astra-nonregular/REPORT-12.md",
+   "sha256_12": "9157394a5144"
+  },
+  {
+   "file": "round4/astra-nonregular/TASK.md",
+   "sha256_12": "d06ef4b0d767"
   },
   {
    "file": "round4/audit-cover7/predictions.txt",
@@ -845,12 +877,24 @@
    "sha256_12": "b465956a123b"
   },
   {
-   "file": "round5/astra-reach/TASK.md",
-   "sha256_12": "26ca00802f6a"
+   "file": "round5/astra-reach/FOLLOWUP-15.md",
+   "sha256_12": "e2f9722894fc"
   },
   {
-   "file": "round5/astra-reach/work/w1h/CHECKPOINT-0041.md",
-   "sha256_12": "c7f1c3a648ac"
+   "file": "round5/astra-reach/FOLLOWUP-16.md",
+   "sha256_12": "c8a4470bb35a"
+  },
+  {
+   "file": "round5/astra-reach/REPORT-14.md",
+   "sha256_12": "f3b53ff23328"
+  },
+  {
+   "file": "round5/astra-reach/REPORT-15.md",
+   "sha256_12": "2db16cca5039"
+  },
+  {
+   "file": "round5/astra-reach/TASK.md",
+   "sha256_12": "26ca00802f6a"
   },
   {
    "file": "round5/audit-aud2/AUD2b-WORKLOG.md",
@@ -891,6 +935,50 @@
   {
    "file": "round5/window3/WORKLOG.md",
    "sha256_12": "83456209ae14"
+  },
+  {
+   "file": "round6/TRIAGE-2026-11-26.md",
+   "sha256_12": "2049b577be5b"
+  },
+  {
+   "file": "round6/astra-h5k5/FOLLOWUP-2.md",
+   "sha256_12": "f735886c0811"
+  },
+  {
+   "file": "round6/astra-h5k5/FOLLOWUP-3.md",
+   "sha256_12": "0c83cfe55901"
+  },
+  {
+   "file": "round6/astra-h5k5/FOLLOWUP-4.md",
+   "sha256_12": "bac3946b9ae1"
+  },
+  {
+   "file": "round6/astra-h5k5/REPORT-2.md",
+   "sha256_12": "cc2c79622ebd"
+  },
+  {
+   "file": "round6/astra-h5k5/REPORT-3.md",
+   "sha256_12": "535a0dab7fdc"
+  },
+  {
+   "file": "round6/astra-h5k5/REPORT.md",
+   "sha256_12": "2bb78d3c8935"
+  },
+  {
+   "file": "round6/astra-h5k5/TASK.md",
+   "sha256_12": "436d941f3f69"
+  },
+  {
+   "file": "round6/claude-recheck/BRIEF.md",
+   "sha256_12": "857a68a29936"
+  },
+  {
+   "file": "round6/claude-recheck/X1.md",
+   "sha256_12": "1fb03e030cdd"
+  },
+  {
+   "file": "round6/external-note-2026-11-25/r310-novas-rotas-calculos.md",
+   "sha256_12": "ec2abefb56ef"
   }
  ]
 }

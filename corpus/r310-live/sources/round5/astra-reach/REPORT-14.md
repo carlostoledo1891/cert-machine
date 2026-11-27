@@ -1,0 +1,27 @@
+W1h: PASS — 2^18 1^4 = ∅
+
+**REASONED — scope.** The Ramsey question remains open. This result excludes every member of \(W(40,9,3)\) with an involution fixing four vertices, without any assumption on its independence number. The involution with six fixed vertices and the asymmetric case remain outside this result. [Frozen report](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/W1h-REPORT.md)
+
+**REASONED — method.** Degree parity leaves two possible fixed graphs. Two disjoint edges force one list orbit with four shared, eight private and six neutral fibres. For the star, each pair of leaves already shares the centre and can share at most one moving fibre. A triple overlap uses all three pair overlaps. Otherwise the overlaps form a simple graph on the three leaves, determined up to permutation by its edge count. This gives **five star list orbits**. Double partners form a matching because each double partner contributes two common neighbours to the mates of its fibre. [Fixed-list and matching proof](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/FIXED-LISTS.md)
+
+**COMPUTED — controls.** The planted fixed-point-free quotient of \(G\) returned exactly one normalized signing, with an explicit isomorphism to `cap3-canon.g6`. Controls with four fixed vertices also recovered their complete labelled solution sets: 32 Clebsch completions for the two-edge case and 4 Petersen completions for the star, each forming one isomorphism class. [Planted \(G\) and isomorphism](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/controls/four-and-G.json) · [Four-fixed controls](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/shape-plants/results.json)
+
+**COMPUTED — branch results.** All 223 double-partner skeletons for the matching and all 4,313 for the star are excluded. Partial sign rejections are counted in the selected proofs. The full-table column counts distinct complete tables encountered across all runs, including pilots. Every such table failed signing. [Per-branch evidence](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/W1h-evidence.json) · [Full-table signing records](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/supplement-sign/audit.json)
+
+| Fixed-list branch | Skeletons | Partial sign rejections | Full tables signed | Members |
+|---|---:|---:|---:|---:|
+| Two disjoint fixed edges | 223 | 2,551 | 1 | 0 |
+| Star, three separate pair overlaps | 259 | 2,650 | 4 | 0 |
+| Star, one triple overlap | 717 | 0 | 0 | 0 |
+| Star, two pair overlaps | 1,126 | 21,213 | 3 | 0 |
+| Star, one pair overlap | 1,561 | 7,996 | 0 | 0 |
+| Star, disjoint leaf lists | 650 | 6,781 | 0 | 0 |
+| **Total** | **4,536** | **41,191** | **8** | **0** |
+
+**REASONED — the triple-overlap branch.** The shared fibre cannot meet a leaf-list fibre without making a triangle. The three leaves already exhaust its common-neighbour allowance with the centre, so it cannot meet a centre-list fibre either. It needs six distinct moving contacts, and only five neutral fibres are available. This closes the entire branch before signing. [Direct proof and SAT control](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/triple-local/results.json)
+
+**COMPUTED — certification.** Two matching recurrences, a labelled count and a Burnside count agreed. Independent replay regenerated all 304 selected quotient CNFs and LRATs byte for byte. The graph-to-clause reduction was audited separately, and an independent signed-path encoding verified every partial sign rejection. Both `lrat-check` and `cake_lpr` accepted the 34 expanded proof parts and all branch conclusions, with `s VERIFIED UNSAT` read from CakeML. Failed, capped and repeated runs are in the register. The final SHA-256 readback verified all 11,920 listed files. [Orbit checks](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/burnside-check.json) · [Verification guide](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/VERIFY.md) · [Branch certificates](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/branch-proofs/summary.json) · [Run register](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/RUN-REGISTER.md) · [SHA256SUMS](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/SHA256SUMS)
+
+**REASONED — next experiment.** For \(2^{17}1^6\), enumerate the fixed graphs and their list orbits. Before assigning double partners, test whether each fibre incident to three fixed vertices has six eligible moving contacts. The triple-overlap proof shows how this test can remove a whole list orbit at once. [Six-fixed experiment](/Users/carlostoledo/Projects/cert-machine/notes/ramsey-r310-scout-2026-11-21/round5/astra-reach/work/w1h/NEXT-SIX.md)
+
+W1h: PASS — 2^18 1^4 = ∅

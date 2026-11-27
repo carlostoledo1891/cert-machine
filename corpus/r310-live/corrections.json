@@ -1,11 +1,11 @@
 {
  "what": "Every error caught in the R(3,10) lane, by whom and how, from the control room’s log, its notes and its gate ledger: ours and the models’ alike, never a person’s. The rows of box 3 were one line each while it was sealed; since 25 Nov 2026 they carry their words and sources. A correction of a correction is one row, never counted as a finding.",
  "counts": {
-  "all": 73,
+  "all": 74,
   "r6": 31,
   "opened": 60,
-  "lane": 13,
-  "cert_machine": 36,
+  "lane": 14,
+  "cert_machine": 37,
   "model_tracks": 37,
   "not_yet_known": 0,
   "open": 0
@@ -1058,6 +1058,20 @@
    "outcome": "fixed before the run",
    "src": "round1/LEDGER.md",
    "n": 73
+  },
+  {
+   "id": "E74",
+   "at": "2026-11-26T07:12Z",
+   "where": "lane",
+   "whose": "cert-machine",
+   "side": "cert-machine",
+   "status": "closed",
+   "caught_by": "the Astra track",
+   "how": "reading the gate against the W1c table",
+   "what": "The W1i gate text said a pass would mean every involution type of the cap-3 window is decided. Wrong: the W1c table leaves 2^14 1^12 and the loopless case of 2^13 1^14 open, and no later certificate closes them.",
+   "outcome": "corrected in the ledger; the open types listed; the next gate (W1j) asks for those two",
+   "src": "round1/LEDGER.md",
+   "n": 74
   }
  ]
 }
