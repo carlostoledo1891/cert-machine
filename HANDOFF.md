@@ -93,6 +93,12 @@ START HERE (2026-11-25 ~21:05 UTC; the operator: "When safe, handoff to start a 
 Opus 5.5.) The FULL block, with the private lanes, is in notes/handoff-private-2026-11-25.md (untracked) — read it first.
 First: `date -u`; list the pods (NONE should run: the CakeML pod was deleted at 21:2x UTC on 25 Nov after the CI job passed); `pmset -g batt`; disk.
 
+  UPDATE 2026-11-28 ~07:30 UTC: NO POD RUNNING (RunPod balance US$12.95). QWEN Stage 1 + Stage 3 DONE (certs/qwen-self-rewriting-
+  stage1.json, -stage3.json; 63e940fb): the edit beats the base at the paper's settings (+3.5 pts strict, p 0.032) but the
+  no-edit base at the model card's settings beats the edit (Math-Verify 54.7 / 58.2 / 71.0) — settings and budget confounded;
+  results sent to Jiajun with a data-only zip; NOT announced (no page, no post). grh-lean issue #8747 open, no reply.
+  R(3,10): Astra lines stopped on the ChatGPT usage limit (resets 1 Dec 13:59; "credits in" resumes D G33, E W1j, F H4).
+  X: /r310/ progress post sent 27 Nov (2126123535294967919). LinkedIn: OEIS A121385 post (notes/linkedin/).
   UPDATE 2026-11-26 ~03:10 UTC: NO POD IS RUNNING (tzj3kmtfk6flzc deleted 03:05, US$3.10). grh-lean DONE: formal claim
   CERTIFIED, 12 of 13 rows certified + D1 computed; /grh-lean/ live and listed (572ed287); the community post is his
   (facts: notes/grh-lean-2026-11-25/community-facts.md). OEIS A121385 credit pinned. R(3,10): X1 PASS (external note's
