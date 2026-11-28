@@ -1,0 +1,47 @@
+{
+ "what": "Stage 3's fixed draw of 490 problems from the paper's pool (rule: instruments/qwen-self-rewriting/stage3/draw.py)",
+ "pool": {
+  "repo": "agentica-org/DeepScaleR-Preview-Dataset",
+  "revision": "b6ae8c60f5c1f2b594e2140b91c49c9ad0949e29",
+  "file": "deepscaler.json",
+  "bytes": 21479374,
+  "sha256": "4e9e7b18248d982b4498a54a6bdb37b1bb653cf5f77bc309fa67a6c2533c8ba4",
+  "rows": 40315,
+  "licence": "MIT"
+ },
+ "math500": {
+  "repo": "HuggingFaceH4/MATH-500",
+  "revision": "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
+  "file": "test.jsonl",
+  "sha256": "35dc41080a3680858b27fa7e0533d2d547825316fc5dafe5d316f4ccc5a06132"
+ },
+ "salt": "qwen-self-rewriting-stage3|2026-11-26|",
+ "seed_salt": "qwen-self-rewriting-stage3-seed|",
+ "n": 490,
+ "excluded": {
+  "E1 empty answer": 6,
+  "E2 gold class base": 118,
+  "E2 gold class lit": 4038,
+  "E2 gold class q%": 237,
+  "E2 gold class text": 90,
+  "E2 gold class tuple": 407,
+  "E3 repeated in the pool": 1996,
+  "E4 a MATH-500 problem": 3
+ },
+ "eligible": 33420,
+ "gold_classes_drawn": {
+  "q": 424,
+  "sqrt": 54,
+  "c": 1,
+  "deg": 3,
+  "pi": 8
+ },
+ "distinct_seeds": 490,
+ "not_excluded_because_unidentifiable": "the paper's held-out items 500-999 (split order and identifier hash unpublished)",
+ "expected_chance_overlap_with_the_papers_490": 6.0,
+ "file": "draw-490.jsonl",
+ "file_sha256": "33efd6b71e9894ec33bb82b3ab57dbf8406bbf374d29c8944cfe7c304a4e1282",
+ "file_bytes": 258658,
+ "ids_sha256": "e028c7373a2bd063051de3bb2124f27ee5ca6625c73c30cb8ac28363fd7ccdff",
+ "script_sha256": "99107d70348a8d2a07dad5dde87db5782bca8a663b9419aa159288c1a457f92f"
+}

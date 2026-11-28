@@ -1,0 +1,149 @@
+{
+ "what": "The pins of Stage 3 (notes/qwen-self-rewriting-stage3-preregistration-2026-11-26.md). The pod refuses any input whose bytes differ from these. Written on the desk before any pod exists.",
+ "model": {
+  "repo": "Qwen/Qwen3.5-27B",
+  "commit": "81a287ca484a5e71148f5beb7f367bb5286d70f9",
+  "shards": [
+   {
+    "file": "model.safetensors-00001-of-00011.safetensors",
+    "bytes": 5263851872,
+    "sha256": "9019228d172c87d5603266c2d56672d119e838facffa164de803a1ebf0d716d2"
+   },
+   {
+    "file": "model.safetensors-00002-of-00011.safetensors",
+    "bytes": 5347741440,
+    "sha256": "890ef00c920b01c1c02755088c8d8ca5cdd6a1faa2a9a729eecd00857648b411"
+   },
+   {
+    "file": "model.safetensors-00003-of-00011.safetensors",
+    "bytes": 5347741504,
+    "sha256": "8aca03689ad0717fb91455809a6670eecca818bea8c0b6bd3a591a8807cc3223"
+   },
+   {
+    "file": "model.safetensors-00004-of-00011.safetensors",
+    "bytes": 5347741504,
+    "sha256": "20f539430c60fa611b3522b8408749a080b63f1fe034e551a6539ef864ca079a"
+   },
+   {
+    "file": "model.safetensors-00005-of-00011.safetensors",
+    "bytes": 5347741504,
+    "sha256": "57a0c074c654f05fc2d6b5112eeec387ac04986e928e42f502993e69aa03a49d"
+   },
+   {
+    "file": "model.safetensors-00006-of-00011.safetensors",
+    "bytes": 5347741504,
+    "sha256": "cfa4e6fbfc600854ef6c8e5465d0a1e43832a64b5e539f1e880333e3b1086703"
+   },
+   {
+    "file": "model.safetensors-00007-of-00011.safetensors",
+    "bytes": 5347741496,
+    "sha256": "d426963325b2319cb9e1442bc8b89b9a7748a8f7a907aa4041c11531cda6b014"
+   },
+   {
+    "file": "model.safetensors-00008-of-00011.safetensors",
+    "bytes": 5368714128,
+    "sha256": "fe60dbb9d25354c4eb2a9a59d9b1afd07741c8bebab5870f5eea6eadb4cf9a06"
+   },
+   {
+    "file": "model.safetensors-00009-of-00011.safetensors",
+    "bytes": 5347745520,
+    "sha256": "71a153d882242734a1fc7e000734727f00f6ec8ca70b044f5e44fcf97736ef8f"
+   },
+   {
+    "file": "model.safetensors-00010-of-00011.safetensors",
+    "bytes": 5347749200,
+    "sha256": "146745698b9f21940e2982beb1816a0eef3b80d77ab9cd884695b9a08c2697eb"
+   },
+   {
+    "file": "model.safetensors-00011-of-00011.safetensors",
+    "bytes": 2148512760,
+    "sha256": "d947ce7483c4109b55039f1359f4494d22390cf123568100abd89816802f097d"
+   }
+  ],
+  "whole_files": {
+   "config.json": "f8d190c5b89c1521220f935d2567a587d6e291ed69066a45a106560b05a2174c",
+   "model.safetensors.index.json": "b3737e9d00bda0e37f0b873629d98bf9b407bef35735b9193c23d9844bcc96a6",
+   "README.md": "124ef747361dc6c19e6fa6c804676ff7d7919133a5260fa5ee4f7826b5b02b63",
+   "generation_config.json": "303aba891d66ab63908a7b3cc9163bcb835fdf8b9f6301c73216f3f1eb3992dd",
+   "tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+  },
+  "recorded_not_pinned": [
+   "chat_template.jinja",
+   "tokenizer_config.json",
+   "vocab.json",
+   "merges.txt",
+   "preprocessor_config.json",
+   "video_preprocessor_config.json",
+   "LICENSE"
+  ]
+ },
+ "edit": {
+  "file": "corpus/qwen-self-rewriting/runs/stage1/py/session8-edit-spec.json",
+  "sha256": "2e2c3f761426c086fd2b669d5389031e5eac1700b2b384204fec8b50310c9c13",
+  "stage1_record": "certs/qwen-self-rewriting-stage1.json",
+  "edited_sha256_all_tensors": "72123fa271fc509f4e89c3ae7ef82a29f220fd9e0df951d4da4c05460d00df21",
+  "reading": "a",
+  "same_bytes_as": [
+   "corpus/qwen-self-rewriting/runs/stage1/js/session8-edit-spec.json",
+   "corpus/qwen-self-rewriting/session8-edit-spec.json (untracked copy)"
+  ]
+ },
+ "draw": {
+  "file": "corpus/qwen-self-rewriting/stage3/draw-490.jsonl",
+  "sha256": "33efd6b71e9894ec33bb82b3ab57dbf8406bbf374d29c8944cfe7c304a4e1282",
+  "meta": "corpus/qwen-self-rewriting/stage3/draw.json",
+  "meta_sha256": "e79a9749e17a125a5264edd88b0bf8685e254665417883cd175639a30f422481"
+ },
+ "image": {
+  "name": "vllm/vllm-openai:v0.33.0",
+  "index_digest": "sha256:d825baf9ce4b1b6bfc5ecc7b79880c7e6748c65a72d697ce3d47607aafa84c6e",
+  "amd64_tag": "v0.33.0-x86_64",
+  "amd64_digest": "sha256:91ee972ab751fb7180bc71c175865e36b091686600dca783d52b2511399810b3",
+  "read_from": "hub.docker.com tags API, 2026-11-26",
+  "vllm": "0.33.0",
+  "needs_cuda": "13.0 (the WSP lane's build line: torch 2.14.0+cu130, cuda 13.0)"
+ },
+ "math_verify": {
+  "why": "the paper's grader, named without a version; pinned here and run as a reading beside ours",
+  "wheels": [
+   {
+    "file": "math_verify-0.9.0-py3-none-any.whl",
+    "sha256": "3703e7c4885354027fa84409d762a596a2906d1fd4deb78361876bd905a76194"
+   },
+   {
+    "file": "latex2sympy2_extended-1.11.0-py3-none-any.whl",
+    "sha256": "aebb77d52ce269e25028e4bea89ddb14d242ba36bcf7b636496fb5fd9728d234"
+   },
+   {
+    "file": "antlr4_python3_runtime-4.13.2-py3-none-any.whl",
+    "sha256": "fe3835eb8d33daece0e799090eda89719dbccee7aa39ef94eed3818cafa5a7e8"
+   },
+   {
+    "file": "sympy-1.14.0-py3-none-any.whl",
+    "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5"
+   },
+   {
+    "file": "mpmath-1.3.0-py3-none-any.whl",
+    "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"
+   }
+  ],
+  "requirements": [
+   "math-verify==0.9.0",
+   "latex2sympy2_extended==1.11.0",
+   "antlr4-python3-runtime==4.13.2",
+   "sympy==1.14.0",
+   "mpmath==1.3.0"
+  ],
+  "read_from": "pypi.org JSON API, 2026-11-26"
+ },
+ "graders": {
+  "python": [
+   "instruments/qwen-self-rewriting/stage3/grade3.py",
+   "instruments/wsp/grade.py"
+  ],
+  "javascript": [
+   "instruments/qwen-self-rewriting/stage3/grade3.js",
+   "instruments/wsp/grade.js"
+  ]
+ }
+}
