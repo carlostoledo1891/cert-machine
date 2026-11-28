@@ -15,7 +15,9 @@ import urllib.request
 
 
 def get(base, rel, timeout=600):
-    with urllib.request.urlopen(base + rel, timeout=timeout) as r:
+    # RunPod's proxy answers Python's default User-Agent with 403 (seen 2026-11-28, amendment S3-A2); a plain one passes
+    req = urllib.request.Request(base + rel, headers={"User-Agent": "cert-machine-pull/1.0"})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
 
 

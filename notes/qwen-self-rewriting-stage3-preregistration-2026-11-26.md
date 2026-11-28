@@ -290,3 +290,7 @@ the 48 tensors' hash 72123fa2…, equal to Stage 1's), then stopped at setup at 
 edited copy does not — every tensor check passed (836 tensors, exactly the 48 differ, every target is the bf16 of x + 0.5).
 The second reader now records that folder as skipped instead of comparing it. No arm ran; no answer was generated. The
 same pod is restarted on the new commit with the same POD_START_EPOCH, so the cap counts from the first create.
+
+## Amendment S3-A2 (2026-11-28 00:44 UTC, desk side only)
+
+The desk's pull.py sends a plain User-Agent: RunPod's proxy answered Python's default with 403, so the desk's watcher saw no phase while the first pod sat failed for 33 minutes. Nothing on the pod changes.
