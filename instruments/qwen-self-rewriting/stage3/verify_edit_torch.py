@@ -59,6 +59,11 @@ def main():
     for f in sorted(set(os.listdir(base)) | set(os.listdir(edited))):
         if f == SHARD or f.endswith(".part"):
             continue
+        if f == ".cache" and os.path.isdir(os.path.join(base, f)):
+            # huggingface_hub's download metadata folder in the base checkout (not a model file; the edited copy has
+            # none). Recorded, not compared. Amendment S3-A1, 2026-11-28: the first pod refused on this folder alone.
+            files[f] = "skipped: huggingface download metadata (a folder in the base checkout)"
+            continue
         pb, pe = os.path.join(base, f), os.path.join(edited, f)
         if os.path.isfile(pb) and os.path.isfile(pe):
             files[f] = "the same file (link)" if os.path.samefile(pb, pe) else fsha(pb) == fsha(pe)

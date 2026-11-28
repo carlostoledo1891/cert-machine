@@ -281,3 +281,12 @@ starts and the reserve. The throughput sources:
    and read the billing.
 5. `python3 tools/qwen-stage3-record.py corpus/qwen-self-rewriting/runs/stage3/<pod> --pod <pod>` writes
    `certs/qwen-self-rewriting-stage3.json`. The billed total is added from RunPod's billing read.
+
+## Amendment S3-A1 (2026-11-28 00:43 UTC, before any arm ran)
+
+The first pod (6muofpeqzx8fax, created 00:07:20 UTC) passed P1 (the base's 11 shards hashed whole) and the edit (EDIT-OK,
+the 48 tensors' hash 72123fa2…, equal to Stage 1's), then stopped at setup at 00:09:29: the second reader
+(verify_edit_torch.py) refused only because the base checkout holds huggingface_hub's `.cache` metadata folder, which the
+edited copy does not — every tensor check passed (836 tensors, exactly the 48 differ, every target is the bf16 of x + 0.5).
+The second reader now records that folder as skipped instead of comparing it. No arm ran; no answer was generated. The
+same pod is restarted on the new commit with the same POD_START_EPOCH, so the cap counts from the first create.
