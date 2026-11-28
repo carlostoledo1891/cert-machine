@@ -1,0 +1,12 @@
+{
+ "K1_flipped_base_byte": {
+  "caught": true,
+  "refusal": "REFUSED: the base bytes of model.language_model.layers.0.linear_attn.dt_bias do not hash to the specification"
+ },
+ "K2_constant_one_quarter": {
+  "caught": true,
+  "refusal": "REFUSED: the edited bytes of model.language_model.layers.0.linear_attn.dt_bias do not hash to the specification"
+ },
+ "clean_build_passes": true,
+ "all_caught": true
+}

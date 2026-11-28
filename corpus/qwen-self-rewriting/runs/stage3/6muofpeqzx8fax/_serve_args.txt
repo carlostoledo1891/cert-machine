@@ -1,0 +1,3 @@
+vllm serve /w/base --served-model-name qwen --host 127.0.0.1 --port 8001 --dtype bfloat16 --max-model-len 34816 --gpu-memory-utilization 0.92 --max-num-seqs 256 --seed 0 --generation-config vllm --limit-mm-per-prompt {"image":0,"video":0}
+vllm serve /w/edited --served-model-name qwen --host 127.0.0.1 --port 8001 --dtype bfloat16 --max-model-len 34816 --gpu-memory-utilization 0.92 --max-num-seqs 256 --seed 0 --generation-config vllm --limit-mm-per-prompt {"image":0,"video":0}
+vllm serve /w/base --served-model-name qwen --host 127.0.0.1 --port 8001 --dtype bfloat16 --max-model-len 34816 --gpu-memory-utilization 0.92 --max-num-seqs 256 --seed 0 --generation-config vllm --limit-mm-per-prompt {"image":0,"video":0}

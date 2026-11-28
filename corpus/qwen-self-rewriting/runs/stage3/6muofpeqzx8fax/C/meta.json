@@ -1,0 +1,32 @@
+{
+ "arm": "C",
+ "sampling": {
+  "max_tokens": 32768,
+  "temperature": 1.0,
+  "top_p": 0.95,
+  "top_k": 20,
+  "min_p": 0.0,
+  "presence_penalty": 1.5,
+  "repetition_penalty": 1.0
+ },
+ "n_problems": 490,
+ "instruction": "Please reason step by step, and put your final answer within \\boxed{}.",
+ "prompt_form": "problem + '\\n' + instruction, one user turn, add_generation_prompt, enable_thinking=True",
+ "prompts_sha256": "50aa9fc566e6d6eac1792315b506354a40eb5ad8a8593d32438fe25ed60f0bed",
+ "prompts_equal_to_the_hand_built_form": 488,
+ "prompt_example": "<|im_start|>user\nThe sides of a triangle have lengths $6.5$, $10$, and $s$, where $s$ is a whole number. What is the smallest possible value of $s$?\nPlease reason step by step, and put your final answer within \\boxed{}.<|im_end|>\n<|im_start|>assistant\n<think>\n",
+ "chat_template_sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+ "seeds_sha256": "3d576e069e4599178e8348b776869ba89183f5496d0af36763f78f14099f67eb",
+ "model_dir": "/w/base",
+ "deadline": 1795841906.0,
+ "started": "2026-11-28T02:09:04Z",
+ "t_start": 1795831744.5135343,
+ "finished": "2026-11-28T03:10:20Z",
+ "t_end": 1795835420.089761,
+ "gen_wall_s": 3675.6,
+ "answers": 490,
+ "errors": 0,
+ "complete": true,
+ "end": "complete",
+ "responses_sha256": "5869d079feaa1ee7e2f8e4f359594148bec5b644270b586d10aa5474b7e31584"
+}

@@ -1,0 +1,24 @@
+2026-11-28T00:43:36Z phase: starting
+2026-11-28T00:43:37Z phase: setup
+2026-11-28T00:46:17Z this runner equals run.sh at 7924128e7735298c4694897531e2c98c6add9968
+2026-11-28T00:46:17Z deadline 2026-11-28T04:58:26Z (price 5.29/h, start 1795824432, cap US$27, reserve 900 s)
+2026-11-28T00:46:17Z phase: arm A: starting the server
+2026-11-28T00:46:18Z serve /w/base (mm0)
+2026-11-28T00:48:29Z server up in 132 s (mm0)
+2026-11-28T00:48:29Z phase: arm A: generating
+2026-11-28T00:59:07Z probe: {"continue": true, "probe_rate": 2531.548710162658, "projected_A_s": 2713, "projected_A_end": 1795829626, "projected_B_s": 3179, "projected_C_s": 6053, "fits_A": true, "fits_A_then_B": true, "fits_A_B_C": true, "pair_ab": true, "deadline": 1795841906.2911153, "now": 1795827547.4902985, "why": "A and then B fit under the deadline"}
+2026-11-28T01:27:18Z phase: arm A: finished
+2026-11-28T01:27:18Z decide B: {"start": true, "arm": "B", "projected_s": 2684, "projected_end": 1795831923, "deadline": 1795841906.2911153, "now": 1795829238.440953, "why": "fits under the deadline"}
+2026-11-28T01:27:18Z phase: arm B: starting the server
+2026-11-28T01:27:18Z serve /w/edited (mm0)
+2026-11-28T01:29:19Z server up in 121 s (mm0)
+2026-11-28T01:29:19Z phase: arm B: generating
+2026-11-28T02:07:38Z phase: arm B: finished
+2026-11-28T02:07:38Z decide C: {"start": true, "arm": "C", "projected_s": 6065, "projected_end": 1795837724, "deadline": 1795841906.2911153, "now": 1795831658.9600089, "why": "fits under the deadline"}
+2026-11-28T02:07:39Z phase: arm C: starting the server
+2026-11-28T02:07:39Z serve /w/base (mm0)
+2026-11-28T02:08:59Z server up in 80 s (mm0)
+2026-11-28T02:09:00Z phase: arm C: generating
+2026-11-28T03:10:24Z phase: arm C: finished
+2026-11-28T03:10:34Z phase: complete
+2026-11-28T03:10:34Z complete: done A B C; the desk pulls, then deletes the pod

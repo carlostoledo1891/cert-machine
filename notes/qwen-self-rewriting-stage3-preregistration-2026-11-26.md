@@ -294,3 +294,20 @@ same pod is restarted on the new commit with the same POD_START_EPOCH, so the ca
 ## Amendment S3-A2 (2026-11-28 00:44 UTC, desk side only)
 
 The desk's pull.py sends a plain User-Agent: RunPod's proxy answered Python's default with 403, so the desk's watcher saw no phase while the first pod sat failed for 33 minutes. Nothing on the pod changes.
+
+## Amendment S3-A3 (2026-11-28 03:13 UTC, after the run, disclosed): the seal and the append-only log
+
+The recorder's first pass refused every row because the seal (_SEAL.sha256) did not match _phase.log. The runner writes
+the seal and then appends its last two lines to _phase.log ("phase: complete" and "complete: done A B C; the desk pulls,
+then deletes the pod", 03:10:34 UTC). The sealed bytes are exactly the file's first 22 lines. The recorder now accepts the
+append-only log when its sealed bytes are a line prefix of the pulled file, and records the appended lines; every other
+file is unchanged against the seal. This was changed AFTER the rows' values were seen (in the refused pass's "was"
+fields); no row's rule, threshold or computation changed.
+
+## The run (2026-11-28)
+
+Pod 6muofpeqzx8fax (H200 SXM, secure, EUR-IS-4, US$5.29/h), created 00:07:20 UTC; setup refused at 00:09:29 (S3-A1),
+restarted at 00:43:33 on the fixed commit; arm A 00:48–01:5x, B to 02:07:38, C 02:09:00–03:10:24 (probe 2,532 tokens/s;
+all three arms fitted the US$27 cap); complete 03:10:34; pulled whole (1,470 answers); DELETED 03:12 UTC (list-pods
+empty). The RunPod balance went from US$28.89 (00:02 UTC) to US$12.95 (03:12 UTC): US$15.94 in all, the 33-minute
+stall included.

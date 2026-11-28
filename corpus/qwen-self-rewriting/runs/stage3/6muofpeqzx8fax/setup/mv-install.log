@@ -1,0 +1,20 @@
+Collecting math-verify==0.9.0 (from -r /w/mv-req.txt (line 1))
+  Downloading math_verify-0.9.0-py3-none-any.whl (29 kB)
+Collecting latex2sympy2_extended==1.11.0 (from -r /w/mv-req.txt (line 2))
+  Downloading latex2sympy2_extended-1.11.0-py3-none-any.whl (209 kB)
+Collecting antlr4-python3-runtime==4.13.2 (from -r /w/mv-req.txt (line 3))
+  Downloading antlr4_python3_runtime-4.13.2-py3-none-any.whl (144 kB)
+Collecting sympy==1.14.0 (from -r /w/mv-req.txt (line 4))
+  Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 3.1 MB/s  0:00:02
+Collecting mpmath==1.3.0 (from -r /w/mv-req.txt (line 5))
+  Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 4.2 MB/s  0:00:00
+Installing collected packages: mpmath, antlr4-python3-runtime, sympy, math-verify, latex2sympy2_extended
+
+Successfully installed antlr4-python3-runtime-4.13.2 latex2sympy2_extended-1.11.0 math-verify-0.9.0 mpmath-1.3.0 sympy-1.14.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[notice] A new release of pip is available: 26.2.2 -> 26.3
+[notice] To update, run: python3 -m pip install --upgrade pip
+MV-OK 1.14.0 True

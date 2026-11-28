@@ -1,0 +1,44 @@
+{
+ "price": 5.29,
+ "pod_start": 1795824432.0,
+ "cap_usd": 27.0,
+ "reserve_s": 900,
+ "deadline": 1795841906.2911153,
+ "pair_ab": true,
+ "A_start": 1795826913.7495823,
+ "probe_rate": 2531.548710162658,
+ "probe_source": "vllm:generation_tokens_total",
+ "probe_window": [
+  120.15041780471802,
+  600.5504176616669
+ ],
+ "probe_samples": 17,
+ "A_done": {
+  "complete": true,
+  "answers": 490,
+  "tokens": 5377165,
+  "cut_share": 0.336734693877551,
+  "mean_finished_tokens": 8227.092307692308,
+  "gen_wall_s": 2320.4,
+  "restart_s": 132.0
+ },
+ "restart_s": 132.0,
+ "B_done": {
+  "complete": true,
+  "answers": 490,
+  "tokens": 5297604,
+  "cut_share": 0.29591836734693877,
+  "mean_finished_tokens": 8469.344927536233,
+  "gen_wall_s": 2290.5,
+  "restart_s": 121.0
+ },
+ "C_done": {
+  "complete": true,
+  "answers": 490,
+  "tokens": 6499925,
+  "cut_share": 0.08571428571428572,
+  "mean_finished_tokens": 11436.761160714286,
+  "gen_wall_s": 3675.6,
+  "restart_s": 80.0
+ }
+}

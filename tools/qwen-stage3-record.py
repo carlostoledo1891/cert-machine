@@ -258,6 +258,17 @@ def main():
             n += 1
             q = os.path.join(run, p)
             if not os.path.exists(q) or sha_file(q) != h:
+                # the runner appends its last lines to _phase.log AFTER it writes the seal (amendment S3-A3): the
+                # append-only log passes when its sealed bytes are a line prefix of the pulled file; the appended
+                # lines are recorded
+                if p == "_phase.log" and os.path.exists(q):
+                    raw = open(q, "rb").read()
+                    ls = raw.split(b"\n")
+                    pre = next((b"\n".join(ls[:k]) + b"\n" for k in range(len(ls), 0, -1)
+                                if hashlib.sha256(b"\n".join(ls[:k]) + b"\n").hexdigest() == h), None)
+                    if pre is not None:
+                        seal["phase_log_appended_after_seal"] = raw[len(pre):].decode("utf-8", "replace").splitlines()
+                        continue
                 bad.append(p)
         seal.update({"files": n, "missing_or_different": bad, "passed": not bad})
 
